@@ -10,6 +10,7 @@ from typing import Generator, List, Optional, Tuple, Union
 from funcy.flow import reraise
 from shortuuid import uuid
 
+from ..utils import remove
 from .exceptions import ProcessNotTerminatedError, UnsupportedSignalError
 from .process import ManagedProcess, ProcessInfo
 
@@ -48,8 +49,6 @@ class ProcessManager:
             return json.dump(value.asdict(), fobj)
 
     def __delitem__(self, key: str) -> None:
-        from dvc.utils.fs import remove
-
         path = os.path.join(self.wdir, key)
         if os.path.exists(path):
             remove(path)

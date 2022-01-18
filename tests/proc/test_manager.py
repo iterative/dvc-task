@@ -2,21 +2,26 @@ import json
 import os
 import signal
 import sys
+from typing import Optional
 
 import pytest
+from pytest_mock import MockerFixture
+from pytest_test_utils import TmpDir
 
-from dvc.proc.exceptions import (
+from dvc_task.proc.exceptions import (
     ProcessNotTerminatedError,
     UnsupportedSignalError,
 )
-from dvc.proc.manager import ProcessManager
-from dvc.proc.process import ProcessInfo
+from dvc_task.proc.manager import ProcessManager
+from dvc_task.proc.process import ProcessInfo
 
 PID_FINISHED = 1234
 PID_RUNNING = 5678
 
 
-def create_process(root: str, name: str, pid: int, returncode=None):
+def create_process(
+    root: str, name: str, pid: int, returncode: Optional[int] = None
+):
     info_path = os.path.join(root, name, f"{name}.json")
     os.makedirs(os.path.join(root, name))
     process_info = ProcessInfo(
@@ -27,20 +32,25 @@ def create_process(root: str, name: str, pid: int, returncode=None):
 
 
 @pytest.fixture
-def finished_process(tmp_dir):
+def finished_process(tmp_dir: TmpDir) -> str:
     key = "finished"
     create_process(tmp_dir, key, PID_FINISHED, 0)
     return key
 
 
 @pytest.fixture
-def running_process(tmp_dir):
+def running_process(tmp_dir: TmpDir) -> str:
     key = "running"
     create_process(tmp_dir, key, PID_RUNNING)
     return key
 
 
-def test_send_signal(tmp_dir, mocker, finished_process, running_process):
+def test_send_signal(
+    tmp_dir: TmpDir,
+    mocker: MockerFixture,
+    finished_process: str,
+    running_process: str,
+):
     m = mocker.patch("os.kill")
     process_manager = ProcessManager(tmp_dir)
     process_manager.send_signal(running_process, signal.SIGTERM)
@@ -55,7 +65,9 @@ def test_send_signal(tmp_dir, mocker, finished_process, running_process):
             process_manager.send_signal(finished_process, signal.SIGABRT)
 
 
-def test_dead_process(tmp_dir, mocker, running_process):
+def test_dead_process(
+    tmp_dir: TmpDir, mocker: MockerFixture, running_process: str
+):
     process_manager = ProcessManager(tmp_dir)
 
     def side_effect(*args):
@@ -72,7 +84,12 @@ def test_dead_process(tmp_dir, mocker, running_process):
     assert process_manager[running_process].returncode == -1
 
 
-def test_kill(tmp_dir, mocker, finished_process, running_process):
+def test_kill(
+    tmp_dir: TmpDir,
+    mocker: MockerFixture,
+    finished_process: str,
+    running_process: str,
+):
     m = mocker.patch("os.kill")
     process_manager = ProcessManager(tmp_dir)
     process_manager.kill(running_process)
@@ -86,7 +103,12 @@ def test_kill(tmp_dir, mocker, finished_process, running_process):
     m.assert_not_called()
 
 
-def test_terminate(tmp_dir, mocker, running_process, finished_process):
+def test_terminate(
+    tmp_dir: TmpDir,
+    mocker: MockerFixture,
+    running_process: str,
+    finished_process: str,
+):
     m = mocker.patch("os.kill")
     process_manager = ProcessManager(tmp_dir)
     process_manager.terminate(running_process)
@@ -97,7 +119,12 @@ def test_terminate(tmp_dir, mocker, running_process, finished_process):
     m.assert_not_called()
 
 
-def test_remove(mocker, tmp_dir, running_process, finished_process):
+def test_remove(
+    mocker: MockerFixture,
+    tmp_dir: TmpDir,
+    running_process: str,
+    finished_process: str,
+):
     mocker.patch("os.kill", return_value=None)
     process_manager = ProcessManager(tmp_dir)
     process_manager.remove(finished_process)
@@ -110,7 +137,13 @@ def test_remove(mocker, tmp_dir, running_process, finished_process):
 
 
 @pytest.mark.parametrize("force", [True, False])
-def test_cleanup(mocker, tmp_dir, running_process, finished_process, force):
+def test_cleanup(
+    mocker: MockerFixture,
+    tmp_dir: TmpDir,
+    running_process: str,
+    finished_process: str,
+    force: bool,
+):
     mocker.patch("os.kill", return_value=None)
     process_manager = ProcessManager(tmp_dir)
     process_manager.cleanup(force)

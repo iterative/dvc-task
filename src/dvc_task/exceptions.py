@@ -1,0 +1,2 @@
+class DvcTaskError(Exception):
+    pass

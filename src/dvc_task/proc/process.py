@@ -10,8 +10,7 @@ from typing import List, Optional, TextIO, Union
 from funcy import cached_property
 from shortuuid import uuid
 
-from dvc.utils.fs import makedirs
-
+from ..utils import makedirs
 from .exceptions import TimeoutExpired
 
 logger = logging.getLogger(__name__)

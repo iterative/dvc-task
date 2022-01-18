@@ -2,14 +2,16 @@ import json
 import subprocess
 
 import pytest
+from pytest_mock import MockerFixture
+from pytest_test_utils import TmpDir
 
-from dvc.proc.process import ManagedProcess, ProcessInfo
+from dvc_task.proc.process import ManagedProcess, ProcessInfo
 
 TEST_PID = 1234
 
 
 @pytest.fixture(autouse=True)
-def mock_popen(mocker):
+def mock_popen(mocker: MockerFixture):
     mocker.patch(
         "subprocess.Popen",
         return_value=mocker.MagicMock(pid=TEST_PID, returncode=None),
@@ -23,13 +25,13 @@ def mock_popen(mocker):
         ["/bin/foo", "-o", "option"],
     ],
 )
-def test_init_args(tmp_dir, args, mocker):
+def test_init_args(tmp_dir: TmpDir, args, mocker: MockerFixture):
     expected = ["/bin/foo", "-o", "option"]
     proc = ManagedProcess(args)
     assert expected == proc.args
 
 
-def test_run(tmp_dir, mocker):
+def test_run(tmp_dir: TmpDir, mocker: MockerFixture):
     proc = ManagedProcess("/bin/foo")
     assert TEST_PID == proc.pid
 
@@ -38,8 +40,8 @@ def test_run(tmp_dir, mocker):
         assert TEST_PID == info.pid
 
 
-def test_wait(tmp_dir, mocker):
-    from dvc.proc.exceptions import TimeoutExpired
+def test_wait(tmp_dir: TmpDir, mocker: MockerFixture):
+    from dvc_task.proc.exceptions import TimeoutExpired
 
     proc = ManagedProcess("/bin/foo")
     proc._proc.wait = mocker.Mock(

@@ -61,6 +61,13 @@ warn_redundant_casts = true
 warn_unreachable = true
 files = ["src", "tests"]
 
+[[tool.mypy.overrides]]
+module = [
+    "funcy.*",
+    "shortuuid",
+]
+ignore_missing_imports = true
+
 [tool.pylint.message_control]
 enable = ["c-extension-no-member", "no-else-return"]
 
