@@ -7,26 +7,36 @@ import signal
 import sys
 from typing import Generator, List, Optional, Tuple, Union
 
+from celery import Signature, signature
 from funcy.flow import reraise
 from shortuuid import uuid
 
 from ..utils import remove
 from .exceptions import ProcessNotTerminatedError, UnsupportedSignalError
-from .process import ManagedProcess, ProcessInfo
+from .process import ProcessInfo
 
 logger = logging.getLogger(__name__)
 
 
 class ProcessManager:
-    """Manager for controlling background ManagedProcess(es).
+    """Manager for controlling background ManagedProcess(es) via celery.
 
     Spawned process entries are kept in the manager directory until they
     are explicitly removed (with remove() or cleanup()) so that return
     value and log information can be accessed after a process has completed.
     """
 
-    def __init__(self, wdir: Optional[str] = None):
-        self.wdir = wdir or "."
+    def __init__(
+        self,
+        wdir: Optional[str] = None,
+    ):
+        """Construct a ProcessManager
+
+        Arguments:
+            wdir: Directory used for storing process information. Defaults
+                to the current working directory.
+        """
+        self.wdir = wdir or os.curdir
 
     def __iter__(self) -> Generator[str, None, None]:
         if not os.path.exists(self.wdir):
@@ -66,18 +76,26 @@ class ProcessManager:
             except KeyError:
                 continue
 
-    def spawn(self, args: Union[str, List[str]], name: Optional[str] = None):
-        """Run the given command in the background."""
+    def run(
+        self,
+        args: Union[str, List[str]],
+        name: Optional[str] = None,
+        task: Optional[str] = None,
+    ) -> Signature:
+        """Return a task which would run the given command in the background.
+
+        Arguments:
+            args: Command to run.
+            name: Optional name to use for the spawned process.
+            task: Optional name of Celery task to use for spawning the process.
+                Defaults to 'dvc_task.proc.tasks.run'.
+        """
         name = name or uuid()
-        pid = ManagedProcess.spawn(
-            args,
-            wdir=os.path.join(self.wdir, name),
-            name=name,
-        )
-        logger.debug(
-            "Spawned managed process '%s' (PID: '%d')",
-            name,
-            pid,
+        task = task or "dvc_task.proc.tasks.run"
+        return signature(
+            task,
+            args=(args,),
+            kwargs={"name": name, "wdir": os.path.join(self.wdir, name)},
         )
 
     def send_signal(self, name: str, sig: int):

@@ -5,7 +5,7 @@ import shlex
 import subprocess
 from contextlib import AbstractContextManager
 from dataclasses import asdict, dataclass
-from typing import List, Optional, TextIO, Union
+from typing import Dict, List, Optional, TextIO, Union
 
 from funcy import cached_property
 from shortuuid import uuid
@@ -40,6 +40,7 @@ class ManagedProcess(AbstractContextManager):
 
     Parameters:
         args: Command to be run.
+        env: Optional environment variables.
         wdir: If specified, redirected output files will be placed in `wdir`.
         name: Name to use for this process, if not specified a UUID will be
             generated instead.
@@ -48,6 +49,7 @@ class ManagedProcess(AbstractContextManager):
     def __init__(
         self,
         args: Union[str, List[str]],
+        env: Optional[Dict[str, str]] = None,
         wdir: Optional[str] = None,
         name: Optional[str] = None,
     ):
@@ -56,15 +58,20 @@ class ManagedProcess(AbstractContextManager):
             if isinstance(args, str)
             else list(args)
         )
+        self.env = env
         self.wdir = wdir
         self.name = name or uuid()
         self.returncode: Optional[int] = None
         self._stdout: Optional[TextIO] = None
         self._stderr: Optional[TextIO] = None
+        self._proc: Optional[subprocess.Popen] = None
 
-        self._run()
+    def __enter__(self):
+        if self._proc is None:
+            self.run()
+        return self
 
-    def __exit__(self, exc_type, exc_value, traceback):
+    def __exit__(self, *args, **kwargs):
         self.wait()
 
     def _close_fds(self):
@@ -111,7 +118,7 @@ class ManagedProcess(AbstractContextManager):
         with open(self.pidfile_path, "w", encoding="utf-8") as fobj:
             fobj.write(str(self.pid))
 
-    def _run(self):
+    def run(self):
         self._make_wdir()
         logger.debug(
             "Appending output to '%s'",
@@ -126,6 +133,7 @@ class ManagedProcess(AbstractContextManager):
                 stderr=subprocess.STDOUT,
                 close_fds=True,
                 shell=False,
+                env=self.env,
             )
             self.pid: int = self._proc.pid
             self._dump()
