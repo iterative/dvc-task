@@ -29,7 +29,7 @@ class TemporaryWorker:
             This runs the Celery worker in the current process.
         """
         if not self.app.control.ping():
-            worker = self.app.Worker(
+            worker = self.app.Worker(  # type: ignore[operator]
                 app=self.app, concurrency=self.concurrency
             )
             worker.start()

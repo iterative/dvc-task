@@ -150,7 +150,7 @@ class ManagedProcess(AbstractContextManager):
             TimeoutExpired if `timeout` was set and the process
             did not terminate after `timeout` seconds.
         """
-        if self.returncode is not None:
+        if self.returncode is not None or self._proc is None:
             return self.returncode
         try:
             self._proc.wait(timeout=timeout)

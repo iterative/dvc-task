@@ -1,7 +1,8 @@
-from celery import Celery, worker
+from celery import Celery
+from celery.worker.worker import WorkController
 from pytest_mock import MockerFixture
 
-from dvc_task.workers.temporary import TemporaryWorker
+from dvc_task.worker.temporary import TemporaryWorker
 
 
 def test_start(celery_app: Celery, mocker: MockerFixture):
@@ -15,7 +16,7 @@ def test_start(celery_app: Celery, mocker: MockerFixture):
 
 def test_start_already_exists(
     celery_app: Celery,
-    celery_worker: worker.WorkController,
+    celery_worker: WorkController,
     mocker: MockerFixture,
 ):
     worker_cls = mocker.patch.object(celery_app, "Worker")
@@ -28,7 +29,7 @@ def test_start_already_exists(
 
 def test_monitor(
     celery_app: Celery,
-    celery_worker: worker.WorkController,
+    celery_worker: WorkController,
     mocker: MockerFixture,
 ):
     worker = TemporaryWorker(celery_app, timeout=1)
