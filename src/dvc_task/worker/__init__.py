@@ -1,4 +1,4 @@
-"""DVC Task app factories."""
+"""DVC Task worker factories."""
 
 from .temporary import TemporaryWorker
 
