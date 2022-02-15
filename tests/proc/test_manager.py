@@ -1,8 +1,6 @@
-import json
-import os
+"""Process manager tests."""
 import signal
 import sys
-from typing import Optional
 
 import pytest
 from pytest_mock import MockerFixture
@@ -13,36 +11,8 @@ from dvc_task.proc.exceptions import (
     UnsupportedSignalError,
 )
 from dvc_task.proc.manager import ProcessManager
-from dvc_task.proc.process import ProcessInfo
 
-PID_FINISHED = 1234
-PID_RUNNING = 5678
-
-
-def create_process(
-    root: str, name: str, pid: int, returncode: Optional[int] = None
-):
-    info_path = os.path.join(root, name, f"{name}.json")
-    os.makedirs(os.path.join(root, name))
-    process_info = ProcessInfo(
-        pid=pid, stdin=None, stdout=None, stderr=None, returncode=returncode
-    )
-    with open(info_path, "w", encoding="utf-8") as fobj:
-        json.dump(process_info.asdict(), fobj)
-
-
-@pytest.fixture
-def finished_process(tmp_dir: TmpDir) -> str:
-    key = "finished"
-    create_process(tmp_dir, key, PID_FINISHED, 0)
-    return key
-
-
-@pytest.fixture
-def running_process(tmp_dir: TmpDir) -> str:
-    key = "running"
-    create_process(tmp_dir, key, PID_RUNNING)
-    return key
+from .conftest import PID_RUNNING
 
 
 def test_send_signal(
@@ -51,14 +21,15 @@ def test_send_signal(
     finished_process: str,
     running_process: str,
 ):
-    m = mocker.patch("os.kill")
+    """Terminate signal should be sent."""
+    mock_kill = mocker.patch("os.kill")
     process_manager = ProcessManager(tmp_dir)
     process_manager.send_signal(running_process, signal.SIGTERM)
-    m.assert_called_once_with(PID_RUNNING, signal.SIGTERM)
+    mock_kill.assert_called_once_with(PID_RUNNING, signal.SIGTERM)
 
-    m.reset_mock()
+    mock_kill.reset_mock()
     process_manager.send_signal(finished_process, signal.SIGTERM)
-    m.assert_not_called()
+    mock_kill.assert_not_called()
 
     if sys.platform == "win32":
         with pytest.raises(UnsupportedSignalError):
@@ -68,6 +39,7 @@ def test_send_signal(
 def test_dead_process(
     tmp_dir: TmpDir, mocker: MockerFixture, running_process: str
 ):
+    """Dead process lookup should fail."""
     process_manager = ProcessManager(tmp_dir)
 
     def side_effect(*args):
@@ -75,8 +47,7 @@ def test_dead_process(
             err = OSError()
             err.winerror = 87
             raise err
-        else:
-            raise ProcessLookupError()
+        raise ProcessLookupError()
 
     mocker.patch("os.kill", side_effect=side_effect)
     with pytest.raises(ProcessLookupError):
@@ -90,17 +61,20 @@ def test_kill(
     finished_process: str,
     running_process: str,
 ):
-    m = mocker.patch("os.kill")
+    """Kill signal should be sent."""
+    mock_kill = mocker.patch("os.kill")
     process_manager = ProcessManager(tmp_dir)
     process_manager.kill(running_process)
     if sys.platform == "win32":
-        m.assert_called_once_with(PID_RUNNING, signal.SIGTERM)
+        mock_kill.assert_called_once_with(PID_RUNNING, signal.SIGTERM)
     else:
-        m.assert_called_once_with(PID_RUNNING, signal.SIGKILL)
+        mock_kill.assert_called_once_with(
+            PID_RUNNING, signal.SIGKILL  # pylint: disable=no-member
+        )
 
-    m.reset_mock()
+    mock_kill.reset_mock()
     process_manager.kill(finished_process)
-    m.assert_not_called()
+    mock_kill.assert_not_called()
 
 
 def test_terminate(
@@ -109,14 +83,15 @@ def test_terminate(
     running_process: str,
     finished_process: str,
 ):
-    m = mocker.patch("os.kill")
+    """Terminate signal should be sent."""
+    mock_kill = mocker.patch("os.kill")
     process_manager = ProcessManager(tmp_dir)
     process_manager.terminate(running_process)
-    m.assert_called_once_with(PID_RUNNING, signal.SIGTERM)
+    mock_kill.assert_called_once_with(PID_RUNNING, signal.SIGTERM)
 
-    m.reset_mock()
+    mock_kill.reset_mock()
     process_manager.terminate(finished_process)
-    m.assert_not_called()
+    mock_kill.assert_not_called()
 
 
 def test_remove(
@@ -125,6 +100,7 @@ def test_remove(
     running_process: str,
     finished_process: str,
 ):
+    """Process should be removed."""
     mocker.patch("os.kill", return_value=None)
     process_manager = ProcessManager(tmp_dir)
     process_manager.remove(finished_process)
@@ -144,6 +120,7 @@ def test_cleanup(
     finished_process: str,
     force: bool,
 ):
+    """Process directory should be removed."""
     mocker.patch("os.kill", return_value=None)
     process_manager = ProcessManager(tmp_dir)
     process_manager.cleanup(force)

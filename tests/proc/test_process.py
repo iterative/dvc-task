@@ -1,13 +1,16 @@
+"""Process tests."""
 import json
 import subprocess
+from typing import List, Union
 
 import pytest
 from pytest_mock import MockerFixture
-from pytest_test_utils import TmpDir
 
+from dvc_task.proc.exceptions import TimeoutExpired
 from dvc_task.proc.process import ManagedProcess, ProcessInfo
 
 
+@pytest.mark.usefixtures("tmp_dir", "popen_pid")
 @pytest.mark.parametrize(
     "args",
     [
@@ -15,13 +18,16 @@ from dvc_task.proc.process import ManagedProcess, ProcessInfo
         ["/bin/foo", "-o", "option"],
     ],
 )
-def test_init_args(tmp_dir: TmpDir, args, popen_pid: int):
+def test_init_args(args: Union[str, List[str]]):
+    """Args should be shlex'd."""
     expected = ["/bin/foo", "-o", "option"]
     proc = ManagedProcess(args)
     assert expected == proc.args
 
 
-def test_run(tmp_dir: TmpDir, popen_pid: int):
+@pytest.mark.usefixtures("tmp_dir")
+def test_run(popen_pid: int):
+    """Process info should be generated."""
     proc = ManagedProcess("/bin/foo")
     proc.run()
     assert popen_pid == proc.info.pid
@@ -31,10 +37,11 @@ def test_run(tmp_dir: TmpDir, popen_pid: int):
         assert popen_pid == info.pid
 
 
-def test_wait(tmp_dir: TmpDir, mocker: MockerFixture, popen_pid: int):
-    from dvc_task.proc.exceptions import TimeoutExpired
-
+@pytest.mark.usefixtures("tmp_dir", "popen_pid")
+def test_wait(mocker: MockerFixture):
+    """Wait should block while process is running and incomplete."""
     with ManagedProcess("/bin/foo") as proc:
+        # pylint: disable=protected-access
         proc._proc.wait = mocker.Mock(
             side_effect=subprocess.TimeoutExpired("/bin/foo", 5)
         )

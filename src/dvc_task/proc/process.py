@@ -1,11 +1,13 @@
+"""Managed process module."""
 import json
 import logging
+import multiprocessing as mp
 import os
 import shlex
 import subprocess
-from contextlib import AbstractContextManager
+from contextlib import AbstractContextManager, ExitStack
 from dataclasses import asdict, dataclass
-from typing import Dict, List, Optional, TextIO, Union
+from typing import Any, Dict, List, Optional, Union
 
 from funcy import cached_property
 from shortuuid import uuid
@@ -18,6 +20,8 @@ logger = logging.getLogger(__name__)
 
 @dataclass
 class ProcessInfo:
+    """Process information."""
+
     pid: int
     stdin: Optional[str]
     stdout: Optional[str]
@@ -25,25 +29,20 @@ class ProcessInfo:
     returncode: Optional[int]
 
     @classmethod
-    def from_dict(cls, d):
-        return cls(**d)
+    def from_dict(cls, data: Dict[str, Any]) -> "ProcessInfo":
+        """Construct ProcessInfo from the specified dictionary."""
+        return cls(**data)
 
-    def asdict(self):
+    def asdict(self) -> Dict[str, Any]:
+        """Return this info as a dictionary."""
         return asdict(self)
 
 
 class ManagedProcess(AbstractContextManager):
-    """Run the specified command with redirected output.
+    """Class to manage the specified process with redirected output.
 
     stdout and stderr will both be redirected to <name>.out.
     Interactive processes (requiring stdin input) are currently unsupported.
-
-    Parameters:
-        args: Command to be run.
-        env: Optional environment variables.
-        wdir: If specified, redirected output files will be placed in `wdir`.
-        name: Name to use for this process, if not specified a UUID will be
-            generated instead.
     """
 
     def __init__(
@@ -53,6 +52,16 @@ class ManagedProcess(AbstractContextManager):
         wdir: Optional[str] = None,
         name: Optional[str] = None,
     ):
+        """Construct a MangedProcess.
+
+        Arguments:
+            args: Command to be run.
+            env: Optional environment variables.
+            wdir: If specified, redirected output files will be placed in
+                `wdir`. Defaults to current working directory.
+            name: Name to use for this process, if not specified a UUID will be
+                generated instead.
+        """
         self.args: List[str] = (
             shlex.split(args, posix=os.name == "posix")
             if isinstance(args, str)
@@ -62,8 +71,7 @@ class ManagedProcess(AbstractContextManager):
         self.wdir = wdir
         self.name = name or uuid()
         self.returncode: Optional[int] = None
-        self._stdout: Optional[TextIO] = None
-        self._stderr: Optional[TextIO] = None
+        self._fd_stack = ExitStack()
         self._proc: Optional[subprocess.Popen] = None
 
     def __enter__(self):
@@ -75,30 +83,30 @@ class ManagedProcess(AbstractContextManager):
         self.wait()
 
     def _close_fds(self):
-        if self._stdout:
-            self._stdout.close()
-            self._stdout = None
-        if self._stderr:
-            self._stderr.close()
-            self._stderr = None
+        with self._fd_stack:
+            pass
 
     def _make_path(self, path: str) -> str:
         return os.path.join(self.wdir, path) if self.wdir else path
 
     @cached_property
     def stdout_path(self) -> str:
+        """Return redirected stdout path."""
         return self._make_path(f"{self.name}.out")
 
     @cached_property
     def info_path(self) -> str:
+        """Return process information file path."""
         return self._make_path(f"{self.name}.json")
 
     @cached_property
     def pidfile_path(self) -> str:
+        """Return process pidfile path."""
         return self._make_path(f"{self.name}.pid")
 
     @property
     def info(self) -> "ProcessInfo":
+        """Return process information."""
         return ProcessInfo(
             pid=self.pid,
             stdin=None,
@@ -106,6 +114,17 @@ class ManagedProcess(AbstractContextManager):
             stderr=None,
             returncode=self.returncode,
         )
+
+    @property
+    def pid(self) -> int:
+        """Return process PID.
+
+        Raises:
+            ValueError: Process is not running.
+        """
+        if self._proc is None:
+            raise ValueError
+        return self._proc.pid
 
     def _make_wdir(self):
         if self.wdir:
@@ -119,23 +138,24 @@ class ManagedProcess(AbstractContextManager):
             fobj.write(str(self.pid))
 
     def run(self):
+        """Run this process."""
         self._make_wdir()
         logger.debug(
             "Appending output to '%s'",
             self.stdout_path,
         )
-        self._stdout = open(self.stdout_path, "ab")
+        stdout = self._fd_stack.enter_context(open(self.stdout_path, "ab"))
         try:
+            # pylint: disable=consider-using-with
             self._proc = subprocess.Popen(
                 self.args,
                 stdin=subprocess.DEVNULL,
-                stdout=self._stdout,
+                stdout=stdout,
                 stderr=subprocess.STDOUT,
                 close_fds=True,
                 shell=False,
                 env=self.env,
             )
-            self.pid: int = self._proc.pid
             self._dump()
         except Exception:
             if self._proc is not None:
@@ -167,8 +187,6 @@ class ManagedProcess(AbstractContextManager):
 
         Returns: The spawned process PID.
         """
-        import multiprocessing as mp
-
         proc = mp.Process(
             target=cls._spawn,
             args=args,

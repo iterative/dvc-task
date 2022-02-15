@@ -1,3 +1,4 @@
+"""Temporary Worker tests."""
 from celery import Celery
 from celery.worker.worker import WorkController
 from pytest_mock import MockerFixture
@@ -6,6 +7,7 @@ from dvc_task.worker.temporary import TemporaryWorker
 
 
 def test_start(celery_app: Celery, mocker: MockerFixture):
+    """Should start underlying Celery worker."""
     worker_cls = mocker.patch.object(celery_app, "Worker")
     thread = mocker.patch("threading.Thread")
     worker = TemporaryWorker(celery_app)
@@ -24,6 +26,7 @@ def test_start_already_exists(
     celery_worker: WorkController,
     mocker: MockerFixture,
 ):
+    """Should not start if worker instance already exists."""
     worker_cls = mocker.patch.object(celery_app, "Worker")
     thread = mocker.patch("threading.Thread")
     worker = TemporaryWorker(celery_app)
@@ -37,6 +40,7 @@ def test_monitor(
     celery_worker: WorkController,
     mocker: MockerFixture,
 ):
+    """Should shutdown worker when queue empty."""
     worker = TemporaryWorker(celery_app, timeout=1)
     shutdown = mocker.spy(celery_app.control, "shutdown")
     worker.monitor(celery_worker.hostname)  # type: ignore[attr-defined]

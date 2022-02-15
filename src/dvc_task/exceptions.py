@@ -1,2 +1,5 @@
+"""Exception classes."""
+
+
 class DvcTaskError(Exception):
-    pass
+    """Base DVC Task exception."""
