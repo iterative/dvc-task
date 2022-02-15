@@ -1,3 +1,5 @@
+"""General utilities."""
+
 import errno
 import logging
 import os
@@ -10,19 +12,19 @@ logger = logging.getLogger(__name__)
 
 
 def _chmod(  # pylint: disable=unused-argument
-    func: Callable, p: str, excinfo: Any
+    func: Callable, path: str, excinfo: Any
 ):
-    perm = os.lstat(p).st_mode
+    perm = os.lstat(path).st_mode
     perm |= stat.S_IWRITE
 
     try:
-        os.chmod(p, perm)
+        os.chmod(path, perm)
     except OSError as exc:
         # broken symlink or file is not owned by us
         if exc.errno not in [errno.ENOENT, errno.EPERM]:
             raise
 
-    func(p)
+    func(path)
 
 
 def _unlink(path: str, onerror: Callable):
@@ -33,6 +35,7 @@ def _unlink(path: str, onerror: Callable):
 
 
 def remove(path: str):
+    """Remove the specified path."""
     logger.debug("Removing '%s'", path)
     try:
         if os.path.isdir(path):
@@ -45,6 +48,7 @@ def remove(path: str):
 
 
 def makedirs(path: str, exist_ok: bool = False, mode: Optional[int] = None):
+    """Make the specified directory and any parent directories."""
     if mode is None:
         os.makedirs(path, exist_ok=exist_ok)
         return
@@ -61,7 +65,7 @@ def makedirs(path: str, exist_ok: bool = False, mode: Optional[int] = None):
             # Defeats race condition when another thread created the path
             pass
         cdir = os.curdir
-        if tail == cdir:  # xxx/newdir/. exists if xxx/newdir exists
+        if tail == cdir:  # foo/newdir/. exists if foo/newdir exists
             return
     try:
         os.mkdir(path, mode)

@@ -33,11 +33,11 @@ def _get_fs_config(
             "processed_folder": broker_processed_path,
             "store_processed": True,
         },
-        "result_backend": "file://{}".format(_unc_path(result_path)),
+        "result_backend": f"file://{_unc_path(result_path)}",
         "result_persistent": True,
-        "task_serializer": "json",
-        "result_serializer": "json",
-        "accept_content": ["json"],
+        "task_serializer": task_serializer,
+        "result_serializer": result_serializer,
+        "accept_content": [task_serializer],
     }
 
 

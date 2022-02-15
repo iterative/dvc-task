@@ -1,3 +1,4 @@
+"""Temporary worker module."""
 import logging
 import threading
 import time
@@ -11,7 +12,7 @@ logger = logging.getLogger(__name__)
 class TemporaryWorker:
     """Temporary worker that automatically shuts down when queue is empty."""
 
-    def __init__(
+    def __init__(  # pylint: disable=too-many-arguments
         self,
         app: Celery,
         timeout: int = 60,
@@ -54,7 +55,7 @@ class TemporaryWorker:
                 f"--hostname={name}",
             ]
             if self.concurrency:
-                f"--concurrency={self.concurrency}",
+                argv.append(f"--concurrency={self.concurrency}")
             if self.task_events:
                 argv.append("-E")
             self.app.worker_main(argv=argv)

@@ -7,7 +7,7 @@ import signal
 import sys
 from typing import Generator, List, Optional, Tuple, Union
 
-from celery import Signature, signature
+from celery import Signature, signature  # pylint: disable=no-name-in-module
 from funcy.flow import reraise
 from shortuuid import uuid
 
@@ -49,8 +49,8 @@ class ProcessManager:
         try:
             with open(info_path, encoding="utf-8") as fobj:
                 return ProcessInfo.from_dict(json.load(fobj))
-        except FileNotFoundError:
-            raise KeyError
+        except FileNotFoundError as exc:
+            raise KeyError from exc
 
     @reraise(FileNotFoundError, KeyError)
     def __setitem__(self, key: str, value: "ProcessInfo"):
@@ -64,12 +64,14 @@ class ProcessManager:
             remove(path)
 
     def get(self, key: str, default=None):
+        """Return the specified process."""
         try:
             return self[key]
         except KeyError:
             return default
 
     def processes(self) -> Generator[Tuple[str, "ProcessInfo"], None, None]:
+        """Iterate over managed processes."""
         for name in self:
             try:
                 yield name, self[name]
@@ -111,7 +113,7 @@ class ProcessManager:
 
         def handle_closed_process():
             logging.warning(
-                f"Process {name} had already aborted unexpectedly."
+                "Process '%s' had already aborted unexpectedly.", name
             )
             process_info.returncode = -1
             self[name] = process_info
@@ -138,7 +140,7 @@ class ProcessManager:
         if sys.platform == "win32":
             self.send_signal(name, signal.SIGTERM)
         else:
-            self.send_signal(name, signal.SIGKILL)
+            self.send_signal(name, signal.SIGKILL)  # pylint: disable=no-member
 
     def remove(self, name: str, force: bool = False):
         """Remove the specified named process from this manager.

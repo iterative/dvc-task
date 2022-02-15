@@ -1,7 +1,7 @@
+"""Process task tests."""
 from typing import Any, Dict
 
-from celery import Celery
-from celery.worker.worker import WorkController
+import pytest
 from pytest_mock import MockerFixture
 from pytest_test_utils import TmpDir
 
@@ -9,13 +9,13 @@ from dvc_task.proc.process import ManagedProcess
 from dvc_task.proc.tasks import run
 
 
+@pytest.mark.usefixtures("celery_app", "celery_worker")
 def test_run(
     tmp_dir: TmpDir,
-    celery_app: Celery,
-    celery_worker: WorkController,
     popen_pid: int,
     mocker: MockerFixture,
 ):
+    """Task should run the process."""
     env = {"FOO": "1"}
     wdir = str(tmp_dir / "wdir")
     name = "foo"
