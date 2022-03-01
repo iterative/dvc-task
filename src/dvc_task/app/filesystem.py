@@ -1,9 +1,12 @@
 """(Local) filesystem based Celery application."""
 import logging
 import os
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Generator, Optional
 
 from celery import Celery
+from kombu.message import Message
+from kombu.utils.encoding import bytes_to_str
+from kombu.utils.json import loads
 
 from ..utils import makedirs
 
@@ -93,3 +96,26 @@ class FSApp(Celery):
             )
         )
         logger.debug("Initialized filesystem:// app in '%s'", wdir)
+
+    def iter_queued(
+        self, queue: Optional[str] = None
+    ) -> Generator[Message, None, None]:
+        """Iterate over queued tasks which have not been taken by a worker.
+
+        Arguments:
+            queue: Optional name of queue.
+        """
+        queue = queue or self.conf.task_default_queue
+        with self.connection_for_read() as conn:  # type: ignore[attr-defined]
+            with conn.channel() as channel:
+                for filename in sorted(os.listdir(channel.data_folder_in)):
+                    with open(
+                        os.path.join(channel.data_folder_in, filename), "rb"
+                    ) as fobj:
+                        payload = fobj.read()
+                    msg = channel.Message(
+                        loads(bytes_to_str(payload)), channel=channel
+                    )
+                    delivery_info = msg.properties.get("delivery_info", {})
+                    if delivery_info.get("routing_key") == queue:
+                        yield msg
