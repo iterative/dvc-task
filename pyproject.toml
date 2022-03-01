@@ -65,6 +65,7 @@ files = ["src", "tests"]
 module = [
     "funcy.*",
     "shortuuid",
+    "kombu.utils.*",
 ]
 ignore_missing_imports = true
 
