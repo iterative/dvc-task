@@ -67,3 +67,21 @@ def test_iter_queued(tmp_dir: TmpDir):
         if isinstance(attr, bytes):
             attr = attr.decode("utf-8")
         assert attr == value
+    assert first(app.iter_processed()) is None
+
+
+def test_iter_processed(tmp_dir: TmpDir):
+    """App should iterate over messages in 'broker/processed'."""
+    app = FSApp(wdir=str(tmp_dir), mkdir=True)
+    msg: Optional[Message] = first(app.iter_processed())
+    assert msg is None
+
+    tmp_dir.gen({"broker": {"processed": {"foo.msg": json.dumps(TEST_MSG)}}})
+    msg = first(app.iter_processed())
+    assert msg is not None
+    for key, value in TEST_MSG.items():
+        attr = getattr(msg, key.replace("-", "_"))
+        if isinstance(attr, bytes):
+            attr = attr.decode("utf-8")
+        assert attr == value
+    assert first(app.iter_queued()) is None

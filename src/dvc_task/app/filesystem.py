@@ -119,3 +119,26 @@ class FSApp(Celery):
                     delivery_info = msg.properties.get("delivery_info", {})
                     if delivery_info.get("routing_key") == queue:
                         yield msg
+
+    def iter_processed(
+        self, queue: Optional[str] = None
+    ) -> Generator[Message, None, None]:
+        """Iterate over tasks which have been taken by a worker.
+
+        Arguments:
+            queue: Optional name of queue.
+        """
+        queue = queue or self.conf.task_default_queue
+        with self.connection_for_read() as conn:  # type: ignore[attr-defined]
+            with conn.channel() as channel:
+                for filename in sorted(os.listdir(channel.processed_folder)):
+                    with open(
+                        os.path.join(channel.processed_folder, filename), "rb"
+                    ) as fobj:
+                        payload = fobj.read()
+                    msg = channel.Message(
+                        loads(bytes_to_str(payload)), channel=channel
+                    )
+                    delivery_info = msg.properties.get("delivery_info", {})
+                    if delivery_info.get("routing_key") == queue:
+                        yield msg
