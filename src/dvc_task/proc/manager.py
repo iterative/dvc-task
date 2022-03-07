@@ -63,7 +63,7 @@ class ProcessManager:
         if os.path.exists(path):
             remove(path)
 
-    def get(self, key: str, default=None):
+    def get(self, key: str, default=None) -> "ProcessInfo":
         """Return the specified process."""
         try:
             return self[key]
