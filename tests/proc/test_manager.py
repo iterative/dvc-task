@@ -1,4 +1,5 @@
 """Process manager tests."""
+import builtins
 import signal
 import sys
 
@@ -11,6 +12,7 @@ from dvc_task.proc.exceptions import (
     UnsupportedSignalError,
 )
 from dvc_task.proc.manager import ProcessManager
+from dvc_task.proc.process import ProcessInfo
 
 from .conftest import PID_RUNNING
 
@@ -114,13 +116,50 @@ def test_remove(
 def test_cleanup(  # pylint: disable=too-many-arguments
     mocker: MockerFixture,
     tmp_dir: TmpDir,
+    process_manager: ProcessManager,
     running_process: str,
     finished_process: str,
     force: bool,
 ):
     """Process directory should be removed."""
     mocker.patch("os.kill", return_value=None)
-    process_manager = ProcessManager(tmp_dir)
     process_manager.cleanup(force)
     assert (tmp_dir / running_process).exists() != force
     assert not (tmp_dir / finished_process).exists()
+
+
+def test_follow(
+    mocker: MockerFixture,
+    process_manager: ProcessManager,
+    running_process: str,
+):
+    """Output should be followed and not duplicated."""
+    orig_open = builtins.open
+    mock_file = mocker.mock_open()()
+    expected = ["foo\n", "bar\n", "b", "", "az\n"]
+    mock_file.readline = mocker.Mock(side_effect=expected)
+
+    def _open(path, *args, **kwargs):
+        if path.endswith(".out"):
+            return mock_file
+        return orig_open(path, *args, **kwargs)
+
+    mocker.patch("builtins.open", _open)
+    mock_sleep = mocker.patch("time.sleep")
+    follow_gen = process_manager.follow(running_process)
+    for line in expected:
+        if line:
+            assert line == next(follow_gen)
+    mock_sleep.assert_called_once_with(1)
+
+    # Process exit with no further output should cause StopIteration
+    # (raised as RuntimeError)
+    mocker.patch.object(
+        process_manager,
+        "__getitem__",
+        return_value=ProcessInfo(
+            pid=PID_RUNNING, stdin=None, stdout=None, stderr=None, returncode=0
+        ),
+    )
+    with pytest.raises(RuntimeError):
+        next(follow_gen)
