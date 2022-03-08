@@ -7,6 +7,7 @@ import pytest
 from pytest_mock import MockerFixture
 from pytest_test_utils import TmpDir
 
+from dvc_task.proc.manager import ProcessManager
 from dvc_task.proc.process import ProcessInfo
 
 TEST_PID = 1234
@@ -24,30 +25,45 @@ def popen_pid(mocker: MockerFixture) -> int:
     return TEST_PID
 
 
+@pytest.fixture(name="process_manager")
+def fixture_process_manager(tmp_dir: TmpDir) -> ProcessManager:
+    """Return a process manager which uses tmp_dir as the working dir."""
+    return ProcessManager(tmp_dir)
+
+
 def create_process(
-    root: str, name: str, pid: int, returncode: Optional[int] = None
+    manager: ProcessManager,
+    name: str,
+    pid: int,
+    returncode: Optional[int] = None,
 ):
     """Create a test process info directory."""
-    info_path = os.path.join(root, name, f"{name}.json")
-    os.makedirs(os.path.join(root, name))
+    info_path = manager._get_info_path(  # pylint: disable=protected-access
+        name
+    )
+    os.makedirs(os.path.dirname(info_path))
     process_info = ProcessInfo(
-        pid=pid, stdin=None, stdout=None, stderr=None, returncode=returncode
+        pid=pid,
+        stdin=None,
+        stdout=f"{name}.out",
+        stderr=None,
+        returncode=returncode,
     )
     with open(info_path, "w", encoding="utf-8") as fobj:
         json.dump(process_info.asdict(), fobj)
 
 
 @pytest.fixture
-def finished_process(tmp_dir: TmpDir) -> str:
+def finished_process(process_manager: ProcessManager) -> str:
     """Return a finished test process."""
     key = "finished"
-    create_process(tmp_dir, key, PID_FINISHED, 0)
+    create_process(process_manager, key, PID_FINISHED, 0)
     return key
 
 
 @pytest.fixture
-def running_process(tmp_dir: TmpDir) -> str:
+def running_process(process_manager: ProcessManager) -> str:
     """Return a running test process."""
     key = "running"
-    create_process(tmp_dir, key, PID_RUNNING)
+    create_process(process_manager, key, PID_RUNNING)
     return key
