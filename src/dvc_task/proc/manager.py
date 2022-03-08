@@ -1,10 +1,12 @@
 """Serverless process manager."""
 
 import json
+import locale
 import logging
 import os
 import signal
 import sys
+import time
 from typing import Generator, List, Optional, Tuple, Union
 
 from celery import Signature, signature  # pylint: disable=no-name-in-module
@@ -174,3 +176,44 @@ class ProcessManager:
                 self.remove(name, force)
             except ProcessNotTerminatedError:
                 continue
+
+    def follow(
+        self,
+        name: str,
+        encoding: Optional[str] = None,
+        sleep_interval: int = 1,
+    ) -> Generator[str, None, None]:
+        """Iterate over lines in redirected output for a process.
+
+        This will block calling thread when waiting for output (until the
+        followed process has exited).
+
+        Arguments:
+            name: Process name.
+            encoding: Text encoding for redirected output. Defaults to
+                `locale.getpreferredencoding()`.
+            sleep_interval: Sleep interval for follow iterations (when waiting
+                for output).
+
+        Note:
+            Yielded strings may not always end in line terminators (all
+            available output will yielded if EOF is reached).
+        """
+        output_path = self[name].stdout
+        if output_path is None:
+            return
+        with open(
+            output_path,
+            encoding=encoding or locale.getpreferredencoding(),
+        ) as fobj:
+            while True:
+                offset = fobj.tell()
+                line = fobj.readline()
+                if line:
+                    yield line
+                else:
+                    info = self[name]
+                    if info.returncode is not None:
+                        return
+                    time.sleep(sleep_interval)
+                    fobj.seek(offset)
