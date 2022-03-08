@@ -45,7 +45,7 @@ class ProcessManager:
             yield name
 
     def __getitem__(self, key: str) -> "ProcessInfo":
-        info_path = os.path.join(self.wdir, key, f"{key}.json")
+        info_path = self._get_info_path(key)
         try:
             with open(info_path, encoding="utf-8") as fobj:
                 return ProcessInfo.from_dict(json.load(fobj))
@@ -54,7 +54,7 @@ class ProcessManager:
 
     @reraise(FileNotFoundError, KeyError)
     def __setitem__(self, key: str, value: "ProcessInfo"):
-        info_path = os.path.join(self.wdir, key, f"{key}.json")
+        info_path = self._get_info_path(key)
         with open(info_path, "w", encoding="utf-8") as fobj:
             return json.dump(value.asdict(), fobj)
 
@@ -62,6 +62,9 @@ class ProcessManager:
         path = os.path.join(self.wdir, key)
         if os.path.exists(path):
             remove(path)
+
+    def _get_info_path(self, key: str) -> str:
+        return os.path.join(self.wdir, key, f"{key}.json")
 
     def get(self, key: str, default=None) -> "ProcessInfo":
         """Return the specified process."""
