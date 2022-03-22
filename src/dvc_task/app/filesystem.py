@@ -8,7 +8,7 @@ from kombu.message import Message
 from kombu.utils.encoding import bytes_to_str
 from kombu.utils.json import loads
 
-from ..utils import makedirs
+from ..utils import makedirs, remove
 
 logger = logging.getLogger(__name__)
 
@@ -96,6 +96,7 @@ class FSApp(Celery):
             )
         )
         logger.debug("Initialized filesystem:// app in '%s'", wdir)
+        self._msg_path_cache: Dict[str, str] = {}
 
     def iter_queued(
         self, queue: Optional[str] = None
@@ -109,16 +110,38 @@ class FSApp(Celery):
         with self.connection_for_read() as conn:  # type: ignore[attr-defined]
             with conn.channel() as channel:
                 for filename in sorted(os.listdir(channel.data_folder_in)):
-                    with open(
-                        os.path.join(channel.data_folder_in, filename), "rb"
-                    ) as fobj:
+                    path = os.path.join(channel.data_folder_in, filename)
+                    with open(path, "rb") as fobj:
                         payload = fobj.read()
                     msg = channel.Message(
                         loads(bytes_to_str(payload)), channel=channel
                     )
+                    self._msg_path_cache[msg.delivery_tag] = path
                     delivery_info = msg.properties.get("delivery_info", {})
                     if delivery_info.get("routing_key") == queue:
                         yield msg
+
+    def reject(self, delivery_tag: str):
+        """Reject the specified message.
+
+        Allows the caller to reject FS broker messages without establishing a
+        full Kombu consumer. Requeue is not supported.
+
+        Raises:
+            ValueError: Invalid delivery_tag
+        """
+        path = self._msg_path_cache.get(delivery_tag)
+        if path and os.path.exists(path):
+            remove(path)
+            del self._msg_path_cache[delivery_tag]
+            return
+
+        for msg in self.iter_queued():
+            if msg.delivery_tag == delivery_tag:
+                remove(self._msg_path_cache[delivery_tag])
+                del self._msg_path_cache[delivery_tag]
+                return
+        raise ValueError(f"Message '{delivery_tag}' not found")
 
     def iter_processed(
         self, queue: Optional[str] = None
