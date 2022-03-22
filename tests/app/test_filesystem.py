@@ -1,7 +1,7 @@
 """Filesystem app tests."""
 import json
 import os
-from typing import Optional
+from typing import Any, Dict, Optional
 
 import pytest
 from funcy import first
@@ -10,7 +10,7 @@ from pytest_test_utils import TmpDir
 
 from dvc_task.app.filesystem import FSApp, _get_fs_config, _unc_path
 
-TEST_MSG = {
+TEST_MSG: Dict[str, Any] = {
     "body": "",
     "content-encoding": "utf-8",
     "content-type": "application/json",
@@ -85,3 +85,21 @@ def test_iter_processed(tmp_dir: TmpDir):
             attr = attr.decode("utf-8")
         assert attr == value
     assert first(app.iter_queued()) is None
+
+
+def test_reject(tmp_dir: TmpDir):
+    """Rejected message should be removed."""
+    app = FSApp(wdir=str(tmp_dir), mkdir=True)
+    tmp_dir.gen({"broker": {"in": {"foo.msg": json.dumps(TEST_MSG)}}})
+
+    app.reject(TEST_MSG["properties"]["delivery_tag"])
+    assert not (tmp_dir / "broker" / "in" / "foo.msg").exists()
+
+    tmp_dir.gen({"broker": {"in": {"foo.msg": json.dumps(TEST_MSG)}}})
+    for msg in app.iter_queued():
+        assert msg.delivery_tag
+        app.reject(msg.delivery_tag)
+    assert not (tmp_dir / "broker" / "in" / "foo.msg").exists()
+
+    with pytest.raises(ValueError):
+        app.reject(TEST_MSG["properties"]["delivery_tag"])
