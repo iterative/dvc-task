@@ -1,4 +1,4 @@
-DVC Task
+dvc-task
 ========
 
 |PyPI| |Status| |Python Version| |License|
@@ -23,7 +23,7 @@ DVC Task
 .. |Codecov| image:: https://codecov.io/gh/iterative/dvc-task/branch/main/graph/badge.svg
    :target: https://app.codecov.io/gh/iterative/dvc-task
    :alt: Codecov
-.. |pre-commit| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white
+.. |pre-commit| image:: https://img.shields.io/badge/pre--commit-enabled-lreen?logo=pre-commit&logoColor=white
    :target: https://github.com/pre-commit/pre-commit
    :alt: pre-commit
 .. |Black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
@@ -31,22 +31,43 @@ DVC Task
    :alt: Black
 
 
+dvc-task is a library for queuing, running and managing background jobs
+(processes) from standalone Python applications. dvc-task is built on Celery_,
+but does not require a full AMQP messaging server (or any other "heavy" servers
+which are traditionally used as Celery brokers).
+
+
 Features
 --------
 
-* TODO
+* ``dvc_task.proc`` module for running and managing background processes in
+  Celery tasks
+* Preconfigured Celery app intended for use in standalone desktop
+  applications
+
+  * Uses Kombu_ filesystem transport as the message broker, and the standard
+    filesystem Celery results backend
+  * Allows standalone applications to make use of Celery without the use of
+    additional messaging and results backend servers
+* Preconfigured "temporary" Celery worker which will automatically terminate
+  itself when the Celery queue is empty
+
+  * Allows standalone applications to start Celery workers as needed directly
+    from Python code (as opposed to requiring a "run-forever" daemonized
+    CLI ``celery`` worker)
 
 
 Requirements
 ------------
 
-* TODO
+* Celery 5.x
+* Kombu 5.x (from source, rev `0282e14`_ or later)
 
 
 Installation
 ------------
 
-You can install *DVC Task* via pip_ from PyPI_:
+You can install *dvc-task* via pip_ from PyPI_:
 
 .. code:: console
 
@@ -55,6 +76,67 @@ You can install *DVC Task* via pip_ from PyPI_:
 
 Usage
 -----
+
+Processes (``dvc_task.proc``)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The process module provides a simple API for managing background processes in
+background tasks. Background processes are run in Celery tasks, but process
+state is stored separately from Celery, so information about managed processes
+can be accessed from outside of the Celery producer or consumer application.
+
+After you have configured a Celery application, jobs can be queued (and run) via
+``ProcessManager.run`` (which returns a signature for the ``proc.tasks.run``
+Celery task):
+
+.. code-block:: python
+
+    from dvc_task.proc import ProcessManager
+
+    @app.task
+    def my_task():
+        manager = ProcessManager(wdir=".")
+        manager.run(["echo", "hello world"], name="foo").delay()
+
+The ``ProcessManager`` will create a subdirectory in ``wdir`` for each managed process.
+
+.. code-block:: none
+
+    $ tree .
+    .
+    └── 25mYD6MyLNewXXdMVYCCr3
+        ├── 25mYD6MyLNewXXdMVYCCr3.json
+        ├── 25mYD6MyLNewXXdMVYCCr3.out
+        └── 25mYD6MyLNewXXdMVYCCr3.pid
+    1 directory, 3 files
+
+At a minimum, the directory will contain ``<id>.pid`` and ``<id>.json`` files.
+
+* ``<id>.json``: A JSON file describing the process containing the following dictionary keys:
+    * ``pid``: Process PID
+    * ``stdout``: Redirected stdout file path for the process (redirected to
+      ``<id>.out`` by default)
+    * ``stderr``: Redirected stderr file path for the process (stderr is
+      redirected to ``stdout`` by default)
+    * ``stdin``: Redirected stdin file path for the process (interactive
+      processes are not yet supported, stdin is currently always ``null``)
+    * ``returncode``: Return code for the process (``null`` if the process
+      has not exited)
+* ``<id>.pid``: A standard pidfile containing only the process PID
+
+``ProcessManager`` instances can be created outside of a Celery task to manage
+and monitor processes as needed:
+
+.. code-block:: python
+
+    >>> from dvc_task.proc import ProcessManager
+    >>> manager = ProcessManager(wdir=".")
+    >>> names = [name for name, _info in manager.processes()]
+    ['25mYD6MyLNewXXdMVYCCr3']
+    >>> for line in manager.follow(names[0]):
+    ...     print(line)
+    ...
+    hello world
 
 
 Contributing
@@ -68,7 +150,7 @@ License
 -------
 
 Distributed under the terms of the `Apache 2.0 license`_,
-*DVC Task* is free and open source software.
+*dvc-task* is free and open source software.
 
 
 Issues
@@ -78,7 +160,10 @@ If you encounter any problems,
 please `file an issue`_ along with a detailed description.
 
 
+.. _0282e14: https://github.com/celery/kombu/commit/0282e1419fad98da5ae956ff38c7e87e539889ac
 .. _Apache 2.0 license: https://opensource.org/licenses/Apache-2.0
+.. _Celery: https://github.com/celery/celery
+.. _Kombu: https://github.com/celery/kombu
 .. _PyPI: https://pypi.org/
 .. _file an issue: https://github.com/iterative/dvc-task/issues
 .. _pip: https://pip.pypa.io/
