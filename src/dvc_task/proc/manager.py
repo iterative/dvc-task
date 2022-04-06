@@ -7,7 +7,7 @@ import os
 import signal
 import sys
 import time
-from typing import Generator, List, Optional, Tuple, Union
+from typing import Dict, Generator, List, Optional, Tuple, Union
 
 from celery import Signature, signature  # pylint: disable=no-name-in-module
 from funcy.flow import reraise
@@ -88,6 +88,7 @@ class ProcessManager:
         args: Union[str, List[str]],
         name: Optional[str] = None,
         task: Optional[str] = None,
+        env: Optional[Dict[str, str]] = None,
     ) -> Signature:
         """Return a task which would run the given command in the background.
 
@@ -96,13 +97,18 @@ class ProcessManager:
             name: Optional name to use for the spawned process.
             task: Optional name of Celery task to use for spawning the process.
                 Defaults to 'dvc_task.proc.tasks.run'.
+            env: Optional environment to be passed into the process.
         """
         name = name or uuid()
         task = task or "dvc_task.proc.tasks.run"
         return signature(
             task,
             args=(args,),
-            kwargs={"name": name, "wdir": os.path.join(self.wdir, name)},
+            kwargs={
+                "name": name,
+                "wdir": os.path.join(self.wdir, name),
+                "env": env,
+            },
         )
 
     def send_signal(self, name: str, sig: int):
