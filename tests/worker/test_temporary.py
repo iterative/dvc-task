@@ -1,4 +1,7 @@
 """Temporary Worker tests."""
+import sys
+
+import pytest
 from celery import Celery
 from celery.worker.worker import WorkController
 from pytest_mock import MockerFixture
@@ -21,6 +24,10 @@ def test_start(celery_app: Celery, mocker: MockerFixture):
     )
 
 
+@pytest.mark.flaky(
+    max_runs=3,
+    rerun_filter=lambda *args: sys.platform == "darwin",
+)
 def test_start_already_exists(
     celery_app: Celery,
     celery_worker: WorkController,
@@ -35,6 +42,10 @@ def test_start_already_exists(
     thread.assert_not_called()
 
 
+@pytest.mark.flaky(
+    max_runs=3,
+    rerun_filter=lambda *args: sys.platform == "darwin",
+)
 def test_monitor(
     celery_app: Celery,
     celery_worker: WorkController,
