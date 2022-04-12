@@ -138,6 +138,53 @@ and monitor processes as needed:
     ...
     hello world
 
+Celery Workers (``dvc_task.worker``)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+dvc-task includes a pre-configured Celery worker (``TemporaryWorker``) which
+can be started from Python code. The ``TemporaryWorker`` will consume Celery
+tasks until the queue is empty. Once the queue is empty, the worker will wait
+up until a specified timeout for new tasks to be added to the queue. If the
+queue remains empty after the timeout expires, the worker will exit.
+
+To instantiante a worker with a 60-second timeout, with the Celery worker name
+``my-worker-1``:
+
+.. code-block:: python
+
+    >>> from dvc_task.worker import TemporaryWorker
+    >>> worker = TemporaryWorker(my_app, timeout=60)
+    >>> worker.start("my-worker-1")
+
+Note that ``worker.start`` runs the Celery worker within the calling thread.
+
+Celery Applications (``dvc_task.app``)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+dvc-task includes a pre-configured Celery application (``FSApp``) which uses
+the Kombu filesystem transport as the Celery broker along with the Celery
+filesystem results storage backend. ``FSApp`` is intended to be used in
+standalone Python applications where a traditional Celery producer/consumer
+setup (with the appropriate messaging and storage backends) is unavailable.
+
+.. code-block:: python
+
+    >>> from dvc_task.app import FSApp
+    >>> my_app = FSApp(wdir=".")
+
+``FSApp`` provides iterators for accessing Kombu messages which are either
+waiting in the queue or have already been processed. This allows the caller
+to access Celery task information without using the Celery ``inspect`` API
+(which is only functional when a Celery worker is actively running).
+
+.. code-block:: python
+
+    >>> for msg in my_app.iter_processed():
+    ...     msg
+    <Message object at 0x102e7f0d0 with details {'state': 'RECEIVED', 'content_type': 'application/json', 'delivery_tag': '0244c11a-1bcc-47fc-8587-66909a55fdc6', ...}>
+    <Message object at 0x1027fd4c0 with details {'state': 'RECEIVED', 'content_type': 'application/json', 'delivery_tag': '491415d1-9527-493a-a5d7-88ed355da77c', ...}>
+    <Message object at 0x102e6f160 with details {'state': 'RECEIVED', 'content_type': 'application/json', 'delivery_tag': 'ea6ab7a4-0398-42ab-9f12-8da1f8e12a8a', ...}>
+    <Message object at 0x102e6f310 with details {'state': 'RECEIVED', 'content_type': 'application/json', 'delivery_tag': '77c4a335-2102-4bee-9cb8-ef4d8ef9713f', ...}>
 
 Contributing
 ------------
