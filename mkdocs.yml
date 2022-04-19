@@ -15,7 +15,7 @@ repo_name: iterative/dvc-task
 
 extra:
   social:
-    - icon: fontawesome/brands/github 
+    - icon: fontawesome/brands/github
       link: https://github.com/iterative/
 
 plugins:
