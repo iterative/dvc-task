@@ -63,6 +63,7 @@ files = ["src", "tests"]
 
 [[tool.mypy.overrides]]
 module = [
+    "celery.*",
     "funcy.*",
     "shortuuid",
     "kombu.utils.*",

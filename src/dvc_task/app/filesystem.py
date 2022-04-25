@@ -50,9 +50,9 @@ def _unc_path(path: str) -> str:
     path = os.path.abspath(path)
     if os.name != "nt":
         return path
-    drive, tail = os.path.splitdrive(path.replace(os.sep, "/"))
+    drive, tail = os.path.splitdrive(path)
     if drive.endswith(":"):
-        return f"//?/{drive}{tail}"
+        return f"\\\\?\\{drive}{tail}"
     return f"{drive}{tail}"
 
 
