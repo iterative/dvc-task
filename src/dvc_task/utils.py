@@ -79,3 +79,19 @@ def makedirs(path: str, exist_ok: bool = False, mode: Optional[int] = None):
         os.chmod(path, mode)
     except OSError:
         logger.debug("failed to chmod '%o' '%s'", mode, path, exc_info=True)
+
+
+def unc_path(path: str) -> str:
+    """Return UNC formatted path.
+
+    Returns the unmodified path on posix platforms.
+    """
+    # Celery/Kombu URLs only take absolute filesystem paths
+    # (UNC paths on windows)
+    path = os.path.abspath(path)
+    if os.name != "nt":
+        return path
+    drive, tail = os.path.splitdrive(path)
+    if drive.endswith(":"):
+        return f"\\\\?\\{drive}{tail}"
+    return f"{drive}{tail}"
