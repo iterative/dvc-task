@@ -1,6 +1,5 @@
 """Filesystem app tests."""
 import json
-import os
 from typing import Any, Dict, Optional
 
 import pytest
@@ -9,7 +8,7 @@ from funcy import first
 from kombu.message import Message
 from pytest_test_utils import TmpDir
 
-from dvc_task.app.filesystem import FSApp, _get_fs_config, _unc_path
+from dvc_task.app.filesystem import FSApp, _get_fs_config
 
 TEST_MSG: Dict[str, Any] = {
     "body": "",
@@ -35,13 +34,6 @@ def test_config(tmp_dir: TmpDir):
     assert (tmp_dir / "broker" / "processed").is_dir()
     assert (tmp_dir / "result").is_dir()
     assert config["broker_url"] == "filesystem://"
-
-
-@pytest.mark.skipif(os.name != "nt", reason="Windows only")
-def test_unc_path():
-    """Windows paths should be converted to UNC paths."""
-    assert r"\\?\c:\foo" == _unc_path(r"c:\foo")
-    assert r"\\foo\bar" == _unc_path(r"\\foo\bar")
 
 
 def test_fs_app(tmp_dir: TmpDir):

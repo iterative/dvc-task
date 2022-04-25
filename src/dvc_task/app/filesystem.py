@@ -8,7 +8,7 @@ from kombu.message import Message
 from kombu.utils.encoding import bytes_to_str
 from kombu.utils.json import loads
 
-from ..utils import makedirs, remove
+from ..utils import makedirs, remove, unc_path
 
 logger = logging.getLogger(__name__)
 
@@ -20,8 +20,8 @@ def _get_fs_config(
     result_serializer: str = "json",
 ) -> Dict[str, Any]:
     broker_path = os.path.join(wdir, "broker")
-    broker_in_path = _unc_path(os.path.join(broker_path, "in"))
-    broker_processed_path = _unc_path(os.path.join(broker_path, "processed"))
+    broker_in_path = unc_path(os.path.join(broker_path, "in"))
+    broker_processed_path = unc_path(os.path.join(broker_path, "processed"))
     result_path = os.path.join(wdir, "result")
 
     if mkdir:
@@ -36,24 +36,12 @@ def _get_fs_config(
             "processed_folder": broker_processed_path,
             "store_processed": True,
         },
-        "result_backend": f"file://{_unc_path(result_path)}",
+        "result_backend": f"file://{unc_path(result_path)}",
         "result_persistent": True,
         "task_serializer": task_serializer,
         "result_serializer": result_serializer,
         "accept_content": [task_serializer],
     }
-
-
-def _unc_path(path: str) -> str:
-    # Celery/Kombu URLs only take absolute filesystem paths
-    # (UNC paths on windows)
-    path = os.path.abspath(path)
-    if os.name != "nt":
-        return path
-    drive, tail = os.path.splitdrive(path)
-    if drive.endswith(":"):
-        return f"\\\\?\\{drive}{tail}"
-    return f"{drive}{tail}"
 
 
 class FSApp(Celery):
