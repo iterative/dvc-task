@@ -71,8 +71,6 @@ class FSApp(Celery):
 
         Additional arguments will be passed into the Celery constructor.
         """
-        if "broker" in kwargs or "backend" in kwargs:
-            logger.warning("Broker/Results config will be overridden")
         super().__init__(*args, **kwargs)
         self.wdir = wdir or os.getcwd()
         self.conf.update(
@@ -85,6 +83,11 @@ class FSApp(Celery):
         )
         logger.debug("Initialized filesystem:// app in '%s'", wdir)
         self._msg_path_cache: Dict[str, str] = {}
+
+    def __reduce_keys__(self) -> Dict[str, Any]:
+        keys = super().__reduce_keys__()  # type: ignore[misc]
+        keys.update({"wdir": self.wdir})
+        return keys
 
     def iter_queued(
         self, queue: Optional[str] = None
