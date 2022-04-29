@@ -1,5 +1,6 @@
 """Temporary worker module."""
 import logging
+import os
 import threading
 import time
 from typing import Optional
@@ -44,6 +45,10 @@ class TemporaryWorker:
         Arguments:
             name: Celery worker name.
         """
+        if os.name == "nt":
+            # see https://github.com/celery/billiard/issues/247
+            os.environ["FORKED_BY_MULTIPROCESSING"] = "1"
+
         if not self.app.control.ping(destination=[name]):
             monitor = threading.Thread(
                 target=self.monitor, daemon=True, args=(name,)
