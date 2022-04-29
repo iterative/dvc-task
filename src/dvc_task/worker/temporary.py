@@ -6,6 +6,7 @@ import time
 from typing import Optional
 
 from celery import Celery
+from celery.utils.nodenames import default_nodename
 
 logger = logging.getLogger(__name__)
 
@@ -68,7 +69,8 @@ class TemporaryWorker:
     def monitor(self, name: str) -> None:
         """Monitor the worker and stop it when the queue is empty."""
         logger.debug("monitor: waiting for worker to start")
-        while not self.app.control.ping(destination=[name]):
+        nodename = default_nodename(name)
+        while not self.app.control.ping(destination=[nodename]):
             # wait for worker to start
             time.sleep(1)
 
@@ -81,14 +83,14 @@ class TemporaryWorker:
                 if taskset is not None:
                     yield from taskset.values()
 
-        logger.info("monitor: watching celery worker '%s'", name)
-        while self.app.control.ping(destination=[name]):
+        logger.info("monitor: watching celery worker '%s'", nodename)
+        while self.app.control.ping(destination=[nodename]):
             time.sleep(self.timeout)
             nodes = self.app.control.inspect(  # type: ignore[call-arg]
-                destination=[name]
+                destination=[nodename]
             )
             if nodes is None or not any(tasks for tasks in _tasksets(nodes)):
                 logger.info("monitor: shutting down due to empty queue.")
-                self.app.control.shutdown(destination=[name])
+                self.app.control.shutdown(destination=[nodename])
                 break
         logger.info("monitor: done")
