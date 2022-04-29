@@ -63,6 +63,9 @@ Requirements
 * Celery 5.x
 * Kombu 5.x (from source, rev `0282e14`_ or later)
 
+Note: Windows is not officially supported in Celery, but dvc-task is tested on
+Windows (and used in DVC on Windows).
+
 
 Installation
 ------------
