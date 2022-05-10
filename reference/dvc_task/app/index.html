@@ -9,7 +9,7 @@
       
       
       <link rel="icon" href="../../../assets/logo.svg">
-      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.11">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.14">
     
     
       
@@ -17,10 +17,10 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.8c5ef100.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.3de6f41f.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.9647289d.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.cc9b2e1e.min.css">
         
           
           
@@ -654,7 +654,7 @@
 
           <details class="quote">
             <summary>Source code in <code>dvc_task/app/filesystem.py</code></summary>
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 47</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 47</span>
 <span class="normal"> 48</span>
 <span class="normal"> 49</span>
 <span class="normal"> 50</span>
@@ -765,7 +765,7 @@
 <span class="normal">155</span>
 <span class="normal">156</span>
 <span class="normal">157</span>
-<span class="normal">158</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">FSApp</span><span class="p">(</span><span class="n">Celery</span><span class="p">):</span>
+<span class="normal">158</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">FSApp</span><span class="p">(</span><span class="n">Celery</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Local filesystem-based Celery application.</span>
 
 <span class="sd">    Uses Kombu filesystem:// broker and results backend</span>
@@ -877,8 +877,7 @@
                     <span class="n">delivery_info</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;delivery_info&quot;</span><span class="p">,</span> <span class="p">{})</span>
                     <span class="k">if</span> <span class="n">delivery_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;routing_key&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="n">queue</span><span class="p">:</span>
                         <span class="k">yield</span> <span class="n">msg</span>
-</code></pre></div>
-</td></tr></table>
+</code></pre></div></td></tr></table></div>
           </details>
 
 
@@ -968,7 +967,7 @@ exist.</p></td>
 
         <details class="quote">
           <summary>Source code in <code>dvc_task/app/filesystem.py</code></summary>
-          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">53</span>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">53</span>
 <span class="normal">54</span>
 <span class="normal">55</span>
 <span class="normal">56</span>
@@ -1000,7 +999,7 @@ exist.</p></td>
 <span class="normal">82</span>
 <span class="normal">83</span>
 <span class="normal">84</span>
-<span class="normal">85</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+<span class="normal">85</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="o">*</span><span class="n">args</span><span class="p">,</span>
     <span class="n">wdir</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1033,8 +1032,7 @@ exist.</p></td>
     <span class="p">)</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Initialized filesystem:// app in &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span><span class="p">,</span> <span class="n">wdir</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_msg_path_cache</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-</code></pre></div>
-</td></tr></table>
+</code></pre></div></td></tr></table></div>
         </details>
     </div>
 
@@ -1084,7 +1082,7 @@ exist.</p></td>
 
         <details class="quote">
           <summary>Source code in <code>dvc_task/app/filesystem.py</code></summary>
-          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">137</span>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">137</span>
 <span class="normal">138</span>
 <span class="normal">139</span>
 <span class="normal">140</span>
@@ -1105,7 +1103,7 @@ exist.</p></td>
 <span class="normal">155</span>
 <span class="normal">156</span>
 <span class="normal">157</span>
-<span class="normal">158</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">iter_processed</span><span class="p">(</span>
+<span class="normal">158</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">iter_processed</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">queue</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">Message</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;Iterate over tasks which have been taken by a worker.</span>
@@ -1127,8 +1125,7 @@ exist.</p></td>
                 <span class="n">delivery_info</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;delivery_info&quot;</span><span class="p">,</span> <span class="p">{})</span>
                 <span class="k">if</span> <span class="n">delivery_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;routing_key&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="n">queue</span><span class="p">:</span>
                     <span class="k">yield</span> <span class="n">msg</span>
-</code></pre></div>
-</td></tr></table>
+</code></pre></div></td></tr></table></div>
         </details>
     </div>
 
@@ -1177,7 +1174,7 @@ exist.</p></td>
 
         <details class="quote">
           <summary>Source code in <code>dvc_task/app/filesystem.py</code></summary>
-          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 92</span>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 92</span>
 <span class="normal"> 93</span>
 <span class="normal"> 94</span>
 <span class="normal"> 95</span>
@@ -1198,7 +1195,7 @@ exist.</p></td>
 <span class="normal">110</span>
 <span class="normal">111</span>
 <span class="normal">112</span>
-<span class="normal">113</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">iter_queued</span><span class="p">(</span>
+<span class="normal">113</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">iter_queued</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">queue</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">Message</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;Iterate over queued tasks which have not been taken by a worker.</span>
@@ -1220,8 +1217,7 @@ exist.</p></td>
                 <span class="n">delivery_info</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;delivery_info&quot;</span><span class="p">,</span> <span class="p">{})</span>
                 <span class="k">if</span> <span class="n">delivery_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;routing_key&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="n">queue</span><span class="p">:</span>
                     <span class="k">yield</span> <span class="n">msg</span>
-</code></pre></div>
-</td></tr></table>
+</code></pre></div></td></tr></table></div>
         </details>
     </div>
 
@@ -1266,7 +1262,7 @@ full Kombu consumer. Requeue is not supported.</p>
 
         <details class="quote">
           <summary>Source code in <code>dvc_task/app/filesystem.py</code></summary>
-          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">115</span>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">115</span>
 <span class="normal">116</span>
 <span class="normal">117</span>
 <span class="normal">118</span>
@@ -1286,7 +1282,7 @@ full Kombu consumer. Requeue is not supported.</p>
 <span class="normal">132</span>
 <span class="normal">133</span>
 <span class="normal">134</span>
-<span class="normal">135</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">reject</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delivery_tag</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="normal">135</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">reject</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delivery_tag</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Reject the specified message.</span>
 
 <span class="sd">    Allows the caller to reject FS broker messages without establishing a</span>
@@ -1307,8 +1303,7 @@ full Kombu consumer. Requeue is not supported.</p>
             <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_msg_path_cache</span><span class="p">[</span><span class="n">delivery_tag</span><span class="p">]</span>
             <span class="k">return</span>
     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Message &#39;</span><span class="si">{</span><span class="n">delivery_tag</span><span class="si">}</span><span class="s2">&#39; not found&quot;</span><span class="p">)</span>
-</code></pre></div>
-</td></tr></table>
+</code></pre></div></td></tr></table></div>
         </details>
     </div>
 
@@ -1415,7 +1410,7 @@ full Kombu consumer. Requeue is not supported.</p>
     <script id="__config" type="application/json">{"base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.748e2769.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.c2e1ee47.min.js"></script>
       
     
   </body>
