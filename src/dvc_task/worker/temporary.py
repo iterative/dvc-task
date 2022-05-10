@@ -18,7 +18,9 @@ class TemporaryWorker:
         self,
         app: Celery,
         timeout: int = 60,
+        pool: Optional[str] = None,
         concurrency: Optional[int] = None,
+        prefetch_multiplier: Optional[int] = None,
         loglevel: Optional[str] = None,
         task_events: bool = True,
     ):
@@ -28,13 +30,17 @@ class TemporaryWorker:
             app: Celery application instance.
             timeout: Queue timeout in seconds. Worker will be terminated if the
             queue remains empty after timeout.
+            pool: Worker pool class.
             concurrency: Worker concurrency.
+            prefetch_multiplier: Worker prefetch multiplier.
             loglevel: Worker loglevel.
             task_events: Enable worker task event monitoring.
         """
         self.app = app
         self.timeout = timeout
+        self.pool = pool
         self.concurrency = concurrency
+        self.prefetch_multiplier = prefetch_multiplier
         self.loglevel = loglevel or "info"
         self.task_events = task_events
 
@@ -60,8 +66,14 @@ class TemporaryWorker:
                 f"--loglevel={self.loglevel}",
                 f"--hostname={name}",
             ]
+            if self.pool:
+                argv.append(f"--pool={self.pool}")
             if self.concurrency:
                 argv.append(f"--concurrency={self.concurrency}")
+            if self.prefetch_multiplier:
+                argv.append(
+                    f"--prefetch-multiplier={self.prefetch_multiplier}"
+                )
             if self.task_events:
                 argv.append("-E")
             self.app.worker_main(argv=argv)
