@@ -3,6 +3,7 @@ import sys
 
 import pytest
 from celery import Celery
+from celery.concurrency.prefork import TaskPool
 from celery.worker.worker import WorkController
 from pytest_mock import MockerFixture
 
@@ -13,12 +14,16 @@ def test_start(celery_app: Celery, mocker: MockerFixture):
     """Should start underlying Celery worker."""
     worker_cls = mocker.patch.object(celery_app, "Worker")
     thread = mocker.patch("threading.Thread")
-    worker = TemporaryWorker(celery_app)
+    worker = TemporaryWorker(
+        celery_app, pool="prefork", concurrency=1, prefetch_multiplier=1
+    )
     name = "worker1@localhost"
     worker.start(name)
     _args, kwargs = worker_cls.call_args
     assert kwargs["hostname"] == name
-    assert kwargs["concurrency"] is None
+    assert kwargs["pool"] == TaskPool
+    assert kwargs["concurrency"] == 1
+    assert kwargs["prefetch_multiplier"] == 1
     thread.assert_called_once_with(
         target=worker.monitor, daemon=True, args=(name,)
     )
