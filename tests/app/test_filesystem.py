@@ -30,6 +30,7 @@ TEST_MSG: Dict[str, Any] = {
 def test_config(tmp_dir: TmpDir):
     """Should return a filesystem broker/resut config."""
     config = _get_fs_config(str(tmp_dir), mkdir=True)
+    assert (tmp_dir / "broker" / "control").is_dir()
     assert (tmp_dir / "broker" / "in").is_dir()
     assert (tmp_dir / "broker" / "processed").is_dir()
     assert (tmp_dir / "result").is_dir()

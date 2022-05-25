@@ -20,17 +20,24 @@ def _get_fs_config(
     result_serializer: str = "json",
 ) -> Dict[str, Any]:
     broker_path = os.path.join(wdir, "broker")
+    broker_control_path = unc_path(os.path.join(broker_path, "control"))
     broker_in_path = unc_path(os.path.join(broker_path, "in"))
     broker_processed_path = unc_path(os.path.join(broker_path, "processed"))
     result_path = os.path.join(wdir, "result")
 
     if mkdir:
-        for path in (broker_in_path, broker_processed_path, result_path):
+        for path in (
+            broker_control_path,
+            broker_in_path,
+            broker_processed_path,
+            result_path,
+        ):
             makedirs(path, exist_ok=True)
 
     return {
         "broker_url": "filesystem://",
         "broker_transport_options": {
+            "control_folder": broker_control_path,
             "data_folder_in": broker_in_path,
             "data_folder_out": broker_in_path,
             "processed_folder": broker_processed_path,
