@@ -3,7 +3,7 @@ import logging
 import os
 import threading
 import time
-from typing import Optional
+from typing import Any, List, Mapping
 
 from celery import Celery
 from celery.utils.nodenames import default_nodename
@@ -18,31 +18,21 @@ class TemporaryWorker:
         self,
         app: Celery,
         timeout: int = 60,
-        pool: Optional[str] = None,
-        concurrency: Optional[int] = None,
-        prefetch_multiplier: Optional[int] = None,
-        loglevel: Optional[str] = None,
-        task_events: bool = True,
+        **kwargs,
     ):
         """Construct a worker.
 
         Arguments:
             app: Celery application instance.
             timeout: Queue timeout in seconds. Worker will be terminated if the
-            queue remains empty after timeout.
-            pool: Worker pool class.
-            concurrency: Worker concurrency.
-            prefetch_multiplier: Worker prefetch multiplier.
-            loglevel: Worker loglevel.
-            task_events: Enable worker task event monitoring.
+                queue remains empty after timeout.
+
+        Additional keyword arguments will be passed as celery worker
+        configuration.
         """
         self.app = app
         self.timeout = timeout
-        self.pool = pool
-        self.concurrency = concurrency
-        self.prefetch_multiplier = prefetch_multiplier
-        self.loglevel = loglevel or "info"
-        self.task_events = task_events
+        self.config = kwargs
 
     def start(self, name: str) -> None:
         """Start the worker if it does not already exist.
@@ -61,22 +51,32 @@ class TemporaryWorker:
                 target=self.monitor, daemon=True, args=(name,)
             )
             monitor.start()
-            argv = [
-                "worker",
-                f"--loglevel={self.loglevel}",
-                f"--hostname={name}",
-            ]
-            if self.pool:
-                argv.append(f"--pool={self.pool}")
-            if self.concurrency:
-                argv.append(f"--concurrency={self.concurrency}")
-            if self.prefetch_multiplier:
-                argv.append(
-                    f"--prefetch-multiplier={self.prefetch_multiplier}"
-                )
-            if self.task_events:
-                argv.append("-E")
+            config = dict(self.config)
+            config["hostname"] = name
+            argv = ["worker"]
+            argv.extend(self._parse_config(config))
             self.app.worker_main(argv=argv)
+
+    @staticmethod
+    def _parse_config(config: Mapping[str, Any]) -> List[str]:
+        loglevel = config.get("loglevel", "info")
+        argv = [f"--loglevel={loglevel}"]
+        for key in ("hostname", "pool", "concurrency", "prefetch_multiplier"):
+            value = config.get(key)
+            if value:
+                argv_key = key.replace("_", "-")
+                argv.append(f"--{argv_key}={value}")
+        for key in (
+            "without_heartbeat",
+            "without_mingle",
+            "without_gossip",
+        ):
+            if config.get(key):
+                argv_key = key.replace("_", "-")
+                argv.append(f"--{argv_key}")
+        if config.get("task_events"):
+            argv.append("-E")
+        return argv
 
     def monitor(self, name: str) -> None:
         """Monitor the worker and stop it when the queue is empty."""
