@@ -109,8 +109,14 @@ class FSApp(Celery):
             with conn.channel() as channel:
                 for filename in sorted(os.listdir(channel.data_folder_in)):
                     path = os.path.join(channel.data_folder_in, filename)
-                    with open(path, "rb") as fobj:
-                        payload = fobj.read()
+                    try:
+                        with open(path, "rb") as fobj:
+                            payload = fobj.read()
+                    except FileNotFoundError:
+                        # Messages returned by `listdir` call may have been
+                        # acknowledged and moved to `processed_folder` by the
+                        # time we try to read them here
+                        continue
                     msg = channel.Message(
                         loads(bytes_to_str(payload)), channel=channel
                     )
