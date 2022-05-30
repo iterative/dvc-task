@@ -83,14 +83,15 @@ class ProcessManager:
             except KeyError:
                 continue
 
-    def run(
+    def run_signature(
         self,
         args: Union[str, List[str]],
         name: Optional[str] = None,
         task: Optional[str] = None,
         env: Optional[Dict[str, str]] = None,
+        immutable: bool = False,
     ) -> Signature:
-        """Return a task which would run the given command in the background.
+        """Return signature for a task which runs a command in the background.
 
         Arguments:
             args: Command to run.
@@ -98,6 +99,10 @@ class ProcessManager:
             task: Optional name of Celery task to use for spawning the process.
                 Defaults to 'dvc_task.proc.tasks.run'.
             env: Optional environment to be passed into the process.
+            immutable: True if the returned Signature should be immutable.
+
+        Returns:
+            Celery signature for the run task.
         """
         name = name or uuid()
         task = task or "dvc_task.proc.tasks.run"
@@ -109,6 +114,7 @@ class ProcessManager:
                 "wdir": os.path.join(self.wdir, name),
                 "env": env,
             },
+            immutable=immutable,
         )
 
     def send_signal(self, name: str, sig: int):
