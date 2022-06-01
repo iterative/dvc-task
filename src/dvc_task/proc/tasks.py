@@ -15,5 +15,5 @@ def run(  # pylint: disable=unused-argument
     Accepts the same arguments as `proc.process.ManagedProcess`.
     """
     with ManagedProcess(*args, **kwargs) as proc:
-        self.update_state(state="RUNNING", meta=proc.info.asdict())
+        pass
     return proc.info.asdict()
