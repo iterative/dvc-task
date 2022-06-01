@@ -817,12 +817,13 @@
 
 <div class="doc doc-object doc-module">
 
-<a id="dvc_task.proc.process"></a>
-    <div class="doc doc-contents first">
 
+<a id="dvc_task.proc.process"></a>
+  <div class="doc doc-contents first">
+  
       <p>Managed process module.</p>
 
-
+  
 
   <div class="doc doc-children">
 
@@ -833,31 +834,30 @@
 
 
 
-  <div class="doc doc-object doc-class">
+<div class="doc doc-object doc-class">
 
 
 
 <h2 id="dvc_task.proc.process.ManagedProcess" class="doc doc-heading">
-          <code>ManagedProcess</code>
-
+        <code>ManagedProcess</code>
 
 
 </h2>
 
 
-    <div class="doc doc-contents ">
-        <p class="doc doc-class-bases">
-          Bases: <code><span title="contextlib.AbstractContextManager">AbstractContextManager</span></code></p>
+  <div class="doc doc-contents ">
+      <p class="doc doc-class-bases">
+        Bases: <code><span title="contextlib.AbstractContextManager">AbstractContextManager</span></code></p>
 
-
+  
       <p>Class to manage the specified process with redirected output.</p>
 <p>stdout and stderr will both be redirected to <name>.out.
 Interactive processes (requiring stdin input) are currently unsupported.</p>
 
 
-          <details class="quote">
-            <summary>Source code in <code>dvc_task/proc/process.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 41</span>
+        <details class="quote">
+          <summary>Source code in <code>dvc_task/proc/process.py</code></summary>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 41</span>
 <span class="normal"> 42</span>
 <span class="normal"> 43</span>
 <span class="normal"> 44</span>
@@ -1187,9 +1187,9 @@ Interactive processes (requiring stdin input) are currently unsupported.</p>
         <span class="k">with</span> <span class="bp">cls</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
             <span class="k">pass</span>
 </code></pre></div></td></tr></table></div>
-          </details>
+        </details>
 
-
+  
 
   <div class="doc doc-children">
 
@@ -1201,27 +1201,18 @@ Interactive processes (requiring stdin input) are currently unsupported.</p>
 
 
 
-
-
-
-
-
-
-
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 id="dvc_task.proc.process.ManagedProcess.__init__" class="doc doc-heading">
 <code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">wdir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
-
 </h3>
 
 
-    <div class="doc doc-contents ">
-
+  <div class="doc doc-contents ">
+  
       <p>Construct a MangedProcess.</p>
 
   <p><strong>Parameters:</strong></p>
@@ -1280,9 +1271,9 @@ generated instead.</p></td>
     </tbody>
   </table>
 
-        <details class="quote">
-          <summary>Source code in <code>dvc_task/proc/process.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">48</span>
+      <details class="quote">
+        <summary>Source code in <code>dvc_task/proc/process.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">48</span>
 <span class="normal">49</span>
 <span class="normal">50</span>
 <span class="normal">51</span>
@@ -1338,39 +1329,32 @@ generated instead.</p></td>
     <span class="bp">self</span><span class="o">.</span><span class="n">_fd_stack</span> <span class="o">=</span> <span class="n">ExitStack</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_proc</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 </code></pre></div></td></tr></table></div>
-        </details>
-    </div>
-
+      </details>
   </div>
 
+</div>
 
-
-
-
-
-
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 id="dvc_task.proc.process.ManagedProcess.info" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">info</span><span class="p">()</span></code>
-
-  <span class="doc doc-properties">
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
 
 </h3>
 
 
-    <div class="doc doc-contents ">
-
+  <div class="doc doc-contents ">
+  
       <p>Return process information.</p>
 
-        <details class="quote">
-          <summary>Source code in <code>dvc_task/proc/process.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">107</span>
+      <details class="quote">
+        <summary>Source code in <code>dvc_task/proc/process.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">107</span>
 <span class="normal">108</span>
 <span class="normal">109</span>
 <span class="normal">110</span>
@@ -1390,31 +1374,28 @@ generated instead.</p></td>
         <span class="n">returncode</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">returncode</span><span class="p">,</span>
     <span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-        </details>
-    </div>
-
+      </details>
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 id="dvc_task.proc.process.ManagedProcess.info_path" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">info_path</span><span class="p">()</span></code>
 
-
 </h3>
 
 
-    <div class="doc doc-contents ">
-
+  <div class="doc doc-contents ">
+  
       <p>Return process information file path.</p>
 
-        <details class="quote">
-          <summary>Source code in <code>dvc_task/proc/process.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 97</span>
+      <details class="quote">
+        <summary>Source code in <code>dvc_task/proc/process.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 97</span>
 <span class="normal"> 98</span>
 <span class="normal"> 99</span>
 <span class="normal">100</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@cached_property</span>
@@ -1422,29 +1403,27 @@ generated instead.</p></td>
     <span class="sd">&quot;&quot;&quot;Return process information file path.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_path</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">.json&quot;</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-        </details>
-    </div>
-
+      </details>
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 id="dvc_task.proc.process.ManagedProcess.pid" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">pid</span><span class="p">()</span></code>
-
-  <span class="doc doc-properties">
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
 
 </h3>
 
 
-    <div class="doc doc-contents ">
-
+  <div class="doc doc-contents ">
+  
       <p>Return process PID.</p>
 
   <p><strong>Raises:</strong></p>
@@ -1465,9 +1444,9 @@ generated instead.</p></td>
     </tbody>
   </table>
 
-        <details class="quote">
-          <summary>Source code in <code>dvc_task/proc/process.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">118</span>
+      <details class="quote">
+        <summary>Source code in <code>dvc_task/proc/process.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">118</span>
 <span class="normal">119</span>
 <span class="normal">120</span>
 <span class="normal">121</span>
@@ -1487,31 +1466,28 @@ generated instead.</p></td>
         <span class="k">raise</span> <span class="ne">ValueError</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proc</span><span class="o">.</span><span class="n">pid</span>
 </code></pre></div></td></tr></table></div>
-        </details>
-    </div>
-
+      </details>
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 id="dvc_task.proc.process.ManagedProcess.pidfile_path" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">pidfile_path</span><span class="p">()</span></code>
 
-
 </h3>
 
 
-    <div class="doc doc-contents ">
-
+  <div class="doc doc-contents ">
+  
       <p>Return process pidfile path.</p>
 
-        <details class="quote">
-          <summary>Source code in <code>dvc_task/proc/process.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">102</span>
+      <details class="quote">
+        <summary>Source code in <code>dvc_task/proc/process.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">102</span>
 <span class="normal">103</span>
 <span class="normal">104</span>
 <span class="normal">105</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@cached_property</span>
@@ -1519,31 +1495,28 @@ generated instead.</p></td>
     <span class="sd">&quot;&quot;&quot;Return process pidfile path.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_path</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">.pid&quot;</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-        </details>
-    </div>
-
+      </details>
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 id="dvc_task.proc.process.ManagedProcess.run" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">run</span><span class="p">()</span></code>
 
-
 </h3>
 
 
-    <div class="doc doc-contents ">
-
+  <div class="doc doc-contents ">
+  
       <p>Run this process.</p>
 
-        <details class="quote">
-          <summary>Source code in <code>dvc_task/proc/process.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">140</span>
+      <details class="quote">
+        <summary>Source code in <code>dvc_task/proc/process.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">140</span>
 <span class="normal">141</span>
 <span class="normal">142</span>
 <span class="normal">143</span>
@@ -1593,34 +1566,32 @@ generated instead.</p></td>
         <span class="bp">self</span><span class="o">.</span><span class="n">_close_fds</span><span class="p">()</span>
         <span class="k">raise</span>
 </code></pre></div></td></tr></table></div>
-        </details>
-    </div>
-
+      </details>
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 id="dvc_task.proc.process.ManagedProcess.spawn" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">spawn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
-
-  <span class="doc doc-properties">
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
   </span>
 
 </h3>
 
 
-    <div class="doc doc-contents ">
-
+  <div class="doc doc-contents ">
+  
       <p>Spawn a ManagedProcess command in the background.</p>
 
-        <details class="quote">
-          <summary>Source code in <code>dvc_task/proc/process.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">184</span>
+      <details class="quote">
+        <summary>Source code in <code>dvc_task/proc/process.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">184</span>
 <span class="normal">185</span>
 <span class="normal">186</span>
 <span class="normal">187</span>
@@ -1654,31 +1625,28 @@ generated instead.</p></td>
     <span class="n">mp</span><span class="o">.</span><span class="n">process</span><span class="o">.</span><span class="n">_children</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">proc</span><span class="p">)</span>  <span class="c1"># type: ignore[attr-defined]</span>
     <span class="k">return</span> <span class="n">proc</span><span class="o">.</span><span class="n">pid</span>
 </code></pre></div></td></tr></table></div>
-        </details>
-    </div>
-
+      </details>
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 id="dvc_task.proc.process.ManagedProcess.stdout_path" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">stdout_path</span><span class="p">()</span></code>
 
-
 </h3>
 
 
-    <div class="doc doc-contents ">
-
+  <div class="doc doc-contents ">
+  
       <p>Return redirected stdout path.</p>
 
-        <details class="quote">
-          <summary>Source code in <code>dvc_task/proc/process.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">92</span>
+      <details class="quote">
+        <summary>Source code in <code>dvc_task/proc/process.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">92</span>
 <span class="normal">93</span>
 <span class="normal">94</span>
 <span class="normal">95</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@cached_property</span>
@@ -1686,31 +1654,28 @@ generated instead.</p></td>
     <span class="sd">&quot;&quot;&quot;Return redirected stdout path.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_path</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">.out&quot;</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-        </details>
-    </div>
-
+      </details>
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 id="dvc_task.proc.process.ManagedProcess.wait" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">wait</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
-
 </h3>
 
 
-    <div class="doc doc-contents ">
-
+  <div class="doc doc-contents ">
+  
       <p>Block until a process started with <code>run</code> has completed.</p>
 
-        <details class="quote">
-          <summary>Source code in <code>dvc_task/proc/process.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">166</span>
+      <details class="quote">
+        <summary>Source code in <code>dvc_task/proc/process.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">166</span>
 <span class="normal">167</span>
 <span class="normal">168</span>
 <span class="normal">169</span>
@@ -1744,47 +1709,43 @@ generated instead.</p></td>
     <span class="bp">self</span><span class="o">.</span><span class="n">_dump</span><span class="p">()</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">returncode</span>
 </code></pre></div></td></tr></table></div>
-        </details>
-    </div>
+      </details>
+  </div>
+
+</div>
+
+
 
   </div>
 
-
-
-
-
   </div>
 
-    </div>
+</div>
 
-  </div>
-
-
-
-  <div class="doc doc-object doc-class">
+<div class="doc doc-object doc-class">
 
 
 
 <h2 id="dvc_task.proc.process.ProcessInfo" class="doc doc-heading">
-          <code>ProcessInfo</code>
+        <code>ProcessInfo</code>
 
-
-  <span class="doc doc-properties">
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
   </span>
 
 </h2>
 
 
-    <div class="doc doc-contents ">
+  <div class="doc doc-contents ">
 
-
+  
       <p>Process information.</p>
 
 
-          <details class="quote">
-            <summary>Source code in <code>dvc_task/proc/process.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">21</span>
+        <details class="quote">
+          <summary>Source code in <code>dvc_task/proc/process.py</code></summary>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">21</span>
 <span class="normal">22</span>
 <span class="normal">23</span>
 <span class="normal">24</span>
@@ -1820,9 +1781,9 @@ generated instead.</p></td>
         <span class="sd">&quot;&quot;&quot;Return this info as a dictionary.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">asdict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-          </details>
+        </details>
 
-
+  
 
   <div class="doc doc-children">
 
@@ -1834,61 +1795,54 @@ generated instead.</p></td>
 
 
 
-
-
-
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 id="dvc_task.proc.process.ProcessInfo.asdict" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">asdict</span><span class="p">()</span></code>
 
-
 </h3>
 
 
-    <div class="doc doc-contents ">
-
+  <div class="doc doc-contents ">
+  
       <p>Return this info as a dictionary.</p>
 
-        <details class="quote">
-          <summary>Source code in <code>dvc_task/proc/process.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">36</span>
+      <details class="quote">
+        <summary>Source code in <code>dvc_task/proc/process.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">36</span>
 <span class="normal">37</span>
 <span class="normal">38</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">asdict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;Return this info as a dictionary.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">asdict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-        </details>
-    </div>
-
+      </details>
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 id="dvc_task.proc.process.ProcessInfo.from_dict" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">from_dict</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></code>
-
-  <span class="doc doc-properties">
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
   </span>
 
 </h3>
 
 
-    <div class="doc doc-contents ">
-
+  <div class="doc doc-contents ">
+  
       <p>Construct ProcessInfo from the specified dictionary.</p>
 
-        <details class="quote">
-          <summary>Source code in <code>dvc_task/proc/process.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">31</span>
+      <details class="quote">
+        <summary>Source code in <code>dvc_task/proc/process.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">31</span>
 <span class="normal">32</span>
 <span class="normal">33</span>
 <span class="normal">34</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@classmethod</span>
@@ -1896,31 +1850,27 @@ generated instead.</p></td>
     <span class="sd">&quot;&quot;&quot;Construct ProcessInfo from the specified dictionary.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-        </details>
-    </div>
+      </details>
+  </div>
+
+</div>
+
+
 
   </div>
 
-
-
-
-
   </div>
 
-    </div>
-
-  </div>
-
-
+</div>
 
 
 
 
   </div>
 
-    </div>
-
   </div>
+
+</div>
 
               
             </article>

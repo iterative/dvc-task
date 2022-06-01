@@ -625,12 +625,13 @@
 
 <div class="doc doc-object doc-module">
 
-<a id="dvc_task.proc.tasks"></a>
-    <div class="doc doc-contents first">
 
+<a id="dvc_task.proc.tasks"></a>
+  <div class="doc doc-contents first">
+  
       <p>Celery tasks.</p>
 
-
+  
 
   <div class="doc doc-children">
 
@@ -641,25 +642,25 @@
 
 
 
-  <div class="doc doc-object doc-function">
+
+<div class="doc doc-object doc-function">
 
 
 
 <h2 id="dvc_task.proc.tasks.run" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
-
 </h2>
 
 
-    <div class="doc doc-contents ">
-
+  <div class="doc doc-contents ">
+  
       <p>Run a command inside a celery task.</p>
 <p>Accepts the same arguments as <code>proc.process.ManagedProcess</code>.</p>
 
-        <details class="quote">
-          <summary>Source code in <code>dvc_task/proc/tasks.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 9</span>
+      <details class="quote">
+        <summary>Source code in <code>dvc_task/proc/tasks.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 9</span>
 <span class="normal">10</span>
 <span class="normal">11</span>
 <span class="normal">12</span>
@@ -681,20 +682,18 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">update_state</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s2">&quot;RUNNING&quot;</span><span class="p">,</span> <span class="n">meta</span><span class="o">=</span><span class="n">proc</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">asdict</span><span class="p">())</span>
     <span class="k">return</span> <span class="n">proc</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">asdict</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
-        </details>
-    </div>
+      </details>
+  </div>
+
+</div>
+
+
 
   </div>
 
-
-
-
-
   </div>
 
-    </div>
-
-  </div>
+</div>
 
               
             </article>

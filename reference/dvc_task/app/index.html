@@ -615,12 +615,13 @@
 
 <div class="doc doc-object doc-module">
 
-<a id="dvc_task.app"></a>
-    <div class="doc doc-contents first">
 
+<a id="dvc_task.app"></a>
+  <div class="doc doc-contents first">
+  
       <p>DVC Task app factories.</p>
 
-
+  
 
   <div class="doc doc-children">
 
@@ -631,30 +632,29 @@
 
 
 
-  <div class="doc doc-object doc-class">
+<div class="doc doc-object doc-class">
 
 
 
 <h2 id="dvc_task.app.FSApp" class="doc doc-heading">
-          <code>FSApp</code>
-
+        <code>FSApp</code>
 
 
 </h2>
 
 
-    <div class="doc doc-contents ">
-        <p class="doc doc-class-bases">
-          Bases: <code><span title="celery.Celery">Celery</span></code></p>
+  <div class="doc doc-contents ">
+      <p class="doc doc-class-bases">
+        Bases: <code><span title="celery.Celery">Celery</span></code></p>
 
-
+  
       <p>Local filesystem-based Celery application.</p>
 <p>Uses Kombu filesystem:// broker and results backend</p>
 
 
-          <details class="quote">
-            <summary>Source code in <code>dvc_task/app/filesystem.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 54</span>
+        <details class="quote">
+          <summary>Source code in <code>dvc_task/app/filesystem.py</code></summary>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 54</span>
 <span class="normal"> 55</span>
 <span class="normal"> 56</span>
 <span class="normal"> 57</span>
@@ -890,9 +890,9 @@
                     <span class="k">if</span> <span class="n">delivery_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;routing_key&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="n">queue</span><span class="p">:</span>
                         <span class="k">yield</span> <span class="n">msg</span>
 </code></pre></div></td></tr></table></div>
-          </details>
+        </details>
 
-
+  
 
   <div class="doc doc-children">
 
@@ -904,20 +904,18 @@
 
 
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 id="dvc_task.app.filesystem.FSApp.__init__" class="doc doc-heading">
 <code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">wdir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mkdir</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">task_serializer</span><span class="o">=</span><span class="s1">&#39;json&#39;</span><span class="p">,</span> <span class="n">result_serializer</span><span class="o">=</span><span class="s1">&#39;json&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
-
 </h3>
 
 
-    <div class="doc doc-contents ">
-
+  <div class="doc doc-contents ">
+  
       <p>Construct an FSApp.</p>
 
   <p><strong>Parameters:</strong></p>
@@ -977,9 +975,9 @@ exist.</p></td>
   </table>
       <p>Additional arguments will be passed into the Celery constructor.</p>
 
-        <details class="quote">
-          <summary>Source code in <code>dvc_task/app/filesystem.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">60</span>
+      <details class="quote">
+        <summary>Source code in <code>dvc_task/app/filesystem.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">60</span>
 <span class="normal">61</span>
 <span class="normal">62</span>
 <span class="normal">63</span>
@@ -1045,27 +1043,23 @@ exist.</p></td>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Initialized filesystem:// app in &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span><span class="p">,</span> <span class="n">wdir</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_msg_path_cache</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 </code></pre></div></td></tr></table></div>
-        </details>
-    </div>
-
+      </details>
   </div>
 
+</div>
 
-
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 id="dvc_task.app.filesystem.FSApp.iter_processed" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">iter_processed</span><span class="p">(</span><span class="n">queue</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
-
 </h3>
 
 
-    <div class="doc doc-contents ">
-
+  <div class="doc doc-contents ">
+  
       <p>Iterate over tasks which have been taken by a worker.</p>
 
   <p><strong>Parameters:</strong></p>
@@ -1092,9 +1086,9 @@ exist.</p></td>
     </tbody>
   </table>
 
-        <details class="quote">
-          <summary>Source code in <code>dvc_task/app/filesystem.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">150</span>
+      <details class="quote">
+        <summary>Source code in <code>dvc_task/app/filesystem.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">150</span>
 <span class="normal">151</span>
 <span class="normal">152</span>
 <span class="normal">153</span>
@@ -1138,26 +1132,23 @@ exist.</p></td>
                 <span class="k">if</span> <span class="n">delivery_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;routing_key&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="n">queue</span><span class="p">:</span>
                     <span class="k">yield</span> <span class="n">msg</span>
 </code></pre></div></td></tr></table></div>
-        </details>
-    </div>
-
+      </details>
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 id="dvc_task.app.filesystem.FSApp.iter_queued" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">iter_queued</span><span class="p">(</span><span class="n">queue</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
-
 </h3>
 
 
-    <div class="doc doc-contents ">
-
+  <div class="doc doc-contents ">
+  
       <p>Iterate over queued tasks which have not been taken by a worker.</p>
 
   <p><strong>Parameters:</strong></p>
@@ -1184,9 +1175,9 @@ exist.</p></td>
     </tbody>
   </table>
 
-        <details class="quote">
-          <summary>Source code in <code>dvc_task/app/filesystem.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 99</span>
+      <details class="quote">
+        <summary>Source code in <code>dvc_task/app/filesystem.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 99</span>
 <span class="normal">100</span>
 <span class="normal">101</span>
 <span class="normal">102</span>
@@ -1242,26 +1233,23 @@ exist.</p></td>
                 <span class="k">if</span> <span class="n">delivery_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;routing_key&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="n">queue</span><span class="p">:</span>
                     <span class="k">yield</span> <span class="n">msg</span>
 </code></pre></div></td></tr></table></div>
-        </details>
-    </div>
-
+      </details>
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 id="dvc_task.app.filesystem.FSApp.reject" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">reject</span><span class="p">(</span><span class="n">delivery_tag</span><span class="p">)</span></code>
 
-
 </h3>
 
 
-    <div class="doc doc-contents ">
-
+  <div class="doc doc-contents ">
+  
       <p>Reject the specified message.</p>
 <p>Allows the caller to reject FS broker messages without establishing a
 full Kombu consumer. Requeue is not supported.</p>
@@ -1284,9 +1272,9 @@ full Kombu consumer. Requeue is not supported.</p>
     </tbody>
   </table>
 
-        <details class="quote">
-          <summary>Source code in <code>dvc_task/app/filesystem.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">128</span>
+      <details class="quote">
+        <summary>Source code in <code>dvc_task/app/filesystem.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">128</span>
 <span class="normal">129</span>
 <span class="normal">130</span>
 <span class="normal">131</span>
@@ -1328,31 +1316,27 @@ full Kombu consumer. Requeue is not supported.</p>
             <span class="k">return</span>
     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Message &#39;</span><span class="si">{</span><span class="n">delivery_tag</span><span class="si">}</span><span class="s2">&#39; not found&quot;</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-        </details>
-    </div>
+      </details>
+  </div>
+
+</div>
+
+
 
   </div>
 
-
-
-
-
   </div>
 
-    </div>
-
-  </div>
-
-
+</div>
 
 
 
 
   </div>
 
-    </div>
-
   </div>
+
+</div>
 
               
             </article>

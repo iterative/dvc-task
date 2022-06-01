@@ -667,12 +667,13 @@
 
 <div class="doc doc-object doc-module">
 
-<a id="dvc_task.proc.exceptions"></a>
-    <div class="doc doc-contents first">
 
+<a id="dvc_task.proc.exceptions"></a>
+  <div class="doc doc-contents first">
+  
       <p>Process exceptions.</p>
 
-
+  
 
   <div class="doc doc-children">
 
@@ -682,29 +683,29 @@
 
 
 
-  <div class="doc doc-object doc-class">
+
+<div class="doc doc-object doc-class">
 
 
 
 <h2 id="dvc_task.proc.exceptions.ProcessNotFoundError" class="doc doc-heading">
-          <code>ProcessNotFoundError</code>
-
+        <code>ProcessNotFoundError</code>
 
 
 </h2>
 
 
-    <div class="doc doc-contents ">
-        <p class="doc doc-class-bases">
-          Bases: <code><a class="autorefs autorefs-internal" title="dvc_task.exceptions.DvcTaskError" href="../../exceptions/#dvc_task.exceptions.DvcTaskError">DvcTaskError</a></code></p>
+  <div class="doc doc-contents ">
+      <p class="doc doc-class-bases">
+        Bases: <code><a class="autorefs autorefs-internal" title="dvc_task.exceptions.DvcTaskError" href="../../exceptions/#dvc_task.exceptions.DvcTaskError">DvcTaskError</a></code></p>
 
-
+  
       <p>Process does not exist.</p>
 
 
-          <details class="quote">
-            <summary>Source code in <code>dvc_task/proc/exceptions.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">12</span>
+        <details class="quote">
+          <summary>Source code in <code>dvc_task/proc/exceptions.py</code></summary>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">12</span>
 <span class="normal">13</span>
 <span class="normal">14</span>
 <span class="normal">15</span>
@@ -714,9 +715,9 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Managed process &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; does not exist.&quot;</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-          </details>
+        </details>
 
-
+  
 
   <div class="doc doc-children">
 
@@ -732,35 +733,32 @@
 
   </div>
 
-    </div>
-
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-class">
+<div class="doc doc-object doc-class">
 
 
 
 <h2 id="dvc_task.proc.exceptions.ProcessNotTerminatedError" class="doc doc-heading">
-          <code>ProcessNotTerminatedError</code>
-
+        <code>ProcessNotTerminatedError</code>
 
 
 </h2>
 
 
-    <div class="doc doc-contents ">
-        <p class="doc doc-class-bases">
-          Bases: <code><a class="autorefs autorefs-internal" title="dvc_task.exceptions.DvcTaskError" href="../../exceptions/#dvc_task.exceptions.DvcTaskError">DvcTaskError</a></code></p>
+  <div class="doc doc-contents ">
+      <p class="doc doc-class-bases">
+        Bases: <code><a class="autorefs autorefs-internal" title="dvc_task.exceptions.DvcTaskError" href="../../exceptions/#dvc_task.exceptions.DvcTaskError">DvcTaskError</a></code></p>
 
-
+  
       <p>Process is still running.</p>
 
 
-          <details class="quote">
-            <summary>Source code in <code>dvc_task/proc/exceptions.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">5</span>
+        <details class="quote">
+          <summary>Source code in <code>dvc_task/proc/exceptions.py</code></summary>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">5</span>
 <span class="normal">6</span>
 <span class="normal">7</span>
 <span class="normal">8</span>
@@ -770,9 +768,9 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Managed process &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; has not been terminated.&quot;</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-          </details>
+        </details>
 
-
+  
 
   <div class="doc doc-children">
 
@@ -788,35 +786,32 @@
 
   </div>
 
-    </div>
-
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-class">
+<div class="doc doc-object doc-class">
 
 
 
 <h2 id="dvc_task.proc.exceptions.TimeoutExpired" class="doc doc-heading">
-          <code>TimeoutExpired</code>
-
+        <code>TimeoutExpired</code>
 
 
 </h2>
 
 
-    <div class="doc doc-contents ">
-        <p class="doc doc-class-bases">
-          Bases: <code><a class="autorefs autorefs-internal" title="dvc_task.exceptions.DvcTaskError" href="../../exceptions/#dvc_task.exceptions.DvcTaskError">DvcTaskError</a></code></p>
+  <div class="doc doc-contents ">
+      <p class="doc doc-class-bases">
+        Bases: <code><a class="autorefs autorefs-internal" title="dvc_task.exceptions.DvcTaskError" href="../../exceptions/#dvc_task.exceptions.DvcTaskError">DvcTaskError</a></code></p>
 
-
+  
       <p>Process timeout expired.</p>
 
 
-          <details class="quote">
-            <summary>Source code in <code>dvc_task/proc/exceptions.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">19</span>
+        <details class="quote">
+          <summary>Source code in <code>dvc_task/proc/exceptions.py</code></summary>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">19</span>
 <span class="normal">20</span>
 <span class="normal">21</span>
 <span class="normal">22</span>
@@ -834,9 +829,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">cmd</span> <span class="o">=</span> <span class="n">cmd</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">timeout</span> <span class="o">=</span> <span class="n">timeout</span>
 </code></pre></div></td></tr></table></div>
-          </details>
+        </details>
 
-
+  
 
   <div class="doc doc-children">
 
@@ -850,39 +845,34 @@
 
 
 
-
+  </div>
 
   </div>
 
-    </div>
+</div>
 
-  </div>
-
-
-
-  <div class="doc doc-object doc-class">
+<div class="doc doc-object doc-class">
 
 
 
 <h2 id="dvc_task.proc.exceptions.UnsupportedSignalError" class="doc doc-heading">
-          <code>UnsupportedSignalError</code>
-
+        <code>UnsupportedSignalError</code>
 
 
 </h2>
 
 
-    <div class="doc doc-contents ">
-        <p class="doc doc-class-bases">
-          Bases: <code><a class="autorefs autorefs-internal" title="dvc_task.exceptions.DvcTaskError" href="../../exceptions/#dvc_task.exceptions.DvcTaskError">DvcTaskError</a></code></p>
+  <div class="doc doc-contents ">
+      <p class="doc doc-class-bases">
+        Bases: <code><a class="autorefs autorefs-internal" title="dvc_task.exceptions.DvcTaskError" href="../../exceptions/#dvc_task.exceptions.DvcTaskError">DvcTaskError</a></code></p>
 
-
+  
       <p>Unsupported process signal.</p>
 
 
-          <details class="quote">
-            <summary>Source code in <code>dvc_task/proc/exceptions.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">30</span>
+        <details class="quote">
+          <summary>Source code in <code>dvc_task/proc/exceptions.py</code></summary>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">30</span>
 <span class="normal">31</span>
 <span class="normal">32</span>
 <span class="normal">33</span>
@@ -892,9 +882,9 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sig</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported signal: </span><span class="si">{</span><span class="n">sig</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-          </details>
+        </details>
 
-
+  
 
   <div class="doc doc-children">
 
@@ -910,20 +900,18 @@
 
   </div>
 
-    </div>
+  </div>
+
+</div>
+
+
+
 
   </div>
 
-
-
-
-
-
   </div>
 
-    </div>
-
-  </div>
+</div>
 
               
             </article>

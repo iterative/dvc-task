@@ -651,12 +651,13 @@
 
 <div class="doc doc-object doc-module">
 
-<a id="dvc_task.utils"></a>
-    <div class="doc doc-contents first">
 
+<a id="dvc_task.utils"></a>
+  <div class="doc doc-contents first">
+  
       <p>General utilities.</p>
 
-
+  
 
   <div class="doc doc-children">
 
@@ -668,26 +669,23 @@
 
 
 
-
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h2 id="dvc_task.utils.makedirs" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">makedirs</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
-
 </h2>
 
 
-    <div class="doc doc-contents ">
-
+  <div class="doc doc-contents ">
+  
       <p>Make the specified directory and any parent directories.</p>
 
-        <details class="quote">
-          <summary>Source code in <code>dvc_task/utils.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">50</span>
+      <details class="quote">
+        <summary>Source code in <code>dvc_task/utils.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">50</span>
 <span class="normal">51</span>
 <span class="normal">52</span>
 <span class="normal">53</span>
@@ -751,31 +749,28 @@
     <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;failed to chmod &#39;</span><span class="si">%o</span><span class="s2">&#39; &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">exc_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-        </details>
-    </div>
-
+      </details>
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h2 id="dvc_task.utils.remove" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">remove</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></code>
 
-
 </h2>
 
 
-    <div class="doc doc-contents ">
-
+  <div class="doc doc-contents ">
+  
       <p>Remove the specified path.</p>
 
-        <details class="quote">
-          <summary>Source code in <code>dvc_task/utils.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">37</span>
+      <details class="quote">
+        <summary>Source code in <code>dvc_task/utils.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">37</span>
 <span class="normal">38</span>
 <span class="normal">39</span>
 <span class="normal">40</span>
@@ -797,32 +792,29 @@
         <span class="k">if</span> <span class="n">exc</span><span class="o">.</span><span class="n">errno</span> <span class="o">!=</span> <span class="n">errno</span><span class="o">.</span><span class="n">ENOENT</span><span class="p">:</span>
             <span class="k">raise</span>
 </code></pre></div></td></tr></table></div>
-        </details>
-    </div>
-
+      </details>
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h2 id="dvc_task.utils.unc_path" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">unc_path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></code>
 
-
 </h2>
 
 
-    <div class="doc doc-contents ">
-
+  <div class="doc doc-contents ">
+  
       <p>Return UNC formatted path.</p>
 <p>Returns the unmodified path on posix platforms.</p>
 
-        <details class="quote">
-          <summary>Source code in <code>dvc_task/utils.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">84</span>
+      <details class="quote">
+        <summary>Source code in <code>dvc_task/utils.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">84</span>
 <span class="normal">85</span>
 <span class="normal">86</span>
 <span class="normal">87</span>
@@ -850,20 +842,18 @@
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\\\\</span><span class="s2">?</span><span class="se">\\</span><span class="si">{</span><span class="n">drive</span><span class="si">}{</span><span class="n">tail</span><span class="si">}</span><span class="s2">&quot;</span>
     <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">drive</span><span class="si">}{</span><span class="n">tail</span><span class="si">}</span><span class="s2">&quot;</span>
 </code></pre></div></td></tr></table></div>
-        </details>
-    </div>
+      </details>
+  </div>
+
+</div>
+
+
 
   </div>
 
-
-
-
-
   </div>
 
-    </div>
-
-  </div>
+</div>
 
               
             </article>
