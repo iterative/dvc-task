@@ -1170,7 +1170,7 @@ Interactive processes (requiring stdin input) are currently unsupported.</p>
 
 <span class="sd">        Returns: The spawned process PID.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">proc</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Process</span><span class="p">(</span>
+        <span class="n">proc</span> <span class="o">=</span> <span class="n">_DaemonProcess</span><span class="p">(</span>
             <span class="n">target</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="n">_spawn</span><span class="p">,</span>
             <span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">,</span>
             <span class="n">kwargs</span><span class="o">=</span><span class="n">kwargs</span><span class="p">,</span>
@@ -1613,7 +1613,7 @@ generated instead.</p></td>
 
 <span class="sd">    Returns: The spawned process PID.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">proc</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Process</span><span class="p">(</span>
+    <span class="n">proc</span> <span class="o">=</span> <span class="n">_DaemonProcess</span><span class="p">(</span>
         <span class="n">target</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="n">_spawn</span><span class="p">,</span>
         <span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">,</span>
         <span class="n">kwargs</span><span class="o">=</span><span class="n">kwargs</span><span class="p">,</span>
