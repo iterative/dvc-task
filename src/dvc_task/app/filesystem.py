@@ -5,12 +5,15 @@ from typing import Any, Dict, Generator, Optional
 
 from celery import Celery
 from kombu.message import Message
+from kombu.transport.filesystem import Channel
 from kombu.utils.encoding import bytes_to_str
 from kombu.utils.json import loads
 
 from ..utils import makedirs, remove, unc_path
 
 logger = logging.getLogger(__name__)
+
+Channel.QoS.restore_at_shutdown = False
 
 
 def _get_fs_config(
