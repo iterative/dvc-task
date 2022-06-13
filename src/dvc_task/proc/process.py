@@ -187,7 +187,7 @@ class ManagedProcess(AbstractContextManager):
 
         Returns: The spawned process PID.
         """
-        proc = mp.Process(
+        proc = _DaemonProcess(
             target=cls._spawn,
             args=args,
             kwargs=kwargs,
@@ -203,3 +203,10 @@ class ManagedProcess(AbstractContextManager):
     def _spawn(cls, *args, **kwargs):
         with cls(*args, **kwargs):
             pass
+
+
+class _DaemonProcess(mp.Process):
+    def run(self):
+        if os.name != "nt":
+            os.setpgid(0, 0)  # pylint: disable=no-member
+        super().run()
