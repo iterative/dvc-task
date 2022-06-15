@@ -1,6 +1,5 @@
 """Serverless process manager."""
 
-import json
 import locale
 import logging
 import os
@@ -49,16 +48,14 @@ class ProcessManager:
     def __getitem__(self, key: str) -> "ProcessInfo":
         info_path = self._get_info_path(key)
         try:
-            with open(info_path, encoding="utf-8") as fobj:
-                return ProcessInfo.from_dict(json.load(fobj))
+            return ProcessInfo.load(info_path)
         except FileNotFoundError as exc:
             raise KeyError from exc
 
     @reraise(FileNotFoundError, KeyError)
     def __setitem__(self, key: str, value: "ProcessInfo"):
         info_path = self._get_info_path(key)
-        with open(info_path, "w", encoding="utf-8") as fobj:
-            return json.dump(value.asdict(), fobj)
+        value.dump(info_path)
 
     def __delitem__(self, key: str) -> None:
         path = os.path.join(self.wdir, key)
