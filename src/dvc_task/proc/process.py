@@ -33,9 +33,23 @@ class ProcessInfo:
         """Construct ProcessInfo from the specified dictionary."""
         return cls(**data)
 
+    @classmethod
+    def load(cls, filename: str) -> "ProcessInfo":
+        """Construct the process information from a file."""
+        with open(filename, "r", encoding="utf-8") as fobj:
+            return cls.from_dict(json.load(fobj))
+
     def asdict(self) -> Dict[str, Any]:
         """Return this info as a dictionary."""
         return asdict(self)
+
+    def dump(self, filename: str) -> None:
+        """Dump the process information into a file."""
+        temp_info_file = f"{filename}.{uuid()}"
+        with open(temp_info_file, "w", encoding="utf-8") as fobj:
+            json.dump(self.asdict(), fobj)
+        os.remove(filename)
+        os.rename(temp_info_file, filename)
 
 
 class ManagedProcess(AbstractContextManager):
@@ -132,8 +146,8 @@ class ManagedProcess(AbstractContextManager):
 
     def _dump(self):
         self._make_wdir()
-        with open(self.info_path, "w", encoding="utf-8") as fobj:
-            json.dump(self.info.asdict(), fobj)
+        self.info.dump(self.info_path)
+
         with open(self.pidfile_path, "w", encoding="utf-8") as fobj:
             fobj.write(str(self.pid))
 
