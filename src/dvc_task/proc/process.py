@@ -48,8 +48,7 @@ class ProcessInfo:
         temp_info_file = f"{filename}.{uuid()}"
         with open(temp_info_file, "w", encoding="utf-8") as fobj:
             json.dump(self.asdict(), fobj)
-        os.remove(filename)
-        os.rename(temp_info_file, filename)
+        os.replace(temp_info_file, filename)
 
 
 class ManagedProcess(AbstractContextManager):
