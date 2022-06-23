@@ -100,3 +100,21 @@ def test_reject(tmp_dir: TmpDir):
 
     with pytest.raises(ValueError):
         app.reject(TEST_MSG["properties"]["delivery_tag"])
+
+
+def test_purge(tmp_dir: TmpDir):
+    """Purge message should be removed."""
+    app = FSApp(wdir=str(tmp_dir), mkdir=True)
+    tmp_dir.gen({"broker": {"processed": {"foo.msg": json.dumps(TEST_MSG)}}})
+
+    app.purge(TEST_MSG["properties"]["delivery_tag"])
+    assert not (tmp_dir / "broker" / "processed" / "foo.msg").exists()
+
+    tmp_dir.gen({"broker": {"processed": {"foo.msg": json.dumps(TEST_MSG)}}})
+    for msg in app.iter_processed():
+        assert msg.delivery_tag
+        app.purge(msg.delivery_tag)
+    assert not (tmp_dir / "broker" / "processed" / "foo.msg").exists()
+
+    with pytest.raises(ValueError):
+        app.purge(TEST_MSG["properties"]["delivery_tag"])

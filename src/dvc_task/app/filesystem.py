@@ -1,7 +1,7 @@
 """(Local) filesystem based Celery application."""
 import logging
 import os
-from typing import Any, Dict, Generator, Optional
+from typing import Any, Dict, Generator, Iterable, Optional
 
 from celery import Celery
 from kombu.message import Message
@@ -89,26 +89,33 @@ class FSApp(Celery):
             )
         )
         logger.debug("Initialized filesystem:// app in '%s'", wdir)
-        self._msg_path_cache: Dict[str, str] = {}
+        self._processed_msg_path_cache: Dict[str, str] = {}
+        self._queued_msg_path_cache: Dict[str, str] = {}
 
     def __reduce_keys__(self) -> Dict[str, Any]:
         keys = super().__reduce_keys__()  # type: ignore[misc]
         keys.update({"wdir": self.wdir})
         return keys
 
-    def iter_queued(
-        self, queue: Optional[str] = None
+    def _iter_folder(
+        self,
+        path_name: str,
+        path_cache: Dict[str, str],
+        queue: Optional[str] = None,
     ) -> Generator[Message, None, None]:
-        """Iterate over queued tasks which have not been taken by a worker.
+        """Iterate over queued tasks inside a folder
 
         Arguments:
+            path_name: the folder to iterate
+            path_cache: cache of message path.
             queue: Optional name of queue.
         """
         queue = queue or self.conf.task_default_queue
         with self.connection_for_read() as conn:  # type: ignore[attr-defined]
             with conn.channel() as channel:
-                for filename in sorted(os.listdir(channel.data_folder_in)):
-                    path = os.path.join(channel.data_folder_in, filename)
+                folder = getattr(channel, path_name)
+                for filename in sorted(os.listdir(folder)):
+                    path = os.path.join(folder, filename)
                     try:
                         with open(path, "rb") as fobj:
                             payload = fobj.read()
@@ -120,10 +127,67 @@ class FSApp(Celery):
                     msg = channel.Message(
                         loads(bytes_to_str(payload)), channel=channel
                     )
-                    self._msg_path_cache[msg.delivery_tag] = path
+                    path_cache[msg.delivery_tag] = path
                     delivery_info = msg.properties.get("delivery_info", {})
                     if delivery_info.get("routing_key") == queue:
                         yield msg
+
+    def iter_queued(
+        self, queue: Optional[str] = None
+    ) -> Generator[Message, None, None]:
+        """Iterate over queued tasks which have not been taken by a worker.
+
+        Arguments:
+            queue: Optional name of queue.
+        """
+        yield from self._iter_folder(
+            "data_folder_in",
+            self._queued_msg_path_cache,
+            queue,
+        )
+
+    def iter_processed(
+        self, queue: Optional[str] = None
+    ) -> Generator[Message, None, None]:
+        """Iterate over tasks which have been taken by a worker.
+
+        Arguments:
+            queue: Optional name of queue.
+        """
+        yield from self._iter_folder(
+            "processed_folder",
+            self._processed_msg_path_cache,
+            queue,
+        )
+
+    @staticmethod
+    def _delete_msg(
+        delivery_tag: str,
+        msg_collection: Iterable[Message],
+        path_cache: Dict[str, str],
+    ):
+        """delete the specified message.
+
+        Arguments:
+            delivery_tag: delivery tag of the message to be deleted.
+            msg_collection: where to found this message.
+            path_cache: cache of message path.
+
+        Raises:
+            ValueError: Invalid delivery_tag
+        """
+        path = path_cache.get(delivery_tag)
+        if path and os.path.exists(path):
+            remove(path)
+            del path_cache[delivery_tag]
+            return
+
+        for msg in msg_collection:
+            if msg.delivery_tag == delivery_tag:
+                remove(path_cache[delivery_tag])
+                del path_cache[delivery_tag]
+                return
+        raise ValueError(f"Message '{delivery_tag}' not found")
 
     def reject(self, delivery_tag: str):
         """Reject the specified message.
@@ -134,38 +198,19 @@ class FSApp(Celery):
         Raises:
             ValueError: Invalid delivery_tag
         """
-        path = self._msg_path_cache.get(delivery_tag)
-        if path and os.path.exists(path):
-            remove(path)
-            del self._msg_path_cache[delivery_tag]
-            return
+        self._delete_msg(
+            delivery_tag, self.iter_queued(), self._queued_msg_path_cache
+        )
 
-        for msg in self.iter_queued():
-            if msg.delivery_tag == delivery_tag:
-                remove(self._msg_path_cache[delivery_tag])
-                del self._msg_path_cache[delivery_tag]
-                return
-        raise ValueError(f"Message '{delivery_tag}' not found")
+    def purge(self, delivery_tag: str):
+        """Purge the specified processed message.
 
-    def iter_processed(
-        self, queue: Optional[str] = None
-    ) -> Generator[Message, None, None]:
-        """Iterate over tasks which have been taken by a worker.
+        Allows the caller to purge completed FS broker messages without
+        establishing a full Kombu consumer. Requeue is not supported.
 
-        Arguments:
-            queue: Optional name of queue.
+        Raises:
+            ValueError: Invalid delivery_tag
         """
-        queue = queue or self.conf.task_default_queue
-        with self.connection_for_read() as conn:  # type: ignore[attr-defined]
-            with conn.channel() as channel:
-                for filename in sorted(os.listdir(channel.processed_folder)):
-                    with open(
-                        os.path.join(channel.processed_folder, filename), "rb"
-                    ) as fobj:
-                        payload = fobj.read()
-                    msg = channel.Message(
-                        loads(bytes_to_str(payload)), channel=channel
-                    )
-                    delivery_info = msg.properties.get("delivery_info", {})
-                    if delivery_info.get("routing_key") == queue:
-                        yield msg
+        self._delete_msg(
+            delivery_tag, self.iter_processed(), self._processed_msg_path_cache
+        )
