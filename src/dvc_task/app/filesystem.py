@@ -8,9 +8,22 @@ from kombu.message import Message
 from kombu.utils.encoding import bytes_to_str
 from kombu.utils.json import loads
 
+from ..exceptions import DvcTaskError
 from ..utils import makedirs, remove, unc_path
 
 logger = logging.getLogger(__name__)
+
+
+def _check_kombu_version():
+    # pylint: disable=import-outside-toplevel
+    from kombu import VERSION, __version__
+
+    # FSApp requires kombu >= 5.3.0
+    if VERSION.major < 5 or (VERSION.major == 5 and VERSION.minor < 3):
+        raise DvcTaskError(
+            f"Unsupported Kombu version '{__version__}' found. "
+            "dvc-task FSApp requires Kombu >=5.3.0."
+        )
 
 
 def _get_fs_config(
@@ -78,6 +91,7 @@ class FSApp(Celery):
 
         Additional arguments will be passed into the Celery constructor.
         """
+        _check_kombu_version()
         super().__init__(*args, **kwargs)
         self.wdir = wdir or os.getcwd()
         self.conf.update(
