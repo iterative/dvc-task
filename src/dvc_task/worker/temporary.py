@@ -8,6 +8,8 @@ from typing import Any, List, Mapping
 from celery import Celery
 from celery.utils.nodenames import default_nodename
 
+from dvc_task.app.filesystem import FSApp
+
 logger = logging.getLogger(__name__)
 
 
@@ -87,6 +89,7 @@ class TemporaryWorker:
             time.sleep(1)
 
         def _tasksets(nodes):
+
             for taskset in (
                 nodes.active(),
                 nodes.scheduled(),
@@ -94,6 +97,9 @@ class TemporaryWorker:
             ):
                 if taskset is not None:
                     yield from taskset.values()
+
+            if isinstance(self.app, FSApp):
+                yield from self.app.iter_queued()
 
         logger.info("monitor: watching celery worker '%s'", nodename)
         while self.app.control.ping(destination=[nodename]):
