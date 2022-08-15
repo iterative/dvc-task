@@ -25,7 +25,7 @@ jobs:
         pyv: ['3.8', '3.9', '3.10']
         include:
         - os: ubuntu-latest
-          pyv: 'pypy-3.8'
+          pyv: 'pypy3.8'
 
     steps:
     - name: Check out the repository
