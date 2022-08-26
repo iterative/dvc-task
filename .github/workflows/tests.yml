@@ -2,8 +2,7 @@ name: Tests
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
   workflow_dispatch:
 
@@ -56,3 +55,6 @@ jobs:
 
     - name: Build package
       run: nox -s build
+
+    - name: Build docs
+      run: nox -s docs

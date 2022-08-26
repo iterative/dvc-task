@@ -1,6 +1,6 @@
 {
   "template": "https://github.com/iterative/py-template",
-  "commit": "f29fa72d72751294596bb5752c221acdb10f646d",
+  "commit": "f1ee970dd61d000f61cfd952a6578df645c518c8",
   "context": {
     "cookiecutter": {
       "project_name": "dvc-task",
@@ -12,13 +12,9 @@
       "version": "0.0.3",
       "copyright_year": "2022",
       "license": "Apache-2.0",
+      "docs": "True",
       "short_description": "Extensible task queue used in DVC.",
       "development_status": "Development Status :: 1 - Planning",
-      "_copy_without_render": [
-        ".github/workflows/release.yaml",
-        ".github/workflows/tests.yaml",
-        ".github/workflows/update-template.yaml"
-      ],
       "_template": "https://github.com/iterative/py-template"
     }
   },
