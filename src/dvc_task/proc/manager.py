@@ -49,7 +49,7 @@ class ProcessManager:
         info_path = self._get_info_path(key)
         try:
             return ProcessInfo.load(info_path)
-        except FileNotFoundError as exc:
+        except (FileNotFoundError, PermissionError) as exc:
             raise KeyError from exc
 
     @reraise(FileNotFoundError, KeyError)
