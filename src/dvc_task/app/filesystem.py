@@ -8,7 +8,12 @@ from kombu.message import Message
 from kombu.utils.encoding import bytes_to_str
 from kombu.utils.json import loads
 
-from ..contrib.kombu_filesystem import backport_filesystem_transport
+from ..contrib.kombu_filesystem import (
+    LOCK_SH,
+    backport_filesystem_transport,
+    lock,
+    unlock,
+)
 from ..utils import makedirs, remove, unc_path
 
 logger = logging.getLogger(__name__)
@@ -122,11 +127,17 @@ class FSApp(Celery):
                     path = os.path.join(folder, filename)
                     try:
                         with open(path, "rb") as fobj:
-                            payload = fobj.read()
+                            lock(fobj, LOCK_SH)
+                            try:
+                                payload = fobj.read()
+                            finally:
+                                unlock(fobj)
                     except FileNotFoundError:
                         # Messages returned by `listdir` call may have been
                         # acknowledged and moved to `processed_folder` by the
                         # time we try to read them here
+                        continue
+                    if not payload:
                         continue
                     msg = channel.Message(
                         loads(bytes_to_str(payload)), channel=channel
