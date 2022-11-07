@@ -4,7 +4,7 @@ import logging
 import multiprocessing as mp
 import os
 import shlex
-import subprocess
+import subprocess  # nosec B404
 from contextlib import AbstractContextManager, ExitStack
 from dataclasses import asdict, dataclass
 from typing import Any, Dict, List, Optional, Union
@@ -160,7 +160,7 @@ class ManagedProcess(AbstractContextManager):
         stdout = self._fd_stack.enter_context(open(self.stdout_path, "ab"))
         try:
             # pylint: disable=consider-using-with
-            self._proc = subprocess.Popen(
+            self._proc = subprocess.Popen(  # nosec B603
                 self.args,
                 stdin=subprocess.DEVNULL,
                 stdout=stdout,
