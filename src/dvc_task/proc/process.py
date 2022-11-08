@@ -12,6 +12,7 @@ from typing import Any, Dict, List, Optional, Union
 from funcy import cached_property
 from shortuuid import uuid
 
+from ..contrib.kombu_filesystem import LOCK_EX, LOCK_SH, lock, unlock
 from ..utils import makedirs
 from .exceptions import TimeoutExpired
 
@@ -37,7 +38,11 @@ class ProcessInfo:
     def load(cls, filename: str) -> "ProcessInfo":
         """Construct the process information from a file."""
         with open(filename, "r", encoding="utf-8") as fobj:
-            return cls.from_dict(json.load(fobj))
+            lock(fobj, LOCK_SH)
+            try:
+                return cls.from_dict(json.load(fobj))
+            finally:
+                unlock(fobj)
 
     def asdict(self) -> Dict[str, Any]:
         """Return this info as a dictionary."""
@@ -45,10 +50,12 @@ class ProcessInfo:
 
     def dump(self, filename: str) -> None:
         """Dump the process information into a file."""
-        temp_info_file = f"{filename}.{uuid()}"
-        with open(temp_info_file, "w", encoding="utf-8") as fobj:
-            json.dump(self.asdict(), fobj)
-        os.replace(temp_info_file, filename)
+        with open(filename, "w", encoding="utf-8") as fobj:
+            lock(fobj, LOCK_EX)
+            try:
+                json.dump(self.asdict(), fobj)
+            finally:
+                unlock(fobj)
 
 
 class ManagedProcess(AbstractContextManager):

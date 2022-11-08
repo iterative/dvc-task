@@ -45,12 +45,10 @@ class ProcessManager:
         for name in os.listdir(self.wdir):
             yield name
 
+    @reraise(FileNotFoundError, KeyError)
     def __getitem__(self, key: str) -> "ProcessInfo":
         info_path = self._get_info_path(key)
-        try:
-            return ProcessInfo.load(info_path)
-        except FileNotFoundError as exc:
-            raise KeyError from exc
+        return ProcessInfo.load(info_path)
 
     @reraise(FileNotFoundError, KeyError)
     def __setitem__(self, key: str, value: "ProcessInfo"):
