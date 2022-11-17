@@ -113,7 +113,10 @@ class ProcessManager:
 
     def send_signal(self, name: str, sig: int):
         """Send `signal` to the specified named process."""
-        process_info = self[name]
+        try:
+            process_info = self[name]
+        except KeyError as exc:
+            raise ProcessLookupError from exc
         if sys.platform == "win32":
             if sig not in (
                 signal.SIGTERM,
@@ -141,6 +144,8 @@ class ProcessManager:
                         handle_closed_process()
                         raise ProcessLookupError from exc
                 raise
+        else:
+            raise ProcessLookupError
 
     def terminate(self, name: str):
         """Terminate the specified named process."""

@@ -29,7 +29,8 @@ def test_send_signal(
     mock_kill.assert_called_once_with(PID_RUNNING, signal.SIGTERM)
 
     mock_kill.reset_mock()
-    process_manager.send_signal(finished_process, signal.SIGTERM)
+    with pytest.raises(ProcessLookupError):
+        process_manager.send_signal(finished_process, signal.SIGTERM)
     mock_kill.assert_not_called()
 
     if sys.platform == "win32":
@@ -37,7 +38,7 @@ def test_send_signal(
             process_manager.send_signal(finished_process, signal.SIGABRT)
 
 
-def test_dead_process(
+def test_send_signal_exception(
     mocker: MockerFixture,
     process_manager: ProcessManager,
     running_process: str,
@@ -55,6 +56,9 @@ def test_dead_process(
     with pytest.raises(ProcessLookupError):
         process_manager.send_signal(running_process, signal.SIGTERM)
     assert process_manager[running_process].returncode == -1
+
+    with pytest.raises(ProcessLookupError):
+        process_manager.send_signal("nonexists", signal.SIGTERM)
 
 
 def test_kill(
@@ -74,7 +78,8 @@ def test_kill(
         )
 
     mock_kill.reset_mock()
-    process_manager.kill(finished_process)
+    with pytest.raises(ProcessLookupError):
+        process_manager.kill(finished_process)
     mock_kill.assert_not_called()
 
 
@@ -90,7 +95,8 @@ def test_terminate(
     mock_kill.assert_called_once_with(PID_RUNNING, signal.SIGTERM)
 
     mock_kill.reset_mock()
-    process_manager.terminate(finished_process)
+    with pytest.raises(ProcessLookupError):
+        process_manager.terminate(finished_process)
     mock_kill.assert_not_called()
 
 
