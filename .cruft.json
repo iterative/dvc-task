@@ -1,6 +1,6 @@
 {
   "template": "https://github.com/iterative/py-template",
-  "commit": "84a385c99003c39632dfe985bf0ca4ed08235f36",
+  "commit": "cea88b644b0baa357c9fe79fff4d89e21a7cf3f5",
   "context": {
     "cookiecutter": {
       "project_name": "dvc-task",
