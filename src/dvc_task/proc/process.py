@@ -37,7 +37,7 @@ class ProcessInfo:
     @classmethod
     def load(cls, filename: str) -> "ProcessInfo":
         """Construct the process information from a file."""
-        with open(filename, "r", encoding="utf-8") as fobj:
+        with open(filename, encoding="utf-8") as fobj:
             lock(fobj, LOCK_SH)
             try:
                 return cls.from_dict(json.load(fobj))

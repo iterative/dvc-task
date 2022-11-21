@@ -42,8 +42,7 @@ class ProcessManager:
     def __iter__(self) -> Generator[str, None, None]:
         if not os.path.exists(self.wdir):
             return
-        for name in os.listdir(self.wdir):
-            yield name
+        yield from os.listdir(self.wdir)
 
     @reraise(FileNotFoundError, KeyError)
     def __getitem__(self, key: str) -> "ProcessInfo":
