@@ -25,8 +25,13 @@ def test_send_signal(
 ):
     """Terminate signal should be sent."""
     mock_kill = mocker.patch("os.kill")
-    process_manager.send_signal(running_process, signal.SIGTERM)
+    process_manager.send_signal(running_process, signal.SIGTERM, False)
     mock_kill.assert_called_once_with(PID_RUNNING, signal.SIGTERM)
+
+    if sys.platform != "win32":
+        mock_killpg = mocker.patch("os.killpg")
+        process_manager.send_signal(running_process, signal.SIGINT, True)
+        mock_killpg.assert_called_once_with(PID_RUNNING, signal.SIGINT)
 
     mock_kill.reset_mock()
     with pytest.raises(ProcessLookupError):
@@ -61,43 +66,32 @@ def test_send_signal_exception(
         process_manager.send_signal("nonexists", signal.SIGTERM)
 
 
-def test_kill(
+if sys.platform == "win32":
+    SIGKILL = signal.SIGTERM
+else:
+    SIGKILL = signal.SIGKILL  # pylint: disable=no-member
+
+
+@pytest.mark.parametrize(
+    "method, sig",
+    [
+        ("kill", SIGKILL),
+        ("terminate", signal.SIGTERM),
+        ("interrupt", signal.SIGINT),
+    ],
+)
+def test_kill_commands(
     mocker: MockerFixture,
     process_manager: ProcessManager,
-    finished_process: str,
-    running_process: str,
+    method: str,
+    sig: signal.Signals,
 ):
-    """Kill signal should be sent."""
-    mock_kill = mocker.patch("os.kill")
-    process_manager.kill(running_process)
-    if sys.platform == "win32":
-        mock_kill.assert_called_once_with(PID_RUNNING, signal.SIGTERM)
-    else:
-        mock_kill.assert_called_once_with(
-            PID_RUNNING, signal.SIGKILL  # pylint: disable=no-member
-        )
-
-    mock_kill.reset_mock()
-    with pytest.raises(ProcessLookupError):
-        process_manager.kill(finished_process)
-    mock_kill.assert_not_called()
-
-
-def test_terminate(
-    mocker: MockerFixture,
-    process_manager: ProcessManager,
-    running_process: str,
-    finished_process: str,
-):
-    """Terminate signal should be sent."""
-    mock_kill = mocker.patch("os.kill")
-    process_manager.terminate(running_process)
-    mock_kill.assert_called_once_with(PID_RUNNING, signal.SIGTERM)
-
-    mock_kill.reset_mock()
-    with pytest.raises(ProcessLookupError):
-        process_manager.terminate(finished_process)
-    mock_kill.assert_not_called()
+    """Test shortcut for different signals."""
+    name = "process"
+    mock_kill = mocker.patch.object(process_manager, "send_signal")
+    func = getattr(process_manager, method)
+    func(name)
+    mock_kill.assert_called_once_with(name, sig, True)
 
 
 def test_remove(
