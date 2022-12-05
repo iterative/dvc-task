@@ -111,7 +111,7 @@ class ProcessManager:
             immutable=immutable,
         )
 
-    def send_signal(self, name: str, sig: int):
+    def send_signal(self, name: str, sig: int, group: bool = True):
         """Send `signal` to the specified named process."""
         try:
             process_info = self[name]
@@ -134,7 +134,12 @@ class ProcessManager:
 
         if process_info.returncode is None:
             try:
-                os.kill(process_info.pid, sig)
+                if sys.platform != "win32" and group:
+                    os.killpg(  # pylint: disable=no-member
+                        process_info.pid, sig
+                    )
+                else:
+                    os.kill(process_info.pid, sig)
             except ProcessLookupError:
                 handle_closed_process()
                 raise
@@ -147,16 +152,22 @@ class ProcessManager:
         else:
             raise ProcessLookupError
 
-    def terminate(self, name: str):
-        """Terminate the specified named process."""
-        self.send_signal(name, signal.SIGTERM)
+    def interrupt(self, name: str, group: bool = True):
+        """Send interrupt signal to specified named process"""
+        self.send_signal(name, signal.SIGINT, group)
 
-    def kill(self, name: str):
+    def terminate(self, name: str, group: bool = True):
+        """Terminate the specified named process."""
+        self.send_signal(name, signal.SIGTERM, group)
+
+    def kill(self, name: str, group: bool = True):
         """Kill the specified named process."""
         if sys.platform == "win32":
-            self.send_signal(name, signal.SIGTERM)
+            self.send_signal(name, signal.SIGTERM, group)
         else:
-            self.send_signal(name, signal.SIGKILL)  # pylint: disable=no-member
+            self.send_signal(
+                name, signal.SIGKILL, group  # pylint: disable=no-member
+            )
 
     def remove(self, name: str, force: bool = False):
         """Remove the specified named process from this manager.
