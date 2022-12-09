@@ -111,7 +111,7 @@ class ProcessManager:
             immutable=immutable,
         )
 
-    def send_signal(self, name: str, sig: int, group: bool = True):
+    def send_signal(self, name: str, sig: int, group: bool = False):
         """Send `signal` to the specified named process."""
         try:
             process_info = self[name]
@@ -135,9 +135,10 @@ class ProcessManager:
         if process_info.returncode is None:
             try:
                 if sys.platform != "win32" and group:
-                    os.killpg(  # pylint: disable=no-member
-                        process_info.pid, sig
+                    pgid = os.getpgid(  # pylint: disable=no-member
+                        process_info.pid
                     )
+                    os.killpg(pgid, sig)  # pylint: disable=no-member
                 else:
                     os.kill(process_info.pid, sig)
             except ProcessLookupError:
@@ -154,13 +155,18 @@ class ProcessManager:
 
     def interrupt(self, name: str, group: bool = True):
         """Send interrupt signal to specified named process"""
-        self.send_signal(name, signal.SIGINT, group)
+        if sys.platform == "win32":
+            self.send_signal(
+                name, signal.CTRL_C_EVENT, group  # pylint: disable=no-member
+            )
+        else:
+            self.send_signal(name, signal.SIGINT, group)
 
-    def terminate(self, name: str, group: bool = True):
+    def terminate(self, name: str, group: bool = False):
         """Terminate the specified named process."""
         self.send_signal(name, signal.SIGTERM, group)
 
-    def kill(self, name: str, group: bool = True):
+    def kill(self, name: str, group: bool = False):
         """Kill the specified named process."""
         if sys.platform == "win32":
             self.send_signal(name, signal.SIGTERM, group)
