@@ -196,6 +196,8 @@ class ManagedProcess(AbstractContextManager):
             self._proc.wait(timeout=timeout)
         except subprocess.TimeoutExpired as exc:
             raise TimeoutExpired(exc.cmd, exc.timeout) from exc
+        except KeyboardInterrupt:
+            pass
         self.returncode = self._proc.returncode
         self._close_fds()
         self._dump()
