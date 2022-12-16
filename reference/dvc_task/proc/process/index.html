@@ -525,6 +525,20 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#dvc_task.proc.process.ManagedProcess.info" class="md-nav__link">
+    info
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dvc_task.proc.process.ManagedProcess.pid" class="md-nav__link">
+    pid
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#dvc_task.proc.process.ManagedProcess.__init__" class="md-nav__link">
     __init__()
   </a>
@@ -532,22 +546,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#dvc_task.proc.process.ManagedProcess.info" class="md-nav__link">
-    info()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#dvc_task.proc.process.ManagedProcess.info_path" class="md-nav__link">
     info_path()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#dvc_task.proc.process.ManagedProcess.pid" class="md-nav__link">
-    pid()
   </a>
   
 </li>
@@ -769,6 +769,20 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#dvc_task.proc.process.ManagedProcess.info" class="md-nav__link">
+    info
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dvc_task.proc.process.ManagedProcess.pid" class="md-nav__link">
+    pid
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#dvc_task.proc.process.ManagedProcess.__init__" class="md-nav__link">
     __init__()
   </a>
@@ -776,22 +790,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#dvc_task.proc.process.ManagedProcess.info" class="md-nav__link">
-    info()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#dvc_task.proc.process.ManagedProcess.info_path" class="md-nav__link">
     info_path()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#dvc_task.proc.process.ManagedProcess.pid" class="md-nav__link">
-    pid()
   </a>
   
 </li>
@@ -1103,7 +1103,9 @@ Interactive processes (requiring stdin input) are currently unsupported.</p>
 <span class="normal">222</span>
 <span class="normal">223</span>
 <span class="normal">224</span>
-<span class="normal">225</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ManagedProcess</span><span class="p">(</span><span class="n">AbstractContextManager</span><span class="p">):</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ManagedProcess</span><span class="p">(</span><span class="n">AbstractContextManager</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Class to manage the specified process with redirected output.</span>
 
 <span class="sd">    stdout and stderr will both be redirected to &lt;name&gt;.out.</span>
@@ -1241,6 +1243,8 @@ Interactive processes (requiring stdin input) are currently unsupported.</p>
             <span class="bp">self</span><span class="o">.</span><span class="n">_proc</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
         <span class="k">except</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">TimeoutExpired</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">TimeoutExpired</span><span class="p">(</span><span class="n">exc</span><span class="o">.</span><span class="n">cmd</span><span class="p">,</span> <span class="n">exc</span><span class="o">.</span><span class="n">timeout</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">exc</span>
+        <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+            <span class="k">pass</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">returncode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proc</span><span class="o">.</span><span class="n">returncode</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_close_fds</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_dump</span><span class="p">()</span>
@@ -1280,6 +1284,66 @@ Interactive processes (requiring stdin input) are currently unsupported.</p>
 
 
 
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="dvc_task.proc.process.ManagedProcess.info" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">info</span><span class="p">:</span> <span class="n">ProcessInfo</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Return process information.</p>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="dvc_task.proc.process.ManagedProcess.pid" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">pid</span><span class="p">:</span> <span class="nb">int</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Return process PID.</p>
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>ValueError</code>
+          </td>
+          <td><p>Process is not running.</p></td>
+        </tr>
+    </tbody>
+  </table>
+  </div>
+
+</div>
 
 
 
@@ -1420,51 +1484,6 @@ generated instead.</p></td>
 
 
 
-<h3 id="dvc_task.proc.process.ManagedProcess.info" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">info</span><span class="p">()</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
-  </span>
-
-</h3>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Return process information.</p>
-
-      <details class="quote">
-        <summary>Source code in <code>dvc_task/proc/process.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">127</span>
-<span class="normal">128</span>
-<span class="normal">129</span>
-<span class="normal">130</span>
-<span class="normal">131</span>
-<span class="normal">132</span>
-<span class="normal">133</span>
-<span class="normal">134</span>
-<span class="normal">135</span>
-<span class="normal">136</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@property</span>
-<span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;ProcessInfo&quot;</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Return process information.&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">ProcessInfo</span><span class="p">(</span>
-        <span class="n">pid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pid</span><span class="p">,</span>
-        <span class="n">stdin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">stdout</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">stdout_path</span><span class="p">,</span>
-        <span class="n">stderr</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">returncode</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">returncode</span><span class="p">,</span>
-    <span class="p">)</span>
-</code></pre></div></td></tr></table></div>
-      </details>
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-
 <h3 id="dvc_task.proc.process.ManagedProcess.info_path" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">info_path</span><span class="p">()</span></code>
 
@@ -1484,69 +1503,6 @@ generated instead.</p></td>
 <span class="k">def</span> <span class="nf">info_path</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Return process information file path.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_path</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">.json&quot;</span><span class="p">)</span>
-</code></pre></div></td></tr></table></div>
-      </details>
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-
-<h3 id="dvc_task.proc.process.ManagedProcess.pid" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">pid</span><span class="p">()</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
-  </span>
-
-</h3>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Return process PID.</p>
-
-  <p><strong>Raises:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td>
-                <code>ValueError</code>
-          </td>
-          <td><p>Process is not running.</p></td>
-        </tr>
-    </tbody>
-  </table>
-
-      <details class="quote">
-        <summary>Source code in <code>dvc_task/proc/process.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">138</span>
-<span class="normal">139</span>
-<span class="normal">140</span>
-<span class="normal">141</span>
-<span class="normal">142</span>
-<span class="normal">143</span>
-<span class="normal">144</span>
-<span class="normal">145</span>
-<span class="normal">146</span>
-<span class="normal">147</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@property</span>
-<span class="k">def</span> <span class="nf">pid</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Return process PID.</span>
-
-<span class="sd">    Raises:</span>
-<span class="sd">        ValueError: Process is not running.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proc</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proc</span><span class="o">.</span><span class="n">pid</span>
 </code></pre></div></td></tr></table></div>
       </details>
   </div>
@@ -1673,9 +1629,7 @@ generated instead.</p></td>
 
       <details class="quote">
         <summary>Source code in <code>dvc_task/proc/process.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">204</span>
-<span class="normal">205</span>
-<span class="normal">206</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">206</span>
 <span class="normal">207</span>
 <span class="normal">208</span>
 <span class="normal">209</span>
@@ -1689,7 +1643,9 @@ generated instead.</p></td>
 <span class="normal">217</span>
 <span class="normal">218</span>
 <span class="normal">219</span>
-<span class="normal">220</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@classmethod</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@classmethod</span>
 <span class="k">def</span> <span class="nf">spawn</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;Spawn a ManagedProcess command in the background.</span>
 
@@ -1773,7 +1729,9 @@ generated instead.</p></td>
 <span class="normal">199</span>
 <span class="normal">200</span>
 <span class="normal">201</span>
-<span class="normal">202</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">wait</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">wait</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;Block until a process started with `run` has completed.</span>
 
 <span class="sd">    Raises:</span>
@@ -1786,6 +1744,8 @@ generated instead.</p></td>
         <span class="bp">self</span><span class="o">.</span><span class="n">_proc</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
     <span class="k">except</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">TimeoutExpired</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">TimeoutExpired</span><span class="p">(</span><span class="n">exc</span><span class="o">.</span><span class="n">cmd</span><span class="p">,</span> <span class="n">exc</span><span class="o">.</span><span class="n">timeout</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">exc</span>
+    <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+        <span class="k">pass</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">returncode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proc</span><span class="o">.</span><span class="n">returncode</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_close_fds</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_dump</span><span class="p">()</span>
