@@ -137,6 +137,10 @@ class FSApp(Celery):
                         # acknowledged and moved to `processed_folder` by the
                         # time we try to read them here
                         continue
+                    except OSError:
+                        st = os.stat(path)
+                        logger.debug("file %s, stat %s", path, vars(st))
+                        raise
                     if not payload:
                         continue
                     msg = channel.Message(
