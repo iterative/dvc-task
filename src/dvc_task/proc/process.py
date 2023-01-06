@@ -5,6 +5,7 @@ import multiprocessing as mp
 import os
 import shlex
 import subprocess  # nosec B404
+import tempfile
 from contextlib import AbstractContextManager, ExitStack
 from dataclasses import asdict, dataclass
 from typing import Any, Dict, List, Optional, Union
@@ -12,7 +13,7 @@ from typing import Any, Dict, List, Optional, Union
 from funcy import cached_property
 from shortuuid import uuid
 
-from ..contrib.kombu_filesystem import LOCK_EX, LOCK_SH, lock, unlock
+from ..contrib.kombu_filesystem import LOCK_SH, lock, unlock
 from ..utils import makedirs
 from .exceptions import TimeoutExpired
 
@@ -50,12 +51,17 @@ class ProcessInfo:
 
     def dump(self, filename: str) -> None:
         """Dump the process information into a file."""
-        with open(filename, "w", encoding="utf-8") as fobj:
-            lock(fobj, LOCK_EX)
-            try:
-                json.dump(self.asdict(), fobj)
-            finally:
-                unlock(fobj)
+        directory, file = os.path.split(filename)
+        with tempfile.NamedTemporaryFile(
+            mode="w",
+            encoding="utf-8",
+            dir=directory,
+            prefix=f"{file}.",
+            suffix=".tmp",
+            delete=False,
+        ) as tmp:
+            json.dump(self.asdict(), tmp)
+        os.replace(tmp.name, filename)
 
 
 class ManagedProcess(AbstractContextManager):
