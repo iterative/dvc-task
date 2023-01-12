@@ -13,7 +13,6 @@ from typing import Any, Dict, List, Optional, Union
 from funcy import cached_property
 from shortuuid import uuid
 
-from ..contrib.kombu_filesystem import LOCK_SH, lock, unlock
 from ..utils import makedirs
 from .exceptions import TimeoutExpired
 
@@ -39,11 +38,7 @@ class ProcessInfo:
     def load(cls, filename: str) -> "ProcessInfo":
         """Construct the process information from a file."""
         with open(filename, encoding="utf-8") as fobj:
-            lock(fobj, LOCK_SH)
-            try:
-                return cls.from_dict(json.load(fobj))
-            finally:
-                unlock(fobj)
+            return cls.from_dict(json.load(fobj))
 
     def asdict(self) -> Dict[str, Any]:
         """Return this info as a dictionary."""
