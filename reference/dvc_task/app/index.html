@@ -884,7 +884,7 @@
 <span class="normal">229</span>
 <span class="normal">230</span>
 <span class="normal">231</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">FSApp</span><span class="p">(</span><span class="n">Celery</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Local filesystem-based Celery application.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Local filesystem-based Celery application.</span>
 
 <span class="sd">    Uses Kombu filesystem:// broker and results backend</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -898,7 +898,7 @@
         <span class="n">result_serializer</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;json&quot;</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Construct an FSApp.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Construct an FSApp.</span>
 
 <span class="sd">        Arguments:</span>
 <span class="sd">            wdir: App broker/results directory. Defaults to current working</span>
@@ -935,7 +935,7 @@
         <span class="n">path_cache</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
         <span class="n">queue</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">Message</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Iterate over queued tasks inside a folder</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Iterate over queued tasks inside a folder</span>
 
 <span class="sd">        Arguments:</span>
 <span class="sd">            path_name: the folder to iterate</span>
@@ -973,7 +973,7 @@
     <span class="k">def</span> <span class="nf">iter_queued</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">queue</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">Message</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Iterate over queued tasks which have not been taken by a worker.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Iterate over queued tasks which have not been taken by a worker.</span>
 
 <span class="sd">        Arguments:</span>
 <span class="sd">            queue: Optional name of queue.</span>
@@ -987,7 +987,7 @@
     <span class="k">def</span> <span class="nf">iter_processed</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">queue</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">Message</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Iterate over tasks which have been taken by a worker.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Iterate over tasks which have been taken by a worker.</span>
 
 <span class="sd">        Arguments:</span>
 <span class="sd">            queue: Optional name of queue.</span>
@@ -1004,7 +1004,7 @@
         <span class="n">msg_collection</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Message</span><span class="p">],</span>
         <span class="n">path_cache</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;delete the specified message.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;delete the specified message.</span>
 
 <span class="sd">        Arguments:</span>
 <span class="sd">            delivery_tag: delivery tag of the message to be deleted.</span>
@@ -1028,7 +1028,7 @@
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Message &#39;</span><span class="si">{</span><span class="n">delivery_tag</span><span class="si">}</span><span class="s2">&#39; not found&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">reject</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delivery_tag</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Reject the specified message.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Reject the specified message.</span>
 
 <span class="sd">        Allows the caller to reject FS broker messages without establishing a</span>
 <span class="sd">        full Kombu consumer. Requeue is not supported.</span>
@@ -1041,7 +1041,7 @@
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">purge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delivery_tag</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Purge the specified processed message.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Purge the specified processed message.</span>
 
 <span class="sd">        Allows the caller to purge completed FS broker messages without</span>
 <span class="sd">        establishing a full Kombu consumer. Requeue is not supported.</span>
@@ -1182,7 +1182,7 @@ exist.</p></td>
     <span class="n">result_serializer</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;json&quot;</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
 <span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Construct an FSApp.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Construct an FSApp.</span>
 
 <span class="sd">    Arguments:</span>
 <span class="sd">        wdir: App broker/results directory. Defaults to current working</span>
@@ -1268,7 +1268,7 @@ exist.</p></td>
 <span class="normal">176</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">iter_processed</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">queue</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">Message</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;Iterate over tasks which have been taken by a worker.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Iterate over tasks which have been taken by a worker.</span>
 
 <span class="sd">    Arguments:</span>
 <span class="sd">        queue: Optional name of queue.</span>
@@ -1339,7 +1339,7 @@ exist.</p></td>
 <span class="normal">162</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">iter_queued</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">queue</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">Message</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;Iterate over queued tasks which have not been taken by a worker.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Iterate over queued tasks which have not been taken by a worker.</span>
 
 <span class="sd">    Arguments:</span>
 <span class="sd">        queue: Optional name of queue.</span>
@@ -1403,7 +1403,7 @@ establishing a full Kombu consumer. Requeue is not supported.</p>
 <span class="normal">229</span>
 <span class="normal">230</span>
 <span class="normal">231</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">purge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delivery_tag</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Purge the specified processed message.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Purge the specified processed message.</span>
 
 <span class="sd">    Allows the caller to purge completed FS broker messages without</span>
 <span class="sd">    establishing a full Kombu consumer. Requeue is not supported.</span>
@@ -1468,7 +1468,7 @@ full Kombu consumer. Requeue is not supported.</p>
 <span class="normal">216</span>
 <span class="normal">217</span>
 <span class="normal">218</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">reject</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delivery_tag</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Reject the specified message.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Reject the specified message.</span>
 
 <span class="sd">    Allows the caller to reject FS broker messages without establishing a</span>
 <span class="sd">    full Kombu consumer. Requeue is not supported.</span>
