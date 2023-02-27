@@ -622,6 +622,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#dvc_task.app.filesystem.FSApp.clean" class="md-nav__link">
+    clean()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#dvc_task.app.filesystem.FSApp.iter_processed" class="md-nav__link">
     iter_processed()
   </a>
@@ -715,8 +722,7 @@
 
         <details class="quote">
           <summary>Source code in <code>dvc_task/app/filesystem.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 63</span>
-<span class="normal"> 64</span>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 64</span>
 <span class="normal"> 65</span>
 <span class="normal"> 66</span>
 <span class="normal"> 67</span>
@@ -879,7 +885,52 @@
 <span class="normal">224</span>
 <span class="normal">225</span>
 <span class="normal">226</span>
-<span class="normal">227</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">FSApp</span><span class="p">(</span><span class="n">Celery</span><span class="p">):</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span>
+<span class="normal">248</span>
+<span class="normal">249</span>
+<span class="normal">250</span>
+<span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span>
+<span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span>
+<span class="normal">266</span>
+<span class="normal">267</span>
+<span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">FSApp</span><span class="p">(</span><span class="n">Celery</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Local filesystem-based Celery application.</span>
 
 <span class="sd">    Uses Kombu filesystem:// broker and results backend</span>
@@ -927,21 +978,20 @@
 
     <span class="k">def</span> <span class="nf">_iter_folder</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">path_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">folder_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">path_cache</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
         <span class="n">queue</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">Message</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Message</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Iterate over queued tasks inside a folder</span>
 
 <span class="sd">        Arguments:</span>
-<span class="sd">            path_name: the folder to iterate</span>
+<span class="sd">            folder_name: the folder to iterate</span>
 <span class="sd">            path_cache: cache of message path.</span>
 <span class="sd">            queue: Optional name of queue.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">queue</span> <span class="o">=</span> <span class="n">queue</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">task_default_queue</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection_for_read</span><span class="p">()</span> <span class="k">as</span> <span class="n">conn</span><span class="p">:</span>  <span class="c1"># type: ignore[attr-defined]</span>
             <span class="k">with</span> <span class="n">conn</span><span class="o">.</span><span class="n">channel</span><span class="p">()</span> <span class="k">as</span> <span class="n">channel</span><span class="p">:</span>
-                <span class="n">folder</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">channel</span><span class="p">,</span> <span class="n">path_name</span><span class="p">)</span>
+                <span class="n">folder</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">channel</span><span class="p">,</span> <span class="n">folder_name</span><span class="p">)</span>
                 <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">folder</span><span class="p">)):</span>
                     <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
                     <span class="k">try</span><span class="p">:</span>
@@ -960,37 +1010,40 @@
                         <span class="k">continue</span>
                     <span class="n">msg</span> <span class="o">=</span> <span class="n">channel</span><span class="o">.</span><span class="n">Message</span><span class="p">(</span><span class="n">loads</span><span class="p">(</span><span class="n">bytes_to_str</span><span class="p">(</span><span class="n">payload</span><span class="p">)),</span> <span class="n">channel</span><span class="o">=</span><span class="n">channel</span><span class="p">)</span>
                     <span class="n">path_cache</span><span class="p">[</span><span class="n">msg</span><span class="o">.</span><span class="n">delivery_tag</span><span class="p">]</span> <span class="o">=</span> <span class="n">path</span>
-                    <span class="n">delivery_info</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;delivery_info&quot;</span><span class="p">,</span> <span class="p">{})</span>
-                    <span class="k">if</span> <span class="n">delivery_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;routing_key&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="n">queue</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">queue</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                         <span class="k">yield</span> <span class="n">msg</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">delivery_info</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;delivery_info&quot;</span><span class="p">,</span> <span class="p">{})</span>
+                        <span class="k">if</span> <span class="n">delivery_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;routing_key&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="n">queue</span><span class="p">:</span>
+                            <span class="k">yield</span> <span class="n">msg</span>
 
-    <span class="k">def</span> <span class="nf">iter_queued</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">queue</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">Message</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">_iter_data_folder</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">queue</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Message</span><span class="p">]:</span>
+        <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iter_folder</span><span class="p">(</span>
+            <span class="s2">&quot;data_folder_in&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_queued_msg_path_cache</span><span class="p">,</span> <span class="n">queue</span><span class="o">=</span><span class="n">queue</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_iter_processed_folder</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">queue</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Message</span><span class="p">]:</span>
+        <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iter_folder</span><span class="p">(</span>
+            <span class="s2">&quot;processed_folder&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_processed_msg_path_cache</span><span class="p">,</span> <span class="n">queue</span><span class="o">=</span><span class="n">queue</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">iter_queued</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">queue</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Message</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Iterate over queued tasks which have not been taken by a worker.</span>
 
 <span class="sd">        Arguments:</span>
 <span class="sd">            queue: Optional name of queue.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iter_folder</span><span class="p">(</span>
-            <span class="s2">&quot;data_folder_in&quot;</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_queued_msg_path_cache</span><span class="p">,</span>
-            <span class="n">queue</span><span class="p">,</span>
-        <span class="p">)</span>
+        <span class="n">queue</span> <span class="o">=</span> <span class="n">queue</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">task_default_queue</span>
+        <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iter_data_folder</span><span class="p">(</span><span class="n">queue</span><span class="o">=</span><span class="n">queue</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">iter_processed</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">queue</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">Message</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">iter_processed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">queue</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Message</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Iterate over tasks which have been taken by a worker.</span>
 
 <span class="sd">        Arguments:</span>
 <span class="sd">            queue: Optional name of queue.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iter_folder</span><span class="p">(</span>
-            <span class="s2">&quot;processed_folder&quot;</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_processed_msg_path_cache</span><span class="p">,</span>
-            <span class="n">queue</span><span class="p">,</span>
-        <span class="p">)</span>
+        <span class="n">queue</span> <span class="o">=</span> <span class="n">queue</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">task_default_queue</span>
+        <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iter_processed_folder</span><span class="p">(</span><span class="n">queue</span><span class="o">=</span><span class="n">queue</span><span class="p">)</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_delete_msg</span><span class="p">(</span>
@@ -1044,6 +1097,48 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_delete_msg</span><span class="p">(</span>
             <span class="n">delivery_tag</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter_processed</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_processed_msg_path_cache</span>
         <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_gc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exclude</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Garbage collect expired FS broker messages.</span>
+
+<span class="sd">        Arguments:</span>
+<span class="sd">            exclude: Exclude (do not garbage collect) messages from the specified</span>
+<span class="sd">                queues.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="nf">_delete_expired</span><span class="p">(</span>
+            <span class="n">msg</span><span class="p">:</span> <span class="n">Message</span><span class="p">,</span>
+            <span class="n">queues</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+            <span class="n">now</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+            <span class="n">cache</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
+            <span class="n">include_tickets</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="p">):</span>
+            <span class="k">if</span> <span class="n">queues</span><span class="p">:</span>
+                <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">properties</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+                <span class="n">properties</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">msg</span><span class="o">.</span><span class="n">properties</span><span class="p">)</span>
+                <span class="n">delivery_info</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">properties</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;delivery_info&quot;</span><span class="p">,</span> <span class="p">{})</span>
+                <span class="n">routing_key</span> <span class="o">=</span> <span class="n">delivery_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;routing_key&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">routing_key</span> <span class="ow">and</span> <span class="n">routing_key</span> <span class="ow">in</span> <span class="n">queues</span><span class="p">:</span>
+                    <span class="k">return</span>
+            <span class="n">headers</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">msg</span><span class="o">.</span><span class="n">headers</span><span class="p">)</span>
+            <span class="n">expires</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;expires&quot;</span><span class="p">)</span>
+            <span class="n">ticket</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ticket&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">include_tickets</span> <span class="ow">and</span> <span class="n">ticket</span> <span class="ow">or</span> <span class="p">(</span><span class="n">expires</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">expires</span> <span class="o">&lt;=</span> <span class="n">now</span><span class="p">):</span>
+                <span class="k">assert</span> <span class="n">msg</span><span class="o">.</span><span class="n">delivery_tag</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_delete_msg</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">delivery_tag</span><span class="p">,</span> <span class="p">[],</span> <span class="n">cache</span><span class="p">)</span>
+
+        <span class="n">queues</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">exclude</span><span class="p">)</span> <span class="k">if</span> <span class="n">exclude</span> <span class="k">else</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">timestamp</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">msg</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iter_data_folder</span><span class="p">():</span>
+            <span class="n">_delete_expired</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">queues</span><span class="p">,</span> <span class="n">now</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_queued_msg_path_cache</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">msg</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iter_processed_folder</span><span class="p">():</span>
+            <span class="n">_delete_expired</span><span class="p">(</span>
+                <span class="n">msg</span><span class="p">,</span> <span class="n">queues</span><span class="p">,</span> <span class="n">now</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_processed_msg_path_cache</span><span class="p">,</span> <span class="n">include_tickets</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">clean</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Clean extraneous celery messages from this FSApp.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_gc</span><span class="p">(</span><span class="n">exclude</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">task_default_queue</span><span class="p">])</span>
 </code></pre></div></td></tr></table></div>
         </details>
 
@@ -1132,8 +1227,7 @@ exist.</p></td>
 
       <details class="quote">
         <summary>Source code in <code>dvc_task/app/filesystem.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 69</span>
-<span class="normal"> 70</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 70</span>
 <span class="normal"> 71</span>
 <span class="normal"> 72</span>
 <span class="normal"> 73</span>
@@ -1165,7 +1259,8 @@ exist.</p></td>
 <span class="normal"> 99</span>
 <span class="normal">100</span>
 <span class="normal">101</span>
-<span class="normal">102</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+<span class="normal">102</span>
+<span class="normal">103</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="o">*</span><span class="n">args</span><span class="p">,</span>
     <span class="n">wdir</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1199,6 +1294,33 @@ exist.</p></td>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Initialized filesystem:// app in &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span><span class="p">,</span> <span class="n">wdir</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_processed_msg_path_cache</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_queued_msg_path_cache</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="dvc_task.app.filesystem.FSApp.clean" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">clean</span><span class="p">()</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Clean extraneous celery messages from this FSApp.</p>
+
+      <details class="quote">
+        <summary>Source code in <code>dvc_task/app/filesystem.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">clean</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Clean extraneous celery messages from this FSApp.&quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_gc</span><span class="p">(</span><span class="n">exclude</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">task_default_queue</span><span class="p">])</span>
 </code></pre></div></td></tr></table></div>
       </details>
   </div>
@@ -1245,31 +1367,21 @@ exist.</p></td>
 
       <details class="quote">
         <summary>Source code in <code>dvc_task/app/filesystem.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">162</span>
-<span class="normal">163</span>
-<span class="normal">164</span>
-<span class="normal">165</span>
-<span class="normal">166</span>
-<span class="normal">167</span>
-<span class="normal">168</span>
-<span class="normal">169</span>
-<span class="normal">170</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">170</span>
 <span class="normal">171</span>
 <span class="normal">172</span>
 <span class="normal">173</span>
-<span class="normal">174</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">iter_processed</span><span class="p">(</span>
-    <span class="bp">self</span><span class="p">,</span> <span class="n">queue</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">Message</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">iter_processed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">queue</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Message</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Iterate over tasks which have been taken by a worker.</span>
 
 <span class="sd">    Arguments:</span>
 <span class="sd">        queue: Optional name of queue.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iter_folder</span><span class="p">(</span>
-        <span class="s2">&quot;processed_folder&quot;</span><span class="p">,</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_processed_msg_path_cache</span><span class="p">,</span>
-        <span class="n">queue</span><span class="p">,</span>
-    <span class="p">)</span>
+    <span class="n">queue</span> <span class="o">=</span> <span class="n">queue</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">task_default_queue</span>
+    <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iter_processed_folder</span><span class="p">(</span><span class="n">queue</span><span class="o">=</span><span class="n">queue</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
       </details>
   </div>
@@ -1316,31 +1428,21 @@ exist.</p></td>
 
       <details class="quote">
         <summary>Source code in <code>dvc_task/app/filesystem.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">148</span>
-<span class="normal">149</span>
-<span class="normal">150</span>
-<span class="normal">151</span>
-<span class="normal">152</span>
-<span class="normal">153</span>
-<span class="normal">154</span>
-<span class="normal">155</span>
-<span class="normal">156</span>
-<span class="normal">157</span>
-<span class="normal">158</span>
-<span class="normal">159</span>
-<span class="normal">160</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">iter_queued</span><span class="p">(</span>
-    <span class="bp">self</span><span class="p">,</span> <span class="n">queue</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">Message</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">iter_queued</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">queue</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Message</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Iterate over queued tasks which have not been taken by a worker.</span>
 
 <span class="sd">    Arguments:</span>
 <span class="sd">        queue: Optional name of queue.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iter_folder</span><span class="p">(</span>
-        <span class="s2">&quot;data_folder_in&quot;</span><span class="p">,</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_queued_msg_path_cache</span><span class="p">,</span>
-        <span class="n">queue</span><span class="p">,</span>
-    <span class="p">)</span>
+    <span class="n">queue</span> <span class="o">=</span> <span class="n">queue</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">task_default_queue</span>
+    <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iter_data_folder</span><span class="p">(</span><span class="n">queue</span><span class="o">=</span><span class="n">queue</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
       </details>
   </div>
@@ -1383,10 +1485,7 @@ establishing a full Kombu consumer. Requeue is not supported.</p>
 
       <details class="quote">
         <summary>Source code in <code>dvc_task/app/filesystem.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">216</span>
-<span class="normal">217</span>
-<span class="normal">218</span>
-<span class="normal">219</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">219</span>
 <span class="normal">220</span>
 <span class="normal">221</span>
 <span class="normal">222</span>
@@ -1394,7 +1493,10 @@ establishing a full Kombu consumer. Requeue is not supported.</p>
 <span class="normal">224</span>
 <span class="normal">225</span>
 <span class="normal">226</span>
-<span class="normal">227</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">purge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delivery_tag</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">purge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delivery_tag</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Purge the specified processed message.</span>
 
 <span class="sd">    Allows the caller to purge completed FS broker messages without</span>
@@ -1448,16 +1550,16 @@ full Kombu consumer. Requeue is not supported.</p>
 
       <details class="quote">
         <summary>Source code in <code>dvc_task/app/filesystem.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">205</span>
-<span class="normal">206</span>
-<span class="normal">207</span>
-<span class="normal">208</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">208</span>
 <span class="normal">209</span>
 <span class="normal">210</span>
 <span class="normal">211</span>
 <span class="normal">212</span>
 <span class="normal">213</span>
-<span class="normal">214</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">reject</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delivery_tag</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">reject</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delivery_tag</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Reject the specified message.</span>
 
 <span class="sd">    Allows the caller to reject FS broker messages without establishing a</span>
