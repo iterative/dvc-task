@@ -7,10 +7,7 @@ import pytest
 from pytest_mock import MockerFixture
 from pytest_test_utils import TmpDir
 
-from dvc_task.proc.exceptions import (
-    ProcessNotTerminatedError,
-    UnsupportedSignalError,
-)
+from dvc_task.proc.exceptions import ProcessNotTerminatedError, UnsupportedSignalError
 from dvc_task.proc.manager import ProcessManager
 from dvc_task.proc.process import ProcessInfo
 

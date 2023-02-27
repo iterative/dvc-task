@@ -126,18 +126,14 @@ class ProcessManager:
                 raise UnsupportedSignalError(sig)
 
         def handle_closed_process():
-            logging.warning(
-                "Process '%s' had already aborted unexpectedly.", name
-            )
+            logging.warning("Process '%s' had already aborted unexpectedly.", name)
             process_info.returncode = -1
             self[name] = process_info
 
         if process_info.returncode is None:
             try:
                 if sys.platform != "win32" and group:
-                    pgid = os.getpgid(  # pylint: disable=no-member
-                        process_info.pid
-                    )
+                    pgid = os.getpgid(process_info.pid)  # pylint: disable=no-member
                     os.killpg(pgid, sig)  # pylint: disable=no-member
                 else:
                     os.kill(process_info.pid, sig)
@@ -171,9 +167,7 @@ class ProcessManager:
         if sys.platform == "win32":
             self.send_signal(name, signal.SIGTERM, group)
         else:
-            self.send_signal(
-                name, signal.SIGKILL, group  # pylint: disable=no-member
-            )
+            self.send_signal(name, signal.SIGKILL, group)  # pylint: disable=no-member
 
     def remove(self, name: str, force: bool = False):
         """Remove the specified named process from this manager.

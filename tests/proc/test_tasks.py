@@ -20,10 +20,6 @@ def test_run(
     wdir = str(tmp_dir / "wdir")
     name = "foo"
     init = mocker.spy(ManagedProcess, "__init__")
-    result: Dict[str, Any] = run.delay(
-        "/bin/foo", env=env, wdir=wdir, name=name
-    ).get()
+    result: Dict[str, Any] = run.delay("/bin/foo", env=env, wdir=wdir, name=name).get()
     assert result["pid"] == popen_pid
-    init.assert_called_once_with(
-        mocker.ANY, "/bin/foo", env=env, wdir=wdir, name=name
-    )
+    init.assert_called_once_with(mocker.ANY, "/bin/foo", env=env, wdir=wdir, name=name)
