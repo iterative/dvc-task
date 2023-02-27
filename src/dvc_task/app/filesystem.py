@@ -1,7 +1,8 @@
 """(Local) filesystem based Celery application."""
 import logging
 import os
-from typing import Any, Dict, Generator, Iterable, Optional
+from datetime import datetime
+from typing import Any, Dict, Iterable, Iterator, List, Optional, Set, cast
 
 from celery import Celery
 from kombu.message import Message
@@ -108,21 +109,20 @@ class FSApp(Celery):
 
     def _iter_folder(
         self,
-        path_name: str,
+        folder_name: str,
         path_cache: Dict[str, str],
         queue: Optional[str] = None,
-    ) -> Generator[Message, None, None]:
+    ) -> Iterator[Message]:
         """Iterate over queued tasks inside a folder
 
         Arguments:
-            path_name: the folder to iterate
+            folder_name: the folder to iterate
             path_cache: cache of message path.
             queue: Optional name of queue.
         """
-        queue = queue or self.conf.task_default_queue
         with self.connection_for_read() as conn:  # type: ignore[attr-defined]
             with conn.channel() as channel:
-                folder = getattr(channel, path_name)
+                folder = getattr(channel, folder_name)
                 for filename in sorted(os.listdir(folder)):
                     path = os.path.join(folder, filename)
                     try:
@@ -141,37 +141,40 @@ class FSApp(Celery):
                         continue
                     msg = channel.Message(loads(bytes_to_str(payload)), channel=channel)
                     path_cache[msg.delivery_tag] = path
-                    delivery_info = msg.properties.get("delivery_info", {})
-                    if delivery_info.get("routing_key") == queue:
+                    if queue is None:
                         yield msg
+                    else:
+                        delivery_info = msg.properties.get("delivery_info", {})
+                        if delivery_info.get("routing_key") == queue:
+                            yield msg
 
-    def iter_queued(
-        self, queue: Optional[str] = None
-    ) -> Generator[Message, None, None]:
+    def _iter_data_folder(self, queue: Optional[str] = None) -> Iterator[Message]:
+        yield from self._iter_folder(
+            "data_folder_in", self._queued_msg_path_cache, queue=queue
+        )
+
+    def _iter_processed_folder(self, queue: Optional[str] = None) -> Iterator[Message]:
+        yield from self._iter_folder(
+            "processed_folder", self._processed_msg_path_cache, queue=queue
+        )
+
+    def iter_queued(self, queue: Optional[str] = None) -> Iterator[Message]:
         """Iterate over queued tasks which have not been taken by a worker.
 
         Arguments:
             queue: Optional name of queue.
         """
-        yield from self._iter_folder(
-            "data_folder_in",
-            self._queued_msg_path_cache,
-            queue,
-        )
+        queue = queue or self.conf.task_default_queue
+        yield from self._iter_data_folder(queue=queue)
 
-    def iter_processed(
-        self, queue: Optional[str] = None
-    ) -> Generator[Message, None, None]:
+    def iter_processed(self, queue: Optional[str] = None) -> Iterator[Message]:
         """Iterate over tasks which have been taken by a worker.
 
         Arguments:
             queue: Optional name of queue.
         """
-        yield from self._iter_folder(
-            "processed_folder",
-            self._processed_msg_path_cache,
-            queue,
-        )
+        queue = queue or self.conf.task_default_queue
+        yield from self._iter_processed_folder(queue=queue)
 
     @staticmethod
     def _delete_msg(
@@ -225,3 +228,45 @@ class FSApp(Celery):
         self._delete_msg(
             delivery_tag, self.iter_processed(), self._processed_msg_path_cache
         )
+
+    def _gc(self, exclude: Optional[List[str]] = None):
+        """Garbage collect expired FS broker messages.
+
+        Arguments:
+            exclude: Exclude (do not garbage collect) messages from the specified
+                queues.
+        """
+
+        def _delete_expired(
+            msg: Message,
+            queues: Set[str],
+            now: float,
+            cache: Dict[str, str],
+            include_tickets: bool = False,
+        ):
+            if queues:
+                assert isinstance(msg.properties, dict)
+                properties = cast(Dict[str, Any], msg.properties)
+                delivery_info: Dict[str, str] = properties.get("delivery_info", {})
+                routing_key = delivery_info.get("routing_key")
+                if routing_key and routing_key in queues:
+                    return
+            headers = cast(Dict[str, Any], msg.headers)
+            expires: Optional[float] = headers.get("expires")
+            ticket = msg.headers.get("ticket")
+            if include_tickets and ticket or (expires is not None and expires <= now):
+                assert msg.delivery_tag
+                self._delete_msg(msg.delivery_tag, [], cache)
+
+        queues = set(exclude) if exclude else set()
+        now = datetime.now().timestamp()
+        for msg in self._iter_data_folder():
+            _delete_expired(msg, queues, now, self._queued_msg_path_cache)
+        for msg in self._iter_processed_folder():
+            _delete_expired(
+                msg, queues, now, self._processed_msg_path_cache, include_tickets=True
+            )
+
+    def clean(self):
+        """Clean extraneous celery messages from this FSApp."""
+        self._gc(exclude=[self.conf.task_default_queue])
