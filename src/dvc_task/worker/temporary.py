@@ -49,9 +49,7 @@ class TemporaryWorker:
             os.environ["FORKED_BY_MULTIPROCESSING"] = "1"
 
         if not self.app.control.ping(destination=[name]):
-            monitor = threading.Thread(
-                target=self.monitor, daemon=True, args=(name,)
-            )
+            monitor = threading.Thread(target=self.monitor, daemon=True, args=(name,))
             monitor.start()
             config = dict(self.config)
             config["hostname"] = name
@@ -89,7 +87,6 @@ class TemporaryWorker:
             time.sleep(1)
 
         def _tasksets(nodes):
-
             for taskset in (
                 nodes.active(),
                 nodes.scheduled(),

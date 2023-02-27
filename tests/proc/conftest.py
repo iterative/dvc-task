@@ -38,9 +38,7 @@ def create_process(
     returncode: Optional[int] = None,
 ):
     """Create a test process info directory."""
-    info_path = manager._get_info_path(  # pylint: disable=protected-access
-        name
-    )
+    info_path = manager._get_info_path(name)  # pylint: disable=protected-access
     os.makedirs(os.path.dirname(info_path))
     process_info = ProcessInfo(
         pid=pid,

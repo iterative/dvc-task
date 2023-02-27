@@ -139,9 +139,7 @@ class FSApp(Celery):
                         continue
                     if not payload:
                         continue
-                    msg = channel.Message(
-                        loads(bytes_to_str(payload)), channel=channel
-                    )
+                    msg = channel.Message(loads(bytes_to_str(payload)), channel=channel)
                     path_cache[msg.delivery_tag] = path
                     delivery_info = msg.properties.get("delivery_info", {})
                     if delivery_info.get("routing_key") == queue:
@@ -213,9 +211,7 @@ class FSApp(Celery):
         Raises:
             ValueError: Invalid delivery_tag
         """
-        self._delete_msg(
-            delivery_tag, self.iter_queued(), self._queued_msg_path_cache
-        )
+        self._delete_msg(delivery_tag, self.iter_queued(), self._queued_msg_path_cache)
 
     def purge(self, delivery_tag: str):
         """Purge the specified processed message.

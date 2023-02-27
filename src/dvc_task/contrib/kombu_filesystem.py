@@ -22,7 +22,6 @@ from ..exceptions import DvcTaskError
 
 # needs win32all to work on Windows
 if os.name == "nt":
-
     import pywintypes
     import win32con
     import win32file
@@ -44,7 +43,6 @@ if os.name == "nt":
         win32file.UnlockFileEx(hfile, 0, 0xFFFF0000, __overlapped)
 
 elif os.name == "posix":
-
     import fcntl
     from fcntl import LOCK_EX, LOCK_SH
 
@@ -57,14 +55,10 @@ elif os.name == "posix":
         fcntl.flock(file.fileno(), fcntl.LOCK_UN)
 
 else:
-    raise RuntimeError(
-        "Filesystem plugin only defined for NT and POSIX platforms"
-    )
+    raise RuntimeError("Filesystem plugin only defined for NT and POSIX platforms")
 
 
-exchange_queue_t = namedtuple(
-    "exchange_queue_t", ["routing_key", "pattern", "queue"]
-)
+exchange_queue_t = namedtuple("exchange_queue_t", ["routing_key", "pattern", "queue"])
 
 
 class FilesystemChannel(virtual.Channel):
@@ -91,9 +85,7 @@ class FilesystemChannel(virtual.Channel):
     def _queue_bind(self, exchange, routing_key, pattern, queue):
         file = self.control_folder / f"{exchange}.exchange"
         self.control_folder.mkdir(exist_ok=True)
-        queue_val = exchange_queue_t(
-            routing_key or "", pattern or "", queue or ""
-        )
+        queue_val = exchange_queue_t(routing_key or "", pattern or "", queue or "")
         try:
             if file.exists():
                 f_obj = file.open("rb+", buffering=0)
@@ -169,9 +161,7 @@ class FilesystemChannel(virtual.Channel):
                 if not self.store_processed:
                     os.remove(filename)
             except OSError:
-                raise ChannelError(
-                    f"Cannot read file {filename!r} from queue."
-                )
+                raise ChannelError(f"Cannot read file {filename!r} from queue.")
 
             return loads(bytes_to_str(payload))
 
