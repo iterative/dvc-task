@@ -25,6 +25,36 @@ TEST_MSG: Dict[str, Any] = {
         "delivery_tag": "789",
     },
 }
+EXPIRED_MSG: Dict[str, Any] = {
+    "body": "",
+    "content-encoding": "utf-8",
+    "content-type": "application/json",
+    "headers": {"expires": 1},
+    "properties": {
+        "correlation_id": "123",
+        "reply_to": "456",
+        "delivery_mode": 2,
+        "delivery_info": {"exchange": "", "routing_key": "celery"},
+        "priority": 0,
+        "body_encoding": "base64",
+        "delivery_tag": "789-expired",
+    },
+}
+TICKET_MSG: Dict[str, Any] = {
+    "body": "",
+    "content-encoding": "utf-8",
+    "content-type": "application/json",
+    "headers": {"ticket": "abc123"},
+    "properties": {
+        "correlation_id": "123",
+        "reply_to": "456",
+        "delivery_mode": 2,
+        "delivery_info": {"exchange": "celery.pidbox", "routing_key": "abc123"},
+        "priority": 0,
+        "body_encoding": "base64",
+        "delivery_tag": "789-ticket",
+    },
+}
 
 
 def test_config(tmp_dir: TmpDir):
@@ -118,3 +148,61 @@ def test_purge(tmp_dir: TmpDir):
 
     with pytest.raises(ValueError):
         app.purge(TEST_MSG["properties"]["delivery_tag"])
+
+
+def test_gc(tmp_dir: TmpDir):
+    """Expired messages and processed tickets should be removed."""
+    app = FSApp(wdir=str(tmp_dir), mkdir=True)
+    tmp_dir.gen(
+        {
+            "broker": {
+                "in": {
+                    "expired.msg": json.dumps(EXPIRED_MSG),
+                    "unexpired.msg": json.dumps(TEST_MSG),
+                    "ticket.msg": json.dumps(TICKET_MSG),
+                },
+                "processed": {
+                    "expired.msg": json.dumps(EXPIRED_MSG),
+                    "unexpired.msg": json.dumps(TEST_MSG),
+                    "ticket.msg": json.dumps(TICKET_MSG),
+                },
+            },
+        }
+    )
+
+    app._gc()  # pylint: disable=protected-access
+    assert not (tmp_dir / "broker" / "in" / "expired.msg").exists()
+    assert (tmp_dir / "broker" / "in" / "unexpired.msg").exists()
+    assert (tmp_dir / "broker" / "in" / "ticket.msg").exists()
+    assert not (tmp_dir / "broker" / "processed" / "expired.msg").exists()
+    assert (tmp_dir / "broker" / "in" / "unexpired.msg").exists()
+    assert not (tmp_dir / "broker" / "processed" / "ticket.msg").exists()
+
+
+def test_gc_exclude(tmp_dir: TmpDir):
+    """Messages from excluded queues should not be removed."""
+    app = FSApp(wdir=str(tmp_dir), mkdir=True)
+    tmp_dir.gen(
+        {
+            "broker": {
+                "in": {
+                    "expired.msg": json.dumps(EXPIRED_MSG),
+                    "unexpired.msg": json.dumps(TEST_MSG),
+                    "ticket.msg": json.dumps(TICKET_MSG),
+                },
+                "processed": {
+                    "expired.msg": json.dumps(EXPIRED_MSG),
+                    "unexpired.msg": json.dumps(TEST_MSG),
+                    "ticket.msg": json.dumps(TICKET_MSG),
+                },
+            },
+        }
+    )
+
+    app._gc(exclude=["celery"])  # pylint: disable=protected-access
+    assert (tmp_dir / "broker" / "in" / "expired.msg").exists()
+    assert (tmp_dir / "broker" / "in" / "unexpired.msg").exists()
+    assert (tmp_dir / "broker" / "in" / "ticket.msg").exists()
+    assert (tmp_dir / "broker" / "processed" / "expired.msg").exists()
+    assert (tmp_dir / "broker" / "in" / "unexpired.msg").exists()
+    assert not (tmp_dir / "broker" / "processed" / "ticket.msg").exists()
