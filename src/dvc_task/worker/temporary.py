@@ -36,20 +36,27 @@ class TemporaryWorker:
         self.timeout = timeout
         self.config = kwargs
 
-    def start(self, name: str) -> None:
+    def start(self, name: str, fsapp_clean: bool = False) -> None:
         """Start the worker if it does not already exist.
 
         Runs the Celery worker main thread in the current process.
 
         Arguments:
             name: Celery worker name.
+            fsapp_clean: Automatically cleanup FSApp broker on shutdown. Has no
+                effect unless app is an FSApp instance.
         """
         if os.name == "nt":
             # see https://github.com/celery/billiard/issues/247
             os.environ["FORKED_BY_MULTIPROCESSING"] = "1"
 
         if not self.app.control.ping(destination=[name]):
-            monitor = threading.Thread(target=self.monitor, daemon=True, args=(name,))
+            monitor = threading.Thread(
+                target=self.monitor,
+                daemon=True,
+                args=(name,),
+                kwargs={"fsapp_clean": fsapp_clean},
+            )
             monitor.start()
             config = dict(self.config)
             config["hostname"] = name
@@ -78,7 +85,7 @@ class TemporaryWorker:
             argv.append("-E")
         return argv
 
-    def monitor(self, name: str) -> None:
+    def monitor(self, name: str, fsapp_clean: bool = False) -> None:
         """Monitor the worker and stop it when the queue is empty."""
         logger.debug("monitor: waiting for worker to start")
         nodename = default_nodename(name)
@@ -108,4 +115,7 @@ class TemporaryWorker:
                 logger.info("monitor: shutting down due to empty queue.")
                 self.app.control.shutdown(destination=[nodename])
                 break
+        if fsapp_clean and isinstance(self.app, FSApp):
+            logger.info("monitor: cleanup FSApp broker.")
+            self.app.clean()
         logger.info("monitor: done")
