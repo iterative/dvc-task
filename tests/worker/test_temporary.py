@@ -24,7 +24,9 @@ def test_start(celery_app: Celery, mocker: MockerFixture):
     assert kwargs["pool"] == TaskPool
     assert kwargs["concurrency"] == 1
     assert kwargs["prefetch_multiplier"] == 1
-    thread.assert_called_once_with(target=worker.monitor, daemon=True, args=(name,))
+    thread.assert_called_once_with(
+        target=worker.monitor, daemon=True, args=(name,), kwargs={"fsapp_clean": False}
+    )
 
 
 @pytest.mark.flaky(
