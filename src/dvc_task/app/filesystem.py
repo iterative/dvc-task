@@ -244,10 +244,10 @@ class FSApp(Celery):
             cache: Dict[str, str],
             include_tickets: bool = False,
         ):
+            assert isinstance(msg.properties, dict)
+            properties = cast(Dict[str, Any], msg.properties)
+            delivery_info: Dict[str, str] = properties.get("delivery_info", {})
             if queues:
-                assert isinstance(msg.properties, dict)
-                properties = cast(Dict[str, Any], msg.properties)
-                delivery_info: Dict[str, str] = properties.get("delivery_info", {})
                 routing_key = delivery_info.get("routing_key")
                 if routing_key and routing_key in queues:
                     return
@@ -256,7 +256,10 @@ class FSApp(Celery):
             ticket = msg.headers.get("ticket")
             if include_tickets and ticket or (expires is not None and expires <= now):
                 assert msg.delivery_tag
-                self._delete_msg(msg.delivery_tag, [], cache)
+                try:
+                    self._delete_msg(msg.delivery_tag, [], cache)
+                except ValueError:
+                    pass
 
         queues = set(exclude) if exclude else set()
         now = datetime.now().timestamp()
@@ -270,3 +273,21 @@ class FSApp(Celery):
     def clean(self):
         """Clean extraneous celery messages from this FSApp."""
         self._gc(exclude=[self.conf.task_default_queue])
+        self._clean_pidbox(f"reply.{self.conf.task_default_queue}.pidbox")
+
+    def _clean_pidbox(self, exchange: str):
+        """Clean pidbox replies for the specified exchange."""
+
+        def _delete_replies(msg: Message, exchange: str, cache: Dict[str, str]):
+            assert isinstance(msg.properties, dict)
+            properties = cast(Dict[str, Any], msg.properties)
+            delivery_info: Dict[str, str] = properties.get("delivery_info", {})
+            if delivery_info.get("exchange", "") == exchange:
+                assert msg.delivery_tag
+                try:
+                    self._delete_msg(msg.delivery_tag, [], cache)
+                except ValueError:
+                    pass
+
+        for msg in self._iter_data_folder():
+            _delete_replies(msg, exchange, self._queued_msg_path_cache)
