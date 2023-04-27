@@ -3,7 +3,7 @@ import logging
 import os
 import threading
 import time
-from typing import Any, List, Mapping
+from typing import Any, Dict, List, Mapping, Optional
 
 from celery import Celery
 from celery.utils.nodenames import default_nodename
@@ -36,6 +36,15 @@ class TemporaryWorker:
         self.timeout = timeout
         self.config = kwargs
 
+    def ping(self, name: str, timeout: float = 1.0) -> Optional[List[Dict[str, Any]]]:
+        """Ping the specified worker."""
+        return self._ping(destination=[default_nodename(name)], timeout=timeout)
+
+    def _ping(
+        self, *, destination: Optional[List[str]] = None, timeout: float = 1.0
+    ) -> Optional[List[Dict[str, Any]]]:
+        return self.app.control.ping(destination=destination, timeout=timeout)
+
     def start(self, name: str, fsapp_clean: bool = False) -> None:
         """Start the worker if it does not already exist.
 
@@ -50,12 +59,11 @@ class TemporaryWorker:
             # see https://github.com/celery/billiard/issues/247
             os.environ["FORKED_BY_MULTIPROCESSING"] = "1"
 
-        if not self.app.control.ping(destination=[name]):
+        if not self.ping(name):
             monitor = threading.Thread(
                 target=self.monitor,
                 daemon=True,
                 args=(name,),
-                kwargs={"fsapp_clean": fsapp_clean},
             )
             monitor.start()
             config = dict(self.config)
@@ -63,6 +71,10 @@ class TemporaryWorker:
             argv = ["worker"]
             argv.extend(self._parse_config(config))
             self.app.worker_main(argv=argv)
+            if fsapp_clean and isinstance(self.app, FSApp):  # type: ignore[unreachable]
+                logger.info("cleaning up FSApp broker.")
+                self.app.clean()
+            logger.info("done")
 
     @staticmethod
     def _parse_config(config: Mapping[str, Any]) -> List[str]:
@@ -85,13 +97,9 @@ class TemporaryWorker:
             argv.append("-E")
         return argv
 
-    def monitor(self, name: str, fsapp_clean: bool = False) -> None:
+    def monitor(self, name: str) -> None:
         """Monitor the worker and stop it when the queue is empty."""
-        logger.debug("monitor: waiting for worker to start")
         nodename = default_nodename(name)
-        while not self.app.control.ping(destination=[nodename]):
-            # wait for worker to start
-            time.sleep(1)
 
         def _tasksets(nodes):
             for taskset in (
@@ -105,17 +113,16 @@ class TemporaryWorker:
             if isinstance(self.app, FSApp):
                 yield from self.app.iter_queued()
 
-        logger.info("monitor: watching celery worker '%s'", nodename)
-        while self.app.control.ping(destination=[nodename]):
+        logger.debug("monitor: watching celery worker '%s'", nodename)
+        while True:
             time.sleep(self.timeout)
             nodes = self.app.control.inspect(  # type: ignore[call-arg]
-                destination=[nodename]
+                destination=[nodename],
+                limit=1,
             )
             if nodes is None or not any(tasks for tasks in _tasksets(nodes)):
                 logger.info("monitor: shutting down due to empty queue.")
-                self.app.control.shutdown(destination=[nodename])
                 break
-        if fsapp_clean and isinstance(self.app, FSApp):
-            logger.info("monitor: cleanup FSApp broker.")
-            self.app.clean()
-        logger.info("monitor: done")
+        logger.debug("monitor: sending shutdown to '%s'.", nodename)
+        self.app.control.shutdown()
+        logger.debug("monitor: done")
