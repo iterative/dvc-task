@@ -813,7 +813,7 @@
 
 
         <details class="quote">
-          <summary>Source code in <code>dvc_task/app/filesystem.py</code></summary>
+          <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/dvc_task/app/filesystem.py</code></summary>
           <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 64</span>
 <span class="normal"> 65</span>
 <span class="normal"> 66</span>
@@ -1022,7 +1022,28 @@
 <span class="normal">269</span>
 <span class="normal">270</span>
 <span class="normal">271</span>
-<span class="normal">272</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">FSApp</span><span class="p">(</span><span class="n">Celery</span><span class="p">):</span>
+<span class="normal">272</span>
+<span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span>
+<span class="normal">276</span>
+<span class="normal">277</span>
+<span class="normal">278</span>
+<span class="normal">279</span>
+<span class="normal">280</span>
+<span class="normal">281</span>
+<span class="normal">282</span>
+<span class="normal">283</span>
+<span class="normal">284</span>
+<span class="normal">285</span>
+<span class="normal">286</span>
+<span class="normal">287</span>
+<span class="normal">288</span>
+<span class="normal">289</span>
+<span class="normal">290</span>
+<span class="normal">291</span>
+<span class="normal">292</span>
+<span class="normal">293</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">FSApp</span><span class="p">(</span><span class="n">Celery</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Local filesystem-based Celery application.</span>
 
 <span class="sd">    Uses Kombu filesystem:// broker and results backend</span>
@@ -1205,10 +1226,10 @@
             <span class="n">cache</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
             <span class="n">include_tickets</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="p">):</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">properties</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+            <span class="n">properties</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">msg</span><span class="o">.</span><span class="n">properties</span><span class="p">)</span>
+            <span class="n">delivery_info</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">properties</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;delivery_info&quot;</span><span class="p">,</span> <span class="p">{})</span>
             <span class="k">if</span> <span class="n">queues</span><span class="p">:</span>
-                <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">properties</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
-                <span class="n">properties</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">msg</span><span class="o">.</span><span class="n">properties</span><span class="p">)</span>
-                <span class="n">delivery_info</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">properties</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;delivery_info&quot;</span><span class="p">,</span> <span class="p">{})</span>
                 <span class="n">routing_key</span> <span class="o">=</span> <span class="n">delivery_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;routing_key&quot;</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">routing_key</span> <span class="ow">and</span> <span class="n">routing_key</span> <span class="ow">in</span> <span class="n">queues</span><span class="p">:</span>
                     <span class="k">return</span>
@@ -1217,7 +1238,10 @@
             <span class="n">ticket</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ticket&quot;</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">include_tickets</span> <span class="ow">and</span> <span class="n">ticket</span> <span class="ow">or</span> <span class="p">(</span><span class="n">expires</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">expires</span> <span class="o">&lt;=</span> <span class="n">now</span><span class="p">):</span>
                 <span class="k">assert</span> <span class="n">msg</span><span class="o">.</span><span class="n">delivery_tag</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_delete_msg</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">delivery_tag</span><span class="p">,</span> <span class="p">[],</span> <span class="n">cache</span><span class="p">)</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_delete_msg</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">delivery_tag</span><span class="p">,</span> <span class="p">[],</span> <span class="n">cache</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                    <span class="k">pass</span>
 
         <span class="n">queues</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">exclude</span><span class="p">)</span> <span class="k">if</span> <span class="n">exclude</span> <span class="k">else</span> <span class="nb">set</span><span class="p">()</span>
         <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">timestamp</span><span class="p">()</span>
@@ -1231,6 +1255,24 @@
     <span class="k">def</span> <span class="nf">clean</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Clean extraneous celery messages from this FSApp.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_gc</span><span class="p">(</span><span class="n">exclude</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">task_default_queue</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_clean_pidbox</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;reply.</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">task_default_queue</span><span class="si">}</span><span class="s2">.pidbox&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_clean_pidbox</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exchange</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Clean pidbox replies for the specified exchange.&quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="nf">_delete_replies</span><span class="p">(</span><span class="n">msg</span><span class="p">:</span> <span class="n">Message</span><span class="p">,</span> <span class="n">exchange</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">cache</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]):</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">properties</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+            <span class="n">properties</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">msg</span><span class="o">.</span><span class="n">properties</span><span class="p">)</span>
+            <span class="n">delivery_info</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">properties</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;delivery_info&quot;</span><span class="p">,</span> <span class="p">{})</span>
+            <span class="k">if</span> <span class="n">delivery_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;exchange&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="n">exchange</span><span class="p">:</span>
+                <span class="k">assert</span> <span class="n">msg</span><span class="o">.</span><span class="n">delivery_tag</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_delete_msg</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">delivery_tag</span><span class="p">,</span> <span class="p">[],</span> <span class="n">cache</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                    <span class="k">pass</span>
+
+        <span class="k">for</span> <span class="n">msg</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iter_data_folder</span><span class="p">():</span>
+            <span class="n">_delete_replies</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">exchange</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_queued_msg_path_cache</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
         </details>
 
@@ -1318,7 +1360,7 @@ exist.</p></td>
       <p>Additional arguments will be passed into the Celery constructor.</p>
 
       <details class="quote">
-        <summary>Source code in <code>dvc_task/app/filesystem.py</code></summary>
+        <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/dvc_task/app/filesystem.py</code></summary>
         <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 70</span>
 <span class="normal"> 71</span>
 <span class="normal"> 72</span>
@@ -1407,12 +1449,14 @@ exist.</p></td>
       <p>Clean extraneous celery messages from this FSApp.</p>
 
       <details class="quote">
-        <summary>Source code in <code>dvc_task/app/filesystem.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">270</span>
-<span class="normal">271</span>
-<span class="normal">272</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">clean</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/dvc_task/app/filesystem.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span>
+<span class="normal">276</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">clean</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Clean extraneous celery messages from this FSApp.&quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_gc</span><span class="p">(</span><span class="n">exclude</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">task_default_queue</span><span class="p">])</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_clean_pidbox</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;reply.</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">task_default_queue</span><span class="si">}</span><span class="s2">.pidbox&quot;</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
       </details>
   </div>
@@ -1458,7 +1502,7 @@ exist.</p></td>
   </table>
 
       <details class="quote">
-        <summary>Source code in <code>dvc_task/app/filesystem.py</code></summary>
+        <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/dvc_task/app/filesystem.py</code></summary>
         <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">170</span>
 <span class="normal">171</span>
 <span class="normal">172</span>
@@ -1519,7 +1563,7 @@ exist.</p></td>
   </table>
 
       <details class="quote">
-        <summary>Source code in <code>dvc_task/app/filesystem.py</code></summary>
+        <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/dvc_task/app/filesystem.py</code></summary>
         <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">161</span>
 <span class="normal">162</span>
 <span class="normal">163</span>
@@ -1576,7 +1620,7 @@ establishing a full Kombu consumer. Requeue is not supported.</p>
   </table>
 
       <details class="quote">
-        <summary>Source code in <code>dvc_task/app/filesystem.py</code></summary>
+        <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/dvc_task/app/filesystem.py</code></summary>
         <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">219</span>
 <span class="normal">220</span>
 <span class="normal">221</span>
@@ -1641,7 +1685,7 @@ full Kombu consumer. Requeue is not supported.</p>
   </table>
 
       <details class="quote">
-        <summary>Source code in <code>dvc_task/app/filesystem.py</code></summary>
+        <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/dvc_task/app/filesystem.py</code></summary>
         <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">208</span>
 <span class="normal">209</span>
 <span class="normal">210</span>
