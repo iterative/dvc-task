@@ -113,7 +113,7 @@ class FSApp(Celery):
             queue: Optional name of queue.
         """
         with self.connection_for_read() as conn:  # type: ignore[attr-defined]
-            with conn.channel() as channel:
+            with conn.channel() as channel:  # type: ignore[attr-defined]
                 folder = getattr(channel, folder_name)
                 for filename in sorted(os.listdir(folder)):
                     path = os.path.join(folder, filename)
