@@ -68,8 +68,7 @@ module = [
     "celery.*",
     "funcy.*",
     "shortuuid",
-    "kombu.message.*",
-    "kombu.utils.*",
+    "kombu.*",
 ]
 ignore_missing_imports = true
 
