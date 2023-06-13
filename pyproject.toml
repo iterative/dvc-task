@@ -33,7 +33,6 @@ addopts = "-ra"
 [tool.coverage.run]
 branch = true
 source = ["dvc_task", "tests"]
-omit = ["dvc_task/contrib/*"]
 
 [tool.coverage.paths]
 source = ["src", "*/site-packages"]
@@ -63,7 +62,6 @@ warn_no_return = true
 warn_redundant_casts = true
 warn_unreachable = true
 files = ["src", "tests"]
-exclude = ["^src/dvc_task/contrib"]
 
 [[tool.mypy.overrides]]
 module = [
@@ -74,9 +72,6 @@ module = [
     "kombu.utils.*",
 ]
 ignore_missing_imports = true
-
-[tool.pylint.master]
-ignore-paths = ["src/dvc_task/contrib"]
 
 [tool.pylint.format]
 max-line-length = 88
