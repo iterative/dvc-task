@@ -8,8 +8,15 @@
       
       
       
+      
+        <link rel="prev" href="../app/filesystem/">
+      
+      
+        <link rel="next" href="exceptions/">
+      
+      
       <link rel="icon" href="../../../assets/logo.svg">
-      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.4.1">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.3.1">
     
     
       
@@ -17,18 +24,17 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.69437709.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.046329b4.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.cbb835fc.min.css">
-        
-          
-          
-          <meta name="theme-color" content="#ffffff">
-        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.85d0ee34.min.css">
       
       
+
+
     
+    
+      
     
     
       
@@ -48,6 +54,7 @@
 
     
     
+    
   </head>
   
   
@@ -56,7 +63,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="white" data-md-color-accent="deep-purple">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="deep-purple">
   
     
     
@@ -78,7 +85,9 @@
     
       
 
-<header class="md-header" data-md-component="header">
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../../.." title="Dvc Task" class="md-header__button md-logo" aria-label="Dvc Task" data-md-component="logo">
       
@@ -86,6 +95,7 @@
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
+      
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
     </label>
     <div class="md-header__title" data-md-component="header-title">
@@ -105,9 +115,12 @@
       </div>
     </div>
     
+      
+    
     
     
       <label class="md-header__button md-icon" for="__search">
+        
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
       </label>
       <div class="md-search" data-md-component="search" role="dialog">
@@ -116,12 +129,15 @@
     <form class="md-search__form" name="search">
       <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
+        
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
       </label>
       <nav class="md-search__options" aria-label="Search">
         
-        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
         </button>
       </nav>
@@ -133,7 +149,7 @@
           <div class="md-search-result__meta">
             Initializing search
           </div>
-          <ol class="md-search-result__list"></ol>
+          <ol class="md-search-result__list" role="presentation"></ol>
         </div>
       </div>
     </div>
@@ -145,7 +161,7 @@
         <a href="https://github.com/iterative/dvc-task" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
   </div>
   <div class="md-source__repository">
     iterative/dvc-task
@@ -175,6 +191,7 @@
                     
 
 
+
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href="../../.." title="Dvc Task" class="md-nav__button md-logo" aria-label="Dvc Task" data-md-component="logo">
@@ -189,7 +206,7 @@
       <a href="https://github.com/iterative/dvc-task" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
   </div>
   <div class="md-source__repository">
     iterative/dvc-task
@@ -201,14 +218,18 @@
     
       
       
-      
-
   
   
   
     <li class="md-nav__item">
       <a href="../../.." class="md-nav__link">
-        Welcome to Dvc Task
+        
+  
+  <span class="md-ellipsis">
+    Welcome to Dvc Task
+  </span>
+  
+
       </a>
     </li>
   
@@ -216,308 +237,407 @@
     
       
       
+  
+  
+    
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Reference
+  </span>
+  
 
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
   
   
     
   
   
+    
+    
     
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
-      
-      
-      
-      
-        <label class="md-nav__link" for="__nav_2">
-          Reference
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" aria-label="Reference" data-md-level="1">
-        <label class="md-nav__title" for="__nav_2">
-          <span class="md-nav__icon md-icon"></span>
-          Reference
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-    
-  
-  
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
-      
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" checked>
-      
-      
-      
-      
         
         
-        <div class="md-nav__link md-nav__link--index ">
-          <a href="../">Dvc task</a>
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        
           
-            <label for="__nav_2_1">
-              <span class="md-nav__icon md-icon"></span>
-            </label>
           
-        </div>
-      
-      <nav class="md-nav" aria-label="Dvc task" data-md-level="2">
-        <label class="md-nav__title" for="__nav_2_1">
-          <span class="md-nav__icon md-icon"></span>
-          Dvc task
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Dvc task
+  </span>
+  
+
+            </a>
+            
+              <label class="md-nav__link " for="__nav_2_1">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            Dvc task
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
+                
   
   
   
     <li class="md-nav__item">
       <a href="../exceptions/" class="md-nav__link">
-        Exceptions
+        
+  
+  <span class="md-ellipsis">
+    Exceptions
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
   
   
   
     <li class="md-nav__item">
       <a href="../utils/" class="md-nav__link">
-        Utils
+        
+  
+  <span class="md-ellipsis">
+    Utils
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
   
   
   
     
+    
+    
     <li class="md-nav__item md-nav__item--nested">
       
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_3" type="checkbox" id="__nav_2_1_3" >
-      
-      
-      
-      
         
         
-        <div class="md-nav__link md-nav__link--index ">
-          <a href="../app/">App</a>
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_3" >
+        
           
-            <label for="__nav_2_1_3">
-              <span class="md-nav__icon md-icon"></span>
-            </label>
           
-        </div>
-      
-      <nav class="md-nav" aria-label="App" data-md-level="3">
-        <label class="md-nav__title" for="__nav_2_1_3">
-          <span class="md-nav__icon md-icon"></span>
-          App
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
+          <div class="md-nav__link md-nav__container">
+            <a href="../app/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    App
+  </span>
+  
+
+            </a>
+            
+              <label class="md-nav__link " for="__nav_2_1_3">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            App
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
+                
   
   
   
     <li class="md-nav__item">
       <a href="../app/filesystem/" class="md-nav__link">
-        Filesystem
+        
+  
+  <span class="md-ellipsis">
+    Filesystem
+  </span>
+  
+
       </a>
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      
     </li>
   
 
-            
-          
+              
             
               
+                
   
   
     
   
   
+    
+    
     
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_4" type="checkbox" id="__nav_2_1_4" checked>
-      
-      
-      
-      
         
         
-        <div class="md-nav__link md-nav__link--index md-nav__link--active">
-          <a href="./">Proc</a>
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_4" checked>
+        
           
-            <label for="__nav_2_1_4">
-              <span class="md-nav__icon md-icon"></span>
-            </label>
           
-        </div>
-      
-      <nav class="md-nav" aria-label="Proc" data-md-level="3">
-        <label class="md-nav__title" for="__nav_2_1_4">
-          <span class="md-nav__icon md-icon"></span>
-          Proc
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
+          <div class="md-nav__link md-nav__container">
+            <a href="./" class="md-nav__link md-nav__link--active">
+              
+  
+  <span class="md-ellipsis">
+    Proc
+  </span>
+  
+
+            </a>
+            
+              <label class="md-nav__link md-nav__link--active" for="__nav_2_1_4">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1_4">
+            <span class="md-nav__icon md-icon"></span>
+            Proc
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
+                
   
   
   
     <li class="md-nav__item">
       <a href="exceptions/" class="md-nav__link">
-        Exceptions
+        
+  
+  <span class="md-ellipsis">
+    Exceptions
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
   
   
   
     <li class="md-nav__item">
       <a href="manager/" class="md-nav__link">
-        Manager
+        
+  
+  <span class="md-ellipsis">
+    Manager
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
   
   
   
     <li class="md-nav__item">
       <a href="process/" class="md-nav__link">
-        Process
+        
+  
+  <span class="md-ellipsis">
+    Process
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
   
   
   
     <li class="md-nav__item">
       <a href="tasks/" class="md-nav__link">
-        Tasks
+        
+  
+  <span class="md-ellipsis">
+    Tasks
+  </span>
+  
+
       </a>
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      
     </li>
   
 
-            
-          
+              
             
               
+                
   
   
   
     
+    
+    
     <li class="md-nav__item md-nav__item--nested">
       
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_5" type="checkbox" id="__nav_2_1_5" >
-      
-      
-      
-      
         
         
-        <div class="md-nav__link md-nav__link--index ">
-          <a href="../worker/">Worker</a>
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_5" >
+        
           
-            <label for="__nav_2_1_5">
-              <span class="md-nav__icon md-icon"></span>
-            </label>
           
-        </div>
-      
-      <nav class="md-nav" aria-label="Worker" data-md-level="3">
-        <label class="md-nav__title" for="__nav_2_1_5">
-          <span class="md-nav__icon md-icon"></span>
-          Worker
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
+          <div class="md-nav__link md-nav__container">
+            <a href="../worker/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Worker
+  </span>
+  
+
+            </a>
+            
+              <label class="md-nav__link " for="__nav_2_1_5">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_5">
+            <span class="md-nav__icon md-icon"></span>
+            Worker
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
+                
   
   
   
     <li class="md-nav__item">
       <a href="../worker/temporary/" class="md-nav__link">
-        Temporary
+        
+  
+  <span class="md-ellipsis">
+    Temporary
+  </span>
+  
+
       </a>
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -548,7 +668,7 @@
       
         <li class="md-nav__item">
   <a href="#dvc_task.proc" class="md-nav__link">
-    dvc_task.proc
+    proc
   </a>
   
 </li>
@@ -562,63 +682,63 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#dvc_task.proc.process.ManagedProcess.info" class="md-nav__link">
+  <a href="#dvc_task.proc.ManagedProcess.info" class="md-nav__link">
     info
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#dvc_task.proc.process.ManagedProcess.pid" class="md-nav__link">
+  <a href="#dvc_task.proc.ManagedProcess.pid" class="md-nav__link">
     pid
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#dvc_task.proc.process.ManagedProcess.__init__" class="md-nav__link">
+  <a href="#dvc_task.proc.ManagedProcess.__init__" class="md-nav__link">
     __init__()
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#dvc_task.proc.process.ManagedProcess.info_path" class="md-nav__link">
+  <a href="#dvc_task.proc.ManagedProcess.info_path" class="md-nav__link">
     info_path()
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#dvc_task.proc.process.ManagedProcess.pidfile_path" class="md-nav__link">
+  <a href="#dvc_task.proc.ManagedProcess.pidfile_path" class="md-nav__link">
     pidfile_path()
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#dvc_task.proc.process.ManagedProcess.run" class="md-nav__link">
+  <a href="#dvc_task.proc.ManagedProcess.run" class="md-nav__link">
     run()
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#dvc_task.proc.process.ManagedProcess.spawn" class="md-nav__link">
+  <a href="#dvc_task.proc.ManagedProcess.spawn" class="md-nav__link">
     spawn()
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#dvc_task.proc.process.ManagedProcess.stdout_path" class="md-nav__link">
+  <a href="#dvc_task.proc.ManagedProcess.stdout_path" class="md-nav__link">
     stdout_path()
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#dvc_task.proc.process.ManagedProcess.wait" class="md-nav__link">
+  <a href="#dvc_task.proc.ManagedProcess.wait" class="md-nav__link">
     wait()
   </a>
   
@@ -638,28 +758,28 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#dvc_task.proc.process.ProcessInfo.asdict" class="md-nav__link">
+  <a href="#dvc_task.proc.ProcessInfo.asdict" class="md-nav__link">
     asdict()
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#dvc_task.proc.process.ProcessInfo.dump" class="md-nav__link">
+  <a href="#dvc_task.proc.ProcessInfo.dump" class="md-nav__link">
     dump()
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#dvc_task.proc.process.ProcessInfo.from_dict" class="md-nav__link">
+  <a href="#dvc_task.proc.ProcessInfo.from_dict" class="md-nav__link">
     from_dict()
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#dvc_task.proc.process.ProcessInfo.load" class="md-nav__link">
+  <a href="#dvc_task.proc.ProcessInfo.load" class="md-nav__link">
     load()
   </a>
   
@@ -679,77 +799,77 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#dvc_task.proc.manager.ProcessManager.__init__" class="md-nav__link">
+  <a href="#dvc_task.proc.ProcessManager.__init__" class="md-nav__link">
     __init__()
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#dvc_task.proc.manager.ProcessManager.cleanup" class="md-nav__link">
+  <a href="#dvc_task.proc.ProcessManager.cleanup" class="md-nav__link">
     cleanup()
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#dvc_task.proc.manager.ProcessManager.follow" class="md-nav__link">
+  <a href="#dvc_task.proc.ProcessManager.follow" class="md-nav__link">
     follow()
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#dvc_task.proc.manager.ProcessManager.get" class="md-nav__link">
+  <a href="#dvc_task.proc.ProcessManager.get" class="md-nav__link">
     get()
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#dvc_task.proc.manager.ProcessManager.interrupt" class="md-nav__link">
+  <a href="#dvc_task.proc.ProcessManager.interrupt" class="md-nav__link">
     interrupt()
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#dvc_task.proc.manager.ProcessManager.kill" class="md-nav__link">
+  <a href="#dvc_task.proc.ProcessManager.kill" class="md-nav__link">
     kill()
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#dvc_task.proc.manager.ProcessManager.processes" class="md-nav__link">
+  <a href="#dvc_task.proc.ProcessManager.processes" class="md-nav__link">
     processes()
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#dvc_task.proc.manager.ProcessManager.remove" class="md-nav__link">
+  <a href="#dvc_task.proc.ProcessManager.remove" class="md-nav__link">
     remove()
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#dvc_task.proc.manager.ProcessManager.run_signature" class="md-nav__link">
+  <a href="#dvc_task.proc.ProcessManager.run_signature" class="md-nav__link">
     run_signature()
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#dvc_task.proc.manager.ProcessManager.send_signal" class="md-nav__link">
+  <a href="#dvc_task.proc.ProcessManager.send_signal" class="md-nav__link">
     send_signal()
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#dvc_task.proc.manager.ProcessManager.terminate" class="md-nav__link">
+  <a href="#dvc_task.proc.ProcessManager.terminate" class="md-nav__link">
     terminate()
   </a>
   
@@ -768,19 +888,20 @@
               </div>
             
           
-          <div class="md-content" data-md-component="content">
-            <article class="md-content__inner md-typeset">
-              
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
                 
-  <a href="https://github.com/iterative/dvc-task/edit/master/docs/src/dvc_task/proc/__init__.py" title="Edit this page" class="md-content__button md-icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
-  </a>
+                  
 
+  
+  
 
 
   <h1>Proc</h1>
 
 <div class="doc doc-object doc-module">
+
 
 
 <a id="dvc_task.proc"></a>
@@ -803,26 +924,26 @@
 
 
 
+
 <h2 id="dvc_task.proc.ManagedProcess" class="doc doc-heading">
-        <code>ManagedProcess</code>
+          <code>ManagedProcess</code>
 
 
 </h2>
 
 
   <div class="doc doc-contents ">
-      <p class="doc doc-class-bases">
-        Bases: <code><span title="contextlib.AbstractContextManager">AbstractContextManager</span></code></p>
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="contextlib.AbstractContextManager">AbstractContextManager</span></code></p>
 
   
       <p>Class to manage the specified process with redirected output.</p>
 <p>stdout and stderr will both be redirected to <name>.out.
 Interactive processes (requiring stdin input) are currently unsupported.</p>
 
-
-        <details class="quote">
-          <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/dvc_task/proc/process.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 62</span>
+            <details class="quote">
+              <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/dvc_task/proc/process.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 62</span>
 <span class="normal"> 63</span>
 <span class="normal"> 64</span>
 <span class="normal"> 65</span>
@@ -1156,7 +1277,7 @@ Interactive processes (requiring stdin input) are currently unsupported.</p>
         <span class="k">with</span> <span class="bp">cls</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
             <span class="k">pass</span>
 </code></pre></div></td></tr></table></div>
-        </details>
+            </details>
 
   
 
@@ -1172,8 +1293,9 @@ Interactive processes (requiring stdin input) are currently unsupported.</p>
 
 
 
-<h3 id="dvc_task.proc.process.ManagedProcess.info" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">info</span><span class="p">:</span> <span class="n">ProcessInfo</span></code>
+
+<h3 id="dvc_task.proc.ManagedProcess.info" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">info</span><span class="p">:</span> <span class="n">ProcessInfo</span></code>
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
@@ -1193,8 +1315,9 @@ Interactive processes (requiring stdin input) are currently unsupported.</p>
 
 
 
-<h3 id="dvc_task.proc.process.ManagedProcess.pid" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">pid</span><span class="p">:</span> <span class="nb">int</span></code>
+
+<h3 id="dvc_task.proc.ManagedProcess.pid" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">pid</span><span class="p">:</span> <span class="nb">int</span></code>
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
@@ -1206,6 +1329,8 @@ Interactive processes (requiring stdin input) are currently unsupported.</p>
   <div class="doc doc-contents ">
   
       <p>Return process PID.</p>
+
+
 
   <p><strong>Raises:</strong></p>
   <table>
@@ -1220,7 +1345,11 @@ Interactive processes (requiring stdin input) are currently unsupported.</p>
           <td>
                 <code>ValueError</code>
           </td>
-          <td><p>Process is not running.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Process is not running.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -1230,12 +1359,14 @@ Interactive processes (requiring stdin input) are currently unsupported.</p>
 
 
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 id="dvc_task.proc.process.ManagedProcess.__init__" class="doc doc-heading">
-<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">wdir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+<h3 id="dvc_task.proc.ManagedProcess.__init__" class="doc doc-heading">
+          <code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">wdir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 </h3>
 
@@ -1243,6 +1374,8 @@ Interactive processes (requiring stdin input) are currently unsupported.</p>
   <div class="doc doc-contents ">
   
       <p>Construct a MangedProcess.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -1260,7 +1393,11 @@ Interactive processes (requiring stdin input) are currently unsupported.</p>
           <td>
                 <code><span title="typing.Union">Union</span>[str, <span title="typing.List">List</span>[str]]</code>
           </td>
-          <td><p>Command to be run.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Command to be run.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1270,7 +1407,11 @@ Interactive processes (requiring stdin input) are currently unsupported.</p>
           <td>
                 <code><span title="typing.Optional">Optional</span>[<span title="typing.Dict">Dict</span>[str, str]]</code>
           </td>
-          <td><p>Optional environment variables.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Optional environment variables.</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -1280,8 +1421,12 @@ Interactive processes (requiring stdin input) are currently unsupported.</p>
           <td>
                 <code><span title="typing.Optional">Optional</span>[str]</code>
           </td>
-          <td><p>If specified, redirected output files will be placed in
-<code>wdir</code>. Defaults to current working directory.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>If specified, redirected output files will be placed in
+<code>wdir</code>. Defaults to current working directory.</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -1291,8 +1436,12 @@ Interactive processes (requiring stdin input) are currently unsupported.</p>
           <td>
                 <code><span title="typing.Optional">Optional</span>[str]</code>
           </td>
-          <td><p>Name to use for this process, if not specified a UUID will be
-generated instead.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Name to use for this process, if not specified a UUID will be
+generated instead.</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -1300,9 +1449,9 @@ generated instead.</p></td>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/dvc_task/proc/process.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">69</span>
+          <details class="quote">
+            <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/dvc_task/proc/process.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">69</span>
 <span class="normal">70</span>
 <span class="normal">71</span>
 <span class="normal">72</span>
@@ -1358,17 +1507,19 @@ generated instead.</p></td>
     <span class="bp">self</span><span class="o">.</span><span class="n">_fd_stack</span> <span class="o">=</span> <span class="n">ExitStack</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_proc</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
-<h3 id="dvc_task.proc.process.ManagedProcess.info_path" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">info_path</span><span class="p">()</span></code>
+
+<h3 id="dvc_task.proc.ManagedProcess.info_path" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">info_path</span><span class="p">()</span></code>
 
 </h3>
 
@@ -1377,9 +1528,9 @@ generated instead.</p></td>
   
       <p>Return process information file path.</p>
 
-      <details class="quote">
-        <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/dvc_task/proc/process.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">118</span>
+          <details class="quote">
+            <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/dvc_task/proc/process.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">118</span>
 <span class="normal">119</span>
 <span class="normal">120</span>
 <span class="normal">121</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@cached_property</span>
@@ -1387,17 +1538,19 @@ generated instead.</p></td>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return process information file path.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_path</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">.json&quot;</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
-<h3 id="dvc_task.proc.process.ManagedProcess.pidfile_path" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">pidfile_path</span><span class="p">()</span></code>
+
+<h3 id="dvc_task.proc.ManagedProcess.pidfile_path" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">pidfile_path</span><span class="p">()</span></code>
 
 </h3>
 
@@ -1406,9 +1559,9 @@ generated instead.</p></td>
   
       <p>Return process pidfile path.</p>
 
-      <details class="quote">
-        <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/dvc_task/proc/process.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">123</span>
+          <details class="quote">
+            <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/dvc_task/proc/process.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">123</span>
 <span class="normal">124</span>
 <span class="normal">125</span>
 <span class="normal">126</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@cached_property</span>
@@ -1416,17 +1569,19 @@ generated instead.</p></td>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return process pidfile path.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_path</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">.pid&quot;</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
-<h3 id="dvc_task.proc.process.ManagedProcess.run" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">run</span><span class="p">()</span></code>
+
+<h3 id="dvc_task.proc.ManagedProcess.run" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">run</span><span class="p">()</span></code>
 
 </h3>
 
@@ -1435,9 +1590,9 @@ generated instead.</p></td>
   
       <p>Run this process.</p>
 
-      <details class="quote">
-        <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/dvc_task/proc/process.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">161</span>
+          <details class="quote">
+            <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/dvc_task/proc/process.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">161</span>
 <span class="normal">162</span>
 <span class="normal">163</span>
 <span class="normal">164</span>
@@ -1487,17 +1642,19 @@ generated instead.</p></td>
         <span class="bp">self</span><span class="o">.</span><span class="n">_close_fds</span><span class="p">()</span>
         <span class="k">raise</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
-<h3 id="dvc_task.proc.process.ManagedProcess.spawn" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">spawn</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span></code>
+
+<h3 id="dvc_task.proc.ManagedProcess.spawn" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">spawn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
@@ -1509,10 +1666,11 @@ generated instead.</p></td>
   <div class="doc doc-contents ">
   
       <p>Spawn a ManagedProcess command in the background.</p>
+<p>Returns: The spawned process PID.</p>
 
-      <details class="quote">
-        <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/dvc_task/proc/process.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">207</span>
+          <details class="quote">
+            <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/dvc_task/proc/process.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">207</span>
 <span class="normal">208</span>
 <span class="normal">209</span>
 <span class="normal">210</span>
@@ -1546,17 +1704,19 @@ generated instead.</p></td>
     <span class="n">mp</span><span class="o">.</span><span class="n">process</span><span class="o">.</span><span class="n">_children</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">proc</span><span class="p">)</span>  <span class="c1"># type: ignore[attr-defined]</span>
     <span class="k">return</span> <span class="n">proc</span><span class="o">.</span><span class="n">pid</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
-<h3 id="dvc_task.proc.process.ManagedProcess.stdout_path" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">stdout_path</span><span class="p">()</span></code>
+
+<h3 id="dvc_task.proc.ManagedProcess.stdout_path" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">stdout_path</span><span class="p">()</span></code>
 
 </h3>
 
@@ -1565,9 +1725,9 @@ generated instead.</p></td>
   
       <p>Return redirected stdout path.</p>
 
-      <details class="quote">
-        <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/dvc_task/proc/process.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">113</span>
+          <details class="quote">
+            <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/dvc_task/proc/process.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">113</span>
 <span class="normal">114</span>
 <span class="normal">115</span>
 <span class="normal">116</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@cached_property</span>
@@ -1575,17 +1735,19 @@ generated instead.</p></td>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return redirected stdout path.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_path</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">.out&quot;</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
-<h3 id="dvc_task.proc.process.ManagedProcess.wait" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">wait</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+<h3 id="dvc_task.proc.ManagedProcess.wait" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">wait</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 </h3>
 
@@ -1594,9 +1756,9 @@ generated instead.</p></td>
   
       <p>Block until a process started with <code>run</code> has completed.</p>
 
-      <details class="quote">
-        <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/dvc_task/proc/process.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">187</span>
+          <details class="quote">
+            <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/dvc_task/proc/process.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">187</span>
 <span class="normal">188</span>
 <span class="normal">189</span>
 <span class="normal">190</span>
@@ -1634,7 +1796,7 @@ generated instead.</p></td>
     <span class="bp">self</span><span class="o">.</span><span class="n">_dump</span><span class="p">()</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">returncode</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
@@ -1651,8 +1813,9 @@ generated instead.</p></td>
 
 
 
+
 <h2 id="dvc_task.proc.ProcessInfo" class="doc doc-heading">
-        <code>ProcessInfo</code>
+          <code>ProcessInfo</code>
 
   
   <span class="doc doc-labels">
@@ -1667,10 +1830,9 @@ generated instead.</p></td>
   
       <p>Process information.</p>
 
-
-        <details class="quote">
-          <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/dvc_task/proc/process.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">22</span>
+            <details class="quote">
+              <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/dvc_task/proc/process.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">22</span>
 <span class="normal">23</span>
 <span class="normal">24</span>
 <span class="normal">25</span>
@@ -1746,7 +1908,7 @@ generated instead.</p></td>
             <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">asdict</span><span class="p">(),</span> <span class="n">tmp</span><span class="p">)</span>
         <span class="n">os</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tmp</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-        </details>
+            </details>
 
   
 
@@ -1760,12 +1922,14 @@ generated instead.</p></td>
 
 
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 id="dvc_task.proc.process.ProcessInfo.asdict" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">asdict</span><span class="p">()</span></code>
+
+<h3 id="dvc_task.proc.ProcessInfo.asdict" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">asdict</span><span class="p">()</span></code>
 
 </h3>
 
@@ -1774,25 +1938,27 @@ generated instead.</p></td>
   
       <p>Return this info as a dictionary.</p>
 
-      <details class="quote">
-        <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/dvc_task/proc/process.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">43</span>
+          <details class="quote">
+            <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/dvc_task/proc/process.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">43</span>
 <span class="normal">44</span>
 <span class="normal">45</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">asdict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return this info as a dictionary.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">asdict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
-<h3 id="dvc_task.proc.process.ProcessInfo.dump" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">dump</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span></code>
+
+<h3 id="dvc_task.proc.ProcessInfo.dump" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">dump</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span></code>
 
 </h3>
 
@@ -1801,9 +1967,9 @@ generated instead.</p></td>
   
       <p>Dump the process information into a file.</p>
 
-      <details class="quote">
-        <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/dvc_task/proc/process.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">47</span>
+          <details class="quote">
+            <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/dvc_task/proc/process.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">47</span>
 <span class="normal">48</span>
 <span class="normal">49</span>
 <span class="normal">50</span>
@@ -1829,17 +1995,19 @@ generated instead.</p></td>
         <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">asdict</span><span class="p">(),</span> <span class="n">tmp</span><span class="p">)</span>
     <span class="n">os</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tmp</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
-<h3 id="dvc_task.proc.process.ProcessInfo.from_dict" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">from_dict</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></code>
+
+<h3 id="dvc_task.proc.ProcessInfo.from_dict" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">from_dict</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></code>
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
@@ -1852,9 +2020,9 @@ generated instead.</p></td>
   
       <p>Construct ProcessInfo from the specified dictionary.</p>
 
-      <details class="quote">
-        <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/dvc_task/proc/process.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">32</span>
+          <details class="quote">
+            <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/dvc_task/proc/process.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">32</span>
 <span class="normal">33</span>
 <span class="normal">34</span>
 <span class="normal">35</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@classmethod</span>
@@ -1862,17 +2030,19 @@ generated instead.</p></td>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Construct ProcessInfo from the specified dictionary.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
-<h3 id="dvc_task.proc.process.ProcessInfo.load" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">load</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span></code>
+
+<h3 id="dvc_task.proc.ProcessInfo.load" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">load</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span></code>
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
@@ -1885,9 +2055,9 @@ generated instead.</p></td>
   
       <p>Construct the process information from a file.</p>
 
-      <details class="quote">
-        <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/dvc_task/proc/process.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">37</span>
+          <details class="quote">
+            <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/dvc_task/proc/process.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">37</span>
 <span class="normal">38</span>
 <span class="normal">39</span>
 <span class="normal">40</span>
@@ -1897,7 +2067,7 @@ generated instead.</p></td>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fobj</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fobj</span><span class="p">))</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
@@ -1914,8 +2084,9 @@ generated instead.</p></td>
 
 
 
+
 <h2 id="dvc_task.proc.ProcessManager" class="doc doc-heading">
-        <code>ProcessManager</code>
+          <code>ProcessManager</code>
 
 
 </h2>
@@ -1929,10 +2100,9 @@ generated instead.</p></td>
 are explicitly removed (with remove() or cleanup()) so that return
 value and log information can be accessed after a process has completed.</p>
 
-
-        <details class="quote">
-          <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/dvc_task/proc/manager.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 22</span>
+            <details class="quote">
+              <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/dvc_task/proc/manager.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 22</span>
 <span class="normal"> 23</span>
 <span class="normal"> 24</span>
 <span class="normal"> 25</span>
@@ -2372,7 +2542,7 @@ value and log information can be accessed after a process has completed.</p>
                     <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">sleep_interval</span><span class="p">)</span>
                     <span class="n">fobj</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-        </details>
+            </details>
 
   
 
@@ -2386,12 +2556,14 @@ value and log information can be accessed after a process has completed.</p>
 
 
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 id="dvc_task.proc.manager.ProcessManager.__init__" class="doc doc-heading">
-<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">wdir</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+<h3 id="dvc_task.proc.ProcessManager.__init__" class="doc doc-heading">
+          <code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">wdir</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 </h3>
 
@@ -2399,6 +2571,8 @@ value and log information can be accessed after a process has completed.</p>
   <div class="doc doc-contents ">
   
       <p>Construct a ProcessManager</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -2416,8 +2590,12 @@ value and log information can be accessed after a process has completed.</p>
           <td>
                 <code><span title="typing.Optional">Optional</span>[str]</code>
           </td>
-          <td><p>Directory used for storing process information. Defaults
-to the current working directory.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Directory used for storing process information. Defaults
+to the current working directory.</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -2425,9 +2603,9 @@ to the current working directory.</p></td>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/dvc_task/proc/manager.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">30</span>
+          <details class="quote">
+            <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/dvc_task/proc/manager.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">30</span>
 <span class="normal">31</span>
 <span class="normal">32</span>
 <span class="normal">33</span>
@@ -2449,17 +2627,19 @@ to the current working directory.</p></td>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">wdir</span> <span class="o">=</span> <span class="n">wdir</span> <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">curdir</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
-<h3 id="dvc_task.proc.manager.ProcessManager.cleanup" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">cleanup</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+<h3 id="dvc_task.proc.ProcessManager.cleanup" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">cleanup</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
 </h3>
 
@@ -2468,9 +2648,9 @@ to the current working directory.</p></td>
   
       <p>Remove stale (terminated) processes from this manager.</p>
 
-      <details class="quote">
-        <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/dvc_task/proc/manager.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">194</span>
+          <details class="quote">
+            <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/dvc_task/proc/manager.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">194</span>
 <span class="normal">195</span>
 <span class="normal">196</span>
 <span class="normal">197</span>
@@ -2484,17 +2664,19 @@ to the current working directory.</p></td>
         <span class="k">except</span> <span class="n">ProcessNotTerminatedError</span><span class="p">:</span>
             <span class="k">continue</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
-<h3 id="dvc_task.proc.manager.ProcessManager.follow" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">follow</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sleep_interval</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></code>
+
+<h3 id="dvc_task.proc.ProcessManager.follow" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">follow</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sleep_interval</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></code>
 
 </h3>
 
@@ -2504,6 +2686,8 @@ to the current working directory.</p></td>
       <p>Iterate over lines in redirected output for a process.</p>
 <p>This will block calling thread when waiting for output (until the
 followed process has exited).</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -2521,7 +2705,11 @@ followed process has exited).</p>
           <td>
                 <code>str</code>
           </td>
-          <td><p>Process name.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Process name.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -2531,8 +2719,12 @@ followed process has exited).</p>
           <td>
                 <code><span title="typing.Optional">Optional</span>[str]</code>
           </td>
-          <td><p>Text encoding for redirected output. Defaults to
-<code>locale.getpreferredencoding()</code>.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Text encoding for redirected output. Defaults to
+<code>locale.getpreferredencoding()</code>.</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -2542,8 +2734,12 @@ followed process has exited).</p>
           <td>
                 <code>int</code>
           </td>
-          <td><p>Sleep interval for follow iterations (when waiting
-for output).</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Sleep interval for follow iterations (when waiting
+for output).</p>
+            </div>
+          </td>
           <td>
                 <code>1</code>
           </td>
@@ -2551,14 +2747,14 @@ for output).</p></td>
     </tbody>
   </table>
 
-<details class="note">
+<details class="note" open>
   <summary>Note</summary>
   <p>Yielded strings may not always end in line terminators (all
 available output will yielded if EOF is reached).</p>
 </details>
-      <details class="quote">
-        <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/dvc_task/proc/manager.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">202</span>
+          <details class="quote">
+            <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/dvc_task/proc/manager.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">202</span>
 <span class="normal">203</span>
 <span class="normal">204</span>
 <span class="normal">205</span>
@@ -2638,17 +2834,19 @@ available output will yielded if EOF is reached).</p>
                 <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">sleep_interval</span><span class="p">)</span>
                 <span class="n">fobj</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
-<h3 id="dvc_task.proc.manager.ProcessManager.get" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+<h3 id="dvc_task.proc.ProcessManager.get" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 </h3>
 
@@ -2657,9 +2855,9 @@ available output will yielded if EOF is reached).</p>
   
       <p>Return the specified process.</p>
 
-      <details class="quote">
-        <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/dvc_task/proc/manager.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">65</span>
+          <details class="quote">
+            <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/dvc_task/proc/manager.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">65</span>
 <span class="normal">66</span>
 <span class="normal">67</span>
 <span class="normal">68</span>
@@ -2671,17 +2869,19 @@ available output will yielded if EOF is reached).</p>
     <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">default</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
-<h3 id="dvc_task.proc.manager.ProcessManager.interrupt" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">interrupt</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
+
+<h3 id="dvc_task.proc.ProcessManager.interrupt" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">interrupt</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
 
 </h3>
 
@@ -2690,9 +2890,9 @@ available output will yielded if EOF is reached).</p>
   
       <p>Send interrupt signal to specified named process</p>
 
-      <details class="quote">
-        <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/dvc_task/proc/manager.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">152</span>
+          <details class="quote">
+            <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/dvc_task/proc/manager.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">152</span>
 <span class="normal">153</span>
 <span class="normal">154</span>
 <span class="normal">155</span>
@@ -2708,17 +2908,19 @@ available output will yielded if EOF is reached).</p>
     <span class="k">else</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">send_signal</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIGINT</span><span class="p">,</span> <span class="n">group</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
-<h3 id="dvc_task.proc.manager.ProcessManager.kill" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">kill</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+<h3 id="dvc_task.proc.ProcessManager.kill" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">kill</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
 </h3>
 
@@ -2727,9 +2929,9 @@ available output will yielded if EOF is reached).</p>
   
       <p>Kill the specified named process.</p>
 
-      <details class="quote">
-        <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/dvc_task/proc/manager.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">165</span>
+          <details class="quote">
+            <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/dvc_task/proc/manager.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">165</span>
 <span class="normal">166</span>
 <span class="normal">167</span>
 <span class="normal">168</span>
@@ -2741,17 +2943,19 @@ available output will yielded if EOF is reached).</p>
     <span class="k">else</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">send_signal</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIGKILL</span><span class="p">,</span> <span class="n">group</span><span class="p">)</span>  <span class="c1"># pylint: disable=no-member</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
-<h3 id="dvc_task.proc.manager.ProcessManager.processes" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">processes</span><span class="p">()</span></code>
+
+<h3 id="dvc_task.proc.ProcessManager.processes" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">processes</span><span class="p">()</span></code>
 
 </h3>
 
@@ -2760,9 +2964,9 @@ available output will yielded if EOF is reached).</p>
   
       <p>Iterate over managed processes.</p>
 
-      <details class="quote">
-        <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/dvc_task/proc/manager.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">72</span>
+          <details class="quote">
+            <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/dvc_task/proc/manager.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">72</span>
 <span class="normal">73</span>
 <span class="normal">74</span>
 <span class="normal">75</span>
@@ -2776,17 +2980,19 @@ available output will yielded if EOF is reached).</p>
         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
             <span class="k">continue</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
-<h3 id="dvc_task.proc.manager.ProcessManager.remove" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">remove</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+<h3 id="dvc_task.proc.ProcessManager.remove" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">remove</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
 </h3>
 
@@ -2797,9 +3003,9 @@ available output will yielded if EOF is reached).</p>
 <p>If the specified process is still running, it will be forcefully killed
 if <code>force</code> is True`, otherwise an exception will be raised.</p>
 
-      <details class="quote">
-        <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/dvc_task/proc/manager.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">172</span>
+          <details class="quote">
+            <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/dvc_task/proc/manager.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">172</span>
 <span class="normal">173</span>
 <span class="normal">174</span>
 <span class="normal">175</span>
@@ -2841,17 +3047,19 @@ if <code>force</code> is True`, otherwise an exception will be raised.</p>
         <span class="k">pass</span>
     <span class="k">del</span> <span class="bp">self</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
-<h3 id="dvc_task.proc.manager.ProcessManager.run_signature" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">run_signature</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">task</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">immutable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+<h3 id="dvc_task.proc.ProcessManager.run_signature" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">run_signature</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">task</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">immutable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
 </h3>
 
@@ -2859,6 +3067,8 @@ if <code>force</code> is True`, otherwise an exception will be raised.</p>
   <div class="doc doc-contents ">
   
       <p>Return signature for a task which runs a command in the background.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -2876,7 +3086,11 @@ if <code>force</code> is True`, otherwise an exception will be raised.</p>
           <td>
                 <code><span title="typing.Union">Union</span>[str, <span title="typing.List">List</span>[str]]</code>
           </td>
-          <td><p>Command to run.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Command to run.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -2886,7 +3100,11 @@ if <code>force</code> is True`, otherwise an exception will be raised.</p>
           <td>
                 <code><span title="typing.Optional">Optional</span>[str]</code>
           </td>
-          <td><p>Optional name to use for the spawned process.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Optional name to use for the spawned process.</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -2896,8 +3114,12 @@ if <code>force</code> is True`, otherwise an exception will be raised.</p>
           <td>
                 <code><span title="typing.Optional">Optional</span>[str]</code>
           </td>
-          <td><p>Optional name of Celery task to use for spawning the process.
-Defaults to 'dvc_task.proc.tasks.run'.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Optional name of Celery task to use for spawning the process.
+Defaults to 'dvc_task.proc.tasks.run'.</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -2907,7 +3129,11 @@ Defaults to 'dvc_task.proc.tasks.run'.</p></td>
           <td>
                 <code><span title="typing.Optional">Optional</span>[<span title="typing.Dict">Dict</span>[str, str]]</code>
           </td>
-          <td><p>Optional environment to be passed into the process.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Optional environment to be passed into the process.</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -2917,13 +3143,19 @@ Defaults to 'dvc_task.proc.tasks.run'.</p></td>
           <td>
                 <code>bool</code>
           </td>
-          <td><p>True if the returned Signature should be immutable.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>True if the returned Signature should be immutable.</p>
+            </div>
+          </td>
           <td>
                 <code>False</code>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -2938,14 +3170,18 @@ Defaults to 'dvc_task.proc.tasks.run'.</p></td>
           <td>
                 <code><span title="celery.Signature">Signature</span></code>
           </td>
-          <td><p>Celery signature for the run task.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Celery signature for the run task.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/dvc_task/proc/manager.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 80</span>
+          <details class="quote">
+            <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/dvc_task/proc/manager.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 80</span>
 <span class="normal"> 81</span>
 <span class="normal"> 82</span>
 <span class="normal"> 83</span>
@@ -3011,17 +3247,19 @@ Defaults to 'dvc_task.proc.tasks.run'.</p></td>
         <span class="n">immutable</span><span class="o">=</span><span class="n">immutable</span><span class="p">,</span>
     <span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
-<h3 id="dvc_task.proc.manager.ProcessManager.send_signal" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">send_signal</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">sig</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+<h3 id="dvc_task.proc.ProcessManager.send_signal" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">send_signal</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">sig</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
 </h3>
 
@@ -3030,9 +3268,9 @@ Defaults to 'dvc_task.proc.tasks.run'.</p></td>
   
       <p>Send <code>signal</code> to the specified named process.</p>
 
-      <details class="quote">
-        <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/dvc_task/proc/manager.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">114</span>
+          <details class="quote">
+            <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/dvc_task/proc/manager.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">114</span>
 <span class="normal">115</span>
 <span class="normal">116</span>
 <span class="normal">117</span>
@@ -3106,17 +3344,19 @@ Defaults to 'dvc_task.proc.tasks.run'.</p></td>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ProcessLookupError</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
-<h3 id="dvc_task.proc.manager.ProcessManager.terminate" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">terminate</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+<h3 id="dvc_task.proc.ProcessManager.terminate" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">terminate</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
 </h3>
 
@@ -3125,15 +3365,15 @@ Defaults to 'dvc_task.proc.tasks.run'.</p></td>
   
       <p>Terminate the specified named process.</p>
 
-      <details class="quote">
-        <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.11/x64/lib/python3.10/site-packages/dvc_task/proc/manager.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">161</span>
+          <details class="quote">
+            <summary>Source code in <code>/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/dvc_task/proc/manager.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">161</span>
 <span class="normal">162</span>
 <span class="normal">163</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">terminate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">group</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Terminate the specified named process.&quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">send_signal</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIGTERM</span><span class="p">,</span> <span class="n">group</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
@@ -3158,51 +3398,17 @@ Defaults to 'dvc_task.proc.tasks.run'.</p></td>
 
 
 
-              
-            </article>
-            
-          </div>
+
+                
+              </article>
+            </div>
+          
+          
         </div>
         
       </main>
       
         <footer class="md-footer">
-  
-    
-    <nav class="md-footer__inner md-grid" aria-label="Footer" >
-      
-        
-        <a href="../app/filesystem/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Filesystem" rel="prev">
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
-          </div>
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Previous
-              </span>
-              Filesystem
-            </div>
-          </div>
-        </a>
-      
-      
-        
-        <a href="exceptions/" class="md-footer__link md-footer__link--next" aria-label="Next: Exceptions" rel="next">
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              Exceptions
-            </div>
-          </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
-          </div>
-        </a>
-      
-    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -3220,11 +3426,13 @@ Defaults to 'dvc_task.proc.tasks.run'.</p></td>
   
     
     
+    
+    
       
       
     
     <a href="https://github.com/iterative/" target="_blank" rel="noopener" title="github.com" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
     </a>
   
 </div>
@@ -3238,10 +3446,10 @@ Defaults to 'dvc_task.proc.tasks.run'.</p></td>
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.ecf98df9.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.dfff1995.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.9c69f0bc.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.dff1b7c8.min.js"></script>
       
     
   </body>
