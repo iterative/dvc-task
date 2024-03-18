@@ -1,4 +1,5 @@
 """Process test fixtures."""
+
 import json
 import os
 from typing import Optional

@@ -1,4 +1,5 @@
 """(Local) filesystem based Celery application."""
+
 import logging
 import os
 from datetime import datetime

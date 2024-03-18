@@ -1,4 +1,5 @@
 """Managed process module."""
+
 import json
 import logging
 import multiprocessing as mp

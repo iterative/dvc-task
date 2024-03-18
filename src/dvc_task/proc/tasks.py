@@ -1,4 +1,5 @@
 """Celery tasks."""
+
 from typing import Any, Dict
 
 from celery import shared_task

@@ -1,4 +1,5 @@
 """Temporary worker module."""
+
 import logging
 import os
 import threading

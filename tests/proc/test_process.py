@@ -1,4 +1,5 @@
 """Process tests."""
+
 import json
 import subprocess
 from typing import List, Union
