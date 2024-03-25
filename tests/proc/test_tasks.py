@@ -1,4 +1,5 @@
 """Process task tests."""
+
 from typing import Any, Dict
 
 import pytest

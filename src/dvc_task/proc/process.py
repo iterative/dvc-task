@@ -1,10 +1,11 @@
 """Managed process module."""
+
 import json
 import logging
 import multiprocessing as mp
 import os
 import shlex
-import subprocess  # nosec B404
+import subprocess
 import tempfile
 from contextlib import AbstractContextManager, ExitStack
 from dataclasses import asdict, dataclass
@@ -13,7 +14,8 @@ from typing import Any, Dict, List, Optional, Union
 from funcy import cached_property
 from shortuuid import uuid
 
-from ..utils import makedirs
+from dvc_task.utils import makedirs
+
 from .exceptions import TimeoutExpired
 
 logger = logging.getLogger(__name__)
@@ -165,16 +167,15 @@ class ManagedProcess(AbstractContextManager):
             "Appending output to '%s'",
             self.stdout_path,
         )
-        stdout = self._fd_stack.enter_context(open(self.stdout_path, "ab"))
+        stdout = self._fd_stack.enter_context(open(self.stdout_path, "ab"))  # noqa: SIM115
         try:
-            # pylint: disable=consider-using-with
-            self._proc = subprocess.Popen(  # nosec B603
+            self._proc = subprocess.Popen(
                 self.args,
                 stdin=subprocess.DEVNULL,
                 stdout=stdout,
                 stderr=subprocess.STDOUT,
                 close_fds=True,
-                shell=False,
+                shell=False,  # noqa: S603
                 env=self.env,
             )
             self._dump()
@@ -218,7 +219,6 @@ class ManagedProcess(AbstractContextManager):
         )
         proc.start()
         # Do not terminate the child daemon when the main process exits
-        # pylint: disable=protected-access
         mp.process._children.discard(proc)  # type: ignore[attr-defined]
         return proc.pid
 
@@ -231,5 +231,5 @@ class ManagedProcess(AbstractContextManager):
 class _DaemonProcess(mp.Process):
     def run(self):
         if os.name != "nt":
-            os.setpgid(0, 0)  # pylint: disable=no-member
+            os.setpgid(0, 0)
         super().run()

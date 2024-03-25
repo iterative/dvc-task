@@ -2,30 +2,59 @@
 requires = ["setuptools>=48", "setuptools_scm[toml]>=6.3.1"]
 build-backend = "setuptools.build_meta"
 
+[project]
+name = "dvc-task"
+description = "Extensible task queue used in DVC."
+readme = "README.rst"
+license = {text = "Apache-2.0"}
+authors = [{name = "Iterative", email = "support@dvc.org"}]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Development Status :: 4 - Beta"
+]
+requires-python = ">=3.8"
+dynamic = ["version"]
+dependencies = [
+  "celery>=5.3.0,<6",
+  "funcy>=1.17",
+  "kombu>=5.3.0,<6",
+  "pywin32>=225; sys_platform == 'win32'",
+  "shortuuid>=1.0.8"
+]
+
+[project.urls]
+Issues = "https://github.com/iterative/dvc-task/issues"
+Source = "https://github.com/iterative/dvc-task"
+
+[project.optional-dependencies]
+docs = [
+  "mkdocs>=1.5.2,<2",
+  "mkdocs-gen-files>=0.5.0,<1",
+  "mkdocs-material>=9.3.1,<10",
+  "mkdocs-section-index>=0.3.6,<1",
+  "mkdocstrings-python>=1.6.3,<2"
+]
+tests = [
+  "pytest>=7,<9",
+  "pytest-cov>=4.1.0",
+  "pytest-mock",
+  "pytest-sugar"
+]
+dev = [
+  "dvc-task[tests,docs]",
+  "mypy==1.9.0"
+]
+
 [tool.setuptools_scm]
 
-[tool.black]
-line-length = 88
-include = '\.pyi?$'
-exclude = '''
-/(
-    \.eggs
-  | \.git
-  | \.hg
-  | \.mypy_cache
-  | \.tox
-  | \.venv
-  | _build
-  | buck-out
-  | build
-  | dist
-)/
-'''
-
-[tool.isort]
-profile = "black"
-known_first_party = ["dvc_task"]
-line_length = 88
+[tool.setuptools.packages.find]
+where = ["src"]
+namespaces = false
 
 [tool.pytest.ini_options]
 addopts = "-ra"
@@ -40,13 +69,13 @@ source = ["src", "*/site-packages"]
 [tool.coverage.report]
 show_missing = true
 exclude_lines = [
-    "pragma: no cover",
-    "if __name__ == .__main__.:",
-    "if typing.TYPE_CHECKING:",
-    "if TYPE_CHECKING:",
-    "raise NotImplementedError",
-    "raise AssertionError",
-    "@overload",
+  "pragma: no cover",
+  "if __name__ == .__main__.:",
+  "if typing.TYPE_CHECKING:",
+  "if TYPE_CHECKING:",
+  "raise NotImplementedError",
+  "raise AssertionError",
+  "@overload"
 ]
 
 [tool.mypy]
@@ -65,26 +94,86 @@ files = ["src", "tests"]
 
 [[tool.mypy.overrides]]
 module = [
-    "celery.*",
-    "funcy.*",
-    "shortuuid",
-    "kombu.*",
+  "celery.*",
+  "funcy.*",
+  "shortuuid",
+  "kombu.*"
 ]
 ignore_missing_imports = true
-
-[tool.pylint.format]
-max-line-length = 88
-
-[tool.pylint.message_control]
-enable = ["c-extension-no-member", "no-else-return"]
-
-[tool.pylint.variables]
-dummy-variables-rgx = "_+$|(_[a-zA-Z0-9_]*[a-zA-Z0-9]+?$)|dummy|^ignored_|^unused_"
-ignored-argument-names = "_.*|^ignored_|^unused_|args|kwargs"
 
 [tool.codespell]
 ignore-words-list = " "
 
-[tool.bandit]
-exclude_dirs = ["tests"]
-skips = ["B101"]
+[tool.ruff]
+output-format = "full"
+show-fixes = true
+
+[tool.ruff.lint]
+ignore = [
+  "ISC001",  # single-line-implicit-string-concatenation
+  "PLR2004",  # magic-value-comparison
+  "PLW2901",  # redefined-loop-name
+  "RET501",  # unnecessary-return-none
+  "RET502",  # implicit-return-value
+  "RET503",  # implicit-return
+  "S101",  # assert
+  "SIM105",  # suppressible-exception
+  "SIM108",  # if-else-block-instead-of-if-exp
+  "SIM117"  # multiple-with-statements
+]
+select = [
+  "A",  # flake8-buitlins
+  "ASYNC",  # flake8-async
+  "B",  # flake8-bugbear
+  "BLE",  # flake8-blind-except
+  "C4",  # flake8-comprehensions
+  "C90",  # mccabe
+  "DTZ",  # flake8-datetimez
+  "E",  # pycodestyle - Error
+  "EXE",  # flake8-executable
+  "F",  # pyflakes
+  "FLY",  # flynt-rules
+  "G",  # flake8-logging-format
+  "I",  # isort
+  "ICN",  # flake8-import-conventions
+  "INP",  # flake8-no-pep420
+  "ISC",  # flake8-implicit-str-concat
+  "N",  # pep8-naming
+  "PERF101",  # perflint
+  "PGH",  # pygrep-hooks
+  "PIE",  # flake8-pie
+  "PL",  # pylint
+  "PT",  # flake8-pytest-style
+  "PYI",  # flake8-pyi
+  "Q",  # flae8-quotes
+  "RET",  # flake8-return
+  "RSE",  # flake8-raise
+  "RUF",  # ruff
+  "S",  # flake8-bandit
+  "SIM",  # flake8-simplify
+  "SLOT",  # flake8-slots
+  "T10",  # flake8-debugger
+  "T20",  # flake8-print
+  "TCH",  # flake8-type-checking
+  "TCH",  # flake8-type-checking
+  "TID",  # flake8-tidy-imports
+  "UP",  # pyupgrade
+  "W",  # pycodestyle - Warning
+  "YTT"  # flake8-2020
+]
+
+[tool.ruff.lint.flake8-pytest-style]
+fixture-parentheses = false
+mark-parentheses = false
+parametrize-names-type = "csv"
+
+[tool.ruff.lint.per-file-ignores]
+"noxfile.py" = ["D", "PTH"]
+"tests/**" = ["S", "ARG001", "ARG002", "ANN"]
+"docs/**" = ["INP"]
+
+[tool.ruff.lint.flake8-type-checking]
+strict = true
+
+[tool.ruff.lint.isort]
+known-first-party = ["dvc_task"]

@@ -1,14 +1,17 @@
 """Filesystem app tests."""
+
 import json
-from typing import Any, Dict, Optional
+from typing import TYPE_CHECKING, Any, Dict, Optional
 
 import pytest
 from celery.backends.filesystem import FilesystemBackend
 from funcy import first
-from kombu.message import Message
 from pytest_test_utils import TmpDir
 
 from dvc_task.app.filesystem import FSApp, _get_fs_config
+
+if TYPE_CHECKING:
+    from kombu.message import Message
 
 TEST_MSG: Dict[str, Any] = {
     "body": "",
@@ -58,7 +61,7 @@ TICKET_MSG: Dict[str, Any] = {
 
 
 def test_config(tmp_dir: TmpDir):
-    """Should return a filesystem broker/resut config."""
+    """Should return a filesystem broker/result config."""
     config = _get_fs_config(str(tmp_dir), mkdir=True)
     assert (tmp_dir / "broker" / "control").is_dir()
     assert (tmp_dir / "broker" / "in").is_dir()
@@ -128,7 +131,7 @@ def test_reject(tmp_dir: TmpDir):
         app.reject(msg.delivery_tag)
     assert not (tmp_dir / "broker" / "in" / "foo.msg").exists()
 
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError):  # noqa: PT011
         app.reject(TEST_MSG["properties"]["delivery_tag"])
 
 
@@ -146,7 +149,7 @@ def test_purge(tmp_dir: TmpDir):
         app.purge(msg.delivery_tag)
     assert not (tmp_dir / "broker" / "processed" / "foo.msg").exists()
 
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError):  # noqa: PT011
         app.purge(TEST_MSG["properties"]["delivery_tag"])
 
 
@@ -170,7 +173,7 @@ def test_gc(tmp_dir: TmpDir):
         }
     )
 
-    app._gc()  # pylint: disable=protected-access
+    app._gc()
     assert not (tmp_dir / "broker" / "in" / "expired.msg").exists()
     assert (tmp_dir / "broker" / "in" / "unexpired.msg").exists()
     assert (tmp_dir / "broker" / "in" / "ticket.msg").exists()
@@ -199,7 +202,7 @@ def test_gc_exclude(tmp_dir: TmpDir):
         }
     )
 
-    app._gc(exclude=["celery"])  # pylint: disable=protected-access
+    app._gc(exclude=["celery"])
     assert (tmp_dir / "broker" / "in" / "expired.msg").exists()
     assert (tmp_dir / "broker" / "in" / "unexpired.msg").exists()
     assert (tmp_dir / "broker" / "in" / "ticket.msg").exists()

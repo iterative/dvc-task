@@ -1,4 +1,5 @@
 """Process test fixtures."""
+
 import json
 import os
 from typing import Optional
@@ -28,7 +29,7 @@ def popen_pid(mocker: MockerFixture) -> int:
 @pytest.fixture(name="process_manager")
 def fixture_process_manager(tmp_dir: TmpDir) -> ProcessManager:
     """Return a process manager which uses tmp_dir as the working dir."""
-    return ProcessManager(tmp_dir)
+    return ProcessManager(os.fspath(tmp_dir))
 
 
 def create_process(
@@ -38,7 +39,7 @@ def create_process(
     returncode: Optional[int] = None,
 ):
     """Create a test process info directory."""
-    info_path = manager._get_info_path(name)  # pylint: disable=protected-access
+    info_path = manager._get_info_path(name)
     os.makedirs(os.path.dirname(info_path))
     process_info = ProcessInfo(
         pid=pid,

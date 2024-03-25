@@ -1,4 +1,5 @@
 """Temporary Worker tests."""
+
 import sys
 
 import pytest

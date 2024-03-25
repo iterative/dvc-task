@@ -11,7 +11,7 @@ from typing import Any, Callable, Optional
 logger = logging.getLogger(__name__)
 
 
-def _chmod(func: Callable, path: str, excinfo: Any):  # pylint: disable=unused-argument
+def _chmod(func: Callable, path: str, excinfo: Any):
     perm = os.lstat(path).st_mode
     perm |= stat.S_IWRITE
 

@@ -1,5 +1,6 @@
 """Process exceptions."""
-from ..exceptions import DvcTaskError
+
+from dvc_task.exceptions import DvcTaskError
 
 
 class ProcessNotTerminatedError(DvcTaskError):
@@ -16,7 +17,7 @@ class ProcessNotFoundError(DvcTaskError):
         super().__init__(f"Managed process '{name}' does not exist.")
 
 
-class TimeoutExpired(DvcTaskError):
+class TimeoutExpired(DvcTaskError):  # noqa: N818
     """Process timeout expired."""
 
     def __init__(self, cmd, timeout):

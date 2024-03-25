@@ -1,4 +1,5 @@
 """Process manager tests."""
+
 import builtins
 import signal
 import sys
@@ -35,11 +36,12 @@ def test_send_signal(
         mock_kill.reset_mock()
         process_manager.send_signal(
             running_process,
-            signal.CTRL_C_EVENT,  # pylint: disable=no-member
+            signal.CTRL_C_EVENT,
             True,
         )
         mock_kill.assert_called_once_with(
-            PID_RUNNING, signal.CTRL_C_EVENT  # pylint: disable=no-member
+            PID_RUNNING,
+            signal.CTRL_C_EVENT,
         )
 
     mock_kill.reset_mock()
@@ -64,7 +66,7 @@ def test_send_signal_exception(
             err = OSError()
             err.winerror = 87
             raise err
-        raise ProcessLookupError()
+        raise ProcessLookupError
 
     mocker.patch("os.kill", side_effect=side_effect)
     with pytest.raises(ProcessLookupError):
@@ -77,9 +79,9 @@ def test_send_signal_exception(
 
 if sys.platform == "win32":
     SIGKILL = signal.SIGTERM
-    SIGINT = signal.CTRL_C_EVENT  # pylint: disable=no-member
+    SIGINT = signal.CTRL_C_EVENT
 else:
-    SIGKILL = signal.SIGKILL  # pylint: disable=no-member
+    SIGKILL = signal.SIGKILL
     SIGINT = signal.SIGINT
 
 
@@ -125,7 +127,7 @@ def test_remove(
 
 
 @pytest.mark.parametrize("force", [True, False])
-def test_cleanup(  # pylint: disable=too-many-arguments
+def test_cleanup(  # noqa: PLR0913
     mocker: MockerFixture,
     tmp_dir: TmpDir,
     process_manager: ProcessManager,

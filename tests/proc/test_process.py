@@ -1,4 +1,5 @@
 """Process tests."""
+
 import json
 import subprocess
 from typing import List, Union
@@ -41,7 +42,6 @@ def test_run(popen_pid: int):
 def test_wait(mocker: MockerFixture):
     """Wait should block while process is running and incomplete."""
     with ManagedProcess("/bin/foo") as proc:
-        # pylint: disable=protected-access
         proc._proc.wait = mocker.Mock(
             side_effect=subprocess.TimeoutExpired("/bin/foo", 5)
         )
@@ -50,11 +50,11 @@ def test_wait(mocker: MockerFixture):
 
         proc._proc.wait = mocker.Mock(return_value=None)
         proc._proc.returncode = 0
-        assert 0 == proc.wait()
+        assert proc.wait() == 0
         proc._proc.wait.assert_called_once()
 
         # once subprocess return code is set, future ManagedProcess.wait()
         # calls should not block
         proc._proc.wait.reset_mock()
-        assert 0 == proc.wait()
+        assert proc.wait() == 0
         proc._proc.wait.assert_not_called()

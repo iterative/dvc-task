@@ -1,4 +1,5 @@
 """(Local) filesystem based Celery application."""
+
 import logging
 import os
 from datetime import datetime
@@ -10,7 +11,7 @@ from kombu.transport.filesystem import LOCK_SH, lock, unlock
 from kombu.utils.encoding import bytes_to_str
 from kombu.utils.json import loads
 
-from ..utils import makedirs, remove, unc_path
+from dvc_task.utils import makedirs, remove, unc_path
 
 logger = logging.getLogger(__name__)
 
@@ -254,7 +255,7 @@ class FSApp(Celery):
                     pass
 
         queues = set(exclude) if exclude else set()
-        now = datetime.now().timestamp()
+        now = datetime.now().timestamp()  # noqa: DTZ005
         for msg in self._iter_data_folder():
             _delete_expired(msg, queues, now, self._queued_msg_path_cache)
         for msg in self._iter_processed_folder():

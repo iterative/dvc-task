@@ -8,11 +8,12 @@ import sys
 import time
 from typing import Dict, Generator, List, Optional, Tuple, Union
 
-from celery import Signature, signature  # pylint: disable=no-name-in-module
+from celery import Signature, signature
 from funcy.flow import reraise
 from shortuuid import uuid
 
-from ..utils import remove
+from dvc_task.utils import remove
+
 from .exceptions import ProcessNotTerminatedError, UnsupportedSignalError
 from .process import ProcessInfo
 
@@ -77,7 +78,7 @@ class ProcessManager:
             except KeyError:
                 continue
 
-    def run_signature(
+    def run_signature(  # noqa: PLR0913
         self,
         args: Union[str, List[str]],
         name: Optional[str] = None,
@@ -111,7 +112,7 @@ class ProcessManager:
             immutable=immutable,
         )
 
-    def send_signal(self, name: str, sig: int, group: bool = False):
+    def send_signal(self, name: str, sig: int, group: bool = False):  # noqa: C901, PLR0912
         """Send `signal` to the specified named process."""
         try:
             process_info = self[name]
@@ -133,8 +134,8 @@ class ProcessManager:
         if process_info.returncode is None:
             try:
                 if sys.platform != "win32" and group:
-                    pgid = os.getpgid(process_info.pid)  # pylint: disable=no-member
-                    os.killpg(pgid, sig)  # pylint: disable=no-member
+                    pgid = os.getpgid(process_info.pid)
+                    os.killpg(pgid, sig)
                 else:
                     os.kill(process_info.pid, sig)
             except ProcessLookupError:
@@ -153,7 +154,9 @@ class ProcessManager:
         """Send interrupt signal to specified named process"""
         if sys.platform == "win32":
             self.send_signal(
-                name, signal.CTRL_C_EVENT, group  # pylint: disable=no-member
+                name,
+                signal.CTRL_C_EVENT,
+                group,
             )
         else:
             self.send_signal(name, signal.SIGINT, group)
@@ -167,7 +170,7 @@ class ProcessManager:
         if sys.platform == "win32":
             self.send_signal(name, signal.SIGTERM, group)
         else:
-            self.send_signal(name, signal.SIGKILL, group)  # pylint: disable=no-member
+            self.send_signal(name, signal.SIGKILL, group)
 
     def remove(self, name: str, force: bool = False):
         """Remove the specified named process from this manager.
