@@ -41,12 +41,16 @@ docs = [
 ]
 tests = [
   "pytest>=7,<9",
+  "pytest-celery",
   "pytest-cov>=4.1.0",
   "pytest-mock",
-  "pytest-sugar"
+  "pytest-rerunfailures",
+  "pytest-sugar",
+  "pytest-test-utils>=0.0.6"
 ]
 dev = [
   "dvc-task[tests,docs]",
+  "celery-types",
   "mypy==1.9.0"
 ]
 
