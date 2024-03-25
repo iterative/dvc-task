@@ -28,10 +28,7 @@ def test_start(celery_app: Celery, mocker: MockerFixture):
     thread.assert_called_once_with(target=worker.monitor, daemon=True, args=(name,))
 
 
-@pytest.mark.flaky(
-    max_runs=3,
-    rerun_filter=lambda *args: sys.platform == "darwin",
-)
+@pytest.mark.flaky(reruns=3, condition=sys.platform == "darwin")
 def test_start_already_exists(
     celery_app: Celery,
     celery_worker: WorkController,
@@ -46,10 +43,7 @@ def test_start_already_exists(
     thread.assert_not_called()
 
 
-@pytest.mark.flaky(
-    max_runs=3,
-    rerun_filter=lambda *args: sys.platform == "darwin",
-)
+@pytest.mark.flaky(reruns=3, condition=sys.platform == "darwin")
 def test_monitor(
     celery_app: Celery,
     celery_worker: WorkController,
