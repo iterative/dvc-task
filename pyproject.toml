@@ -46,7 +46,14 @@ tests = [
   "pytest-mock",
   "pytest-rerunfailures",
   "pytest-sugar",
+<<<<<<<
   "pytest-test-utils>=0.0.6"
+=======
+  "pytest-sugar==0.9.5",
+  "pytest-cov==3.0.0",
+  "pytest-mock==3.8.2",
+  "mypy==1.9.0"
+>>>>>>>
 ]
 dev = [
   "dvc-task[tests,docs]",
@@ -110,6 +117,16 @@ ignore_missing_imports = true
 ignore-words-list = " "
 
 [tool.ruff]
+<<<<<<<
+=======
+output-format = "full"
+show-fixes = true
+
+[tool.ruff.lint]
+ignore = [
+  "S101",  # assert
+  "PLR2004",  # magic-value-comparison
+>>>>>>>
 output-format = "full"
 show-fixes = true
 
@@ -166,11 +183,15 @@ select = [
   "W",  # pycodestyle - Warning
   "YTT"  # flake8-2020
 ]
+<<<<<<<
 
 [tool.ruff.lint.flake8-pytest-style]
 fixture-parentheses = false
 mark-parentheses = false
 parametrize-names-type = "csv"
+=======
+select = ["ALL"]
+>>>>>>>
 
 [tool.ruff.lint.per-file-ignores]
 "noxfile.py" = ["D", "PTH"]
