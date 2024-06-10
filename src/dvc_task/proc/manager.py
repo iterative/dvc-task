@@ -112,7 +112,7 @@ class ProcessManager:
             immutable=immutable,
         )
 
-    def send_signal(self, name: str, sig: int, group: bool = False):  # noqa: C901, PLR0912
+    def send_signal(self, name: str, sig: int, group: bool = False):  # noqa: C901
         """Send `signal` to the specified named process."""
         try:
             process_info = self[name]
