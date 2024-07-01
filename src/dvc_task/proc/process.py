@@ -169,13 +169,13 @@ class ManagedProcess(AbstractContextManager):
         )
         stdout = self._fd_stack.enter_context(open(self.stdout_path, "ab"))  # noqa: SIM115
         try:
-            self._proc = subprocess.Popen(
+            self._proc = subprocess.Popen(  # noqa: S603
                 self.args,
                 stdin=subprocess.DEVNULL,
                 stdout=stdout,
                 stderr=subprocess.STDOUT,
                 close_fds=True,
-                shell=False,  # noqa: S603
+                shell=False,
                 env=self.env,
             )
             self._dump()
