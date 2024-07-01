@@ -175,7 +175,7 @@ class ManagedProcess(AbstractContextManager):
                 stdout=stdout,
                 stderr=subprocess.STDOUT,
                 close_fds=True,
-                shell=False,  # noqa: S603
+                shell=False,
                 env=self.env,
             )
             self._dump()
