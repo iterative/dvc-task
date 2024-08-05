@@ -78,7 +78,7 @@ class ProcessManager:
             except KeyError:
                 continue
 
-    def run_signature(  # noqa: PLR0913
+    def run_signature(
         self,
         args: Union[str, List[str]],
         name: Optional[str] = None,
