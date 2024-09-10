@@ -78,6 +78,13 @@ For example, invoke the unit test suite like this:
 
    $ nox --session=tests
 
+During the development process, though, you may be happy to just run the tests you are
+writing in your environment:
+
+.. code:: console
+
+   $ nox --session=tests-3.12 -- -k my_cool_test
+
 Unit tests are located in the ``tests`` directory,
 and are written using the pytest_ testing framework.
 
