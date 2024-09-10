@@ -1,6 +1,8 @@
 """Filesystem app tests."""
 
 import json
+from copy import deepcopy
+from datetime import datetime
 from typing import TYPE_CHECKING, Any, Dict, Optional
 
 import pytest
@@ -156,11 +158,23 @@ def test_purge(tmp_dir: TmpDir):
 def test_gc(tmp_dir: TmpDir):
     """Expired messages and processed tickets should be removed."""
     app = FSApp(wdir=str(tmp_dir), mkdir=True)
+
+    now = datetime.now().timestamp()  # noqa: DTZ005
+    expirations = []
+    for delay in (1, 3):
+        msg = deepcopy(EXPIRED_MSG)
+        msg["headers"]["expires"] = int(now + delay)
+        expirations.append(msg)
+
+    one_sec_expiration, three_secs_expiration = expirations
+
     tmp_dir.gen(
         {
             "broker": {
                 "in": {
-                    "expired.msg": json.dumps(EXPIRED_MSG),
+                    "expired.msg": json.dumps(EXPIRED_MSG),  # way in the past
+                    "future_expired.msg": json.dumps(one_sec_expiration),
+                    "future_not_yet_expired.msg": json.dumps(three_secs_expiration),
                     "unexpired.msg": json.dumps(TEST_MSG),
                     "ticket.msg": json.dumps(TICKET_MSG),
                 },
@@ -175,6 +189,8 @@ def test_gc(tmp_dir: TmpDir):
 
     app._gc()
     assert not (tmp_dir / "broker" / "in" / "expired.msg").exists()
+    assert not (tmp_dir / "broker" / "in" / "future_expired.msg").exists()
+    assert (tmp_dir / "broker" / "in" / "future_not_yet_expired.msg").exists()
     assert (tmp_dir / "broker" / "in" / "unexpired.msg").exists()
     assert (tmp_dir / "broker" / "in" / "ticket.msg").exists()
     assert not (tmp_dir / "broker" / "processed" / "expired.msg").exists()

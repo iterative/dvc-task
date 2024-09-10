@@ -236,7 +236,7 @@ class FSApp(Celery):
             now: float,
             cache: Dict[str, str],
             include_tickets: bool = False,
-        ):
+        ) -> None:
             assert isinstance(msg.properties, dict)
             properties = cast(Dict[str, Any], msg.properties)
             delivery_info: Dict[str, str] = properties.get("delivery_info", {})
@@ -255,7 +255,10 @@ class FSApp(Celery):
                     pass
 
         queues = set(exclude) if exclude else set()
-        now = datetime.now().timestamp()  # noqa: DTZ005
+
+        # Kombu will create expiration timestamps 1" in the future, let's make sure we
+        # pick them.
+        now = datetime.now().timestamp() + 2  # noqa: DTZ005
         for msg in self._iter_data_folder():
             _delete_expired(msg, queues, now, self._queued_msg_path_cache)
         for msg in self._iter_processed_folder():
