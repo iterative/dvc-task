@@ -5,6 +5,7 @@ import sys
 import pytest
 from celery import Celery
 from celery.concurrency.prefork import TaskPool
+from celery.utils.nodenames import default_nodename
 from celery.worker.worker import WorkController
 from pytest_mock import MockerFixture
 
@@ -52,5 +53,7 @@ def test_monitor(
     """Should shutdown worker when queue empty."""
     worker = TemporaryWorker(celery_app, timeout=1)
     shutdown = mocker.spy(celery_app.control, "shutdown")
-    worker.monitor(celery_worker.hostname)  # type: ignore[attr-defined]
-    shutdown.assert_called_once()
+    hostname = celery_worker.hostname  # type: ignore[attr-defined]
+    worker.monitor(hostname)
+    nodename = default_nodename(hostname)
+    shutdown.assert_called_once_with(destination=[nodename])
