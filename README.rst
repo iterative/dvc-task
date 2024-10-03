@@ -17,7 +17,7 @@ dvc-task
 .. |License| image:: https://img.shields.io/pypi/l/dvc-task
    :target: https://opensource.org/licenses/Apache-2.0
    :alt: License
-.. |Tests| image:: https://github.com/iterative/dvc-task/workflows/Tests/badge.svg
+.. |Tests| image:: https://github.com/iterative/dvc-task/actions/workflows/tests.yml/badge.svg
    :target: https://github.com/iterative/dvc-task/actions?workflow=Tests
    :alt: Tests
 .. |Codecov| image:: https://codecov.io/gh/iterative/dvc-task/branch/main/graph/badge.svg
