@@ -125,5 +125,5 @@ class TemporaryWorker:
                 logger.info("monitor: shutting down due to empty queue.")
                 break
         logger.debug("monitor: sending shutdown to '%s'.", nodename)
-        self.app.control.shutdown()
+        self.app.control.shutdown(destination=[nodename])
         logger.debug("monitor: done")
