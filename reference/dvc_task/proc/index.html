@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../../assets/logo.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.39">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.42">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.8c3ca2c6.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.0253249f.min.css">
       
         
         <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
@@ -981,6 +981,11 @@
 
 
 
+
+
+
+
+
   <div class="doc doc-children">
 
 
@@ -1009,6 +1014,11 @@
         <p>Class to manage the specified process with redirected output.</p>
 <p>stdout and stderr will both be redirected to <name>.out.
 Interactive processes (requiring stdin input) are currently unsupported.</p>
+
+
+
+
+
 
               <details class="quote">
                 <summary>Source code in <code>dvc_task/proc/process.py</code></summary>
@@ -1447,7 +1457,9 @@ Interactive processes (requiring stdin input) are currently unsupported.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>args</code></td>
+            <td>
+                <code>args</code>
+            </td>
             <td>
                   <code><span title="typing.Union">Union</span>[str, <span title="typing.List">List</span>[str]]</code>
             </td>
@@ -1461,7 +1473,9 @@ Interactive processes (requiring stdin input) are currently unsupported.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>env</code></td>
+            <td>
+                <code>env</code>
+            </td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[<span title="typing.Dict">Dict</span>[str, str]]</code>
             </td>
@@ -1475,7 +1489,9 @@ Interactive processes (requiring stdin input) are currently unsupported.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>wdir</code></td>
+            <td>
+                <code>wdir</code>
+            </td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[str]</code>
             </td>
@@ -1490,7 +1506,9 @@ Interactive processes (requiring stdin input) are currently unsupported.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>name</code></td>
+            <td>
+                <code>name</code>
+            </td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[str]</code>
             </td>
@@ -1865,6 +1883,11 @@ generated instead.</p>
 
         <p>Process information.</p>
 
+
+
+
+
+
               <details class="quote">
                 <summary>Source code in <code>dvc_task/proc/process.py</code></summary>
                 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">24</span>
@@ -2121,6 +2144,11 @@ generated instead.</p>
 <p>Spawned process entries are kept in the manager directory until they
 are explicitly removed (with remove() or cleanup()) so that return
 value and log information can be accessed after a process has completed.</p>
+
+
+
+
+
 
               <details class="quote">
                 <summary>Source code in <code>dvc_task/proc/manager.py</code></summary>
@@ -2608,7 +2636,9 @@ value and log information can be accessed after a process has completed.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>wdir</code></td>
+            <td>
+                <code>wdir</code>
+            </td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[str]</code>
             </td>
@@ -2716,7 +2746,9 @@ followed process has exited).</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>name</code></td>
+            <td>
+                <code>name</code>
+            </td>
             <td>
                   <code>str</code>
             </td>
@@ -2730,7 +2762,9 @@ followed process has exited).</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>encoding</code></td>
+            <td>
+                <code>encoding</code>
+            </td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[str]</code>
             </td>
@@ -2745,7 +2779,9 @@ followed process has exited).</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>sleep_interval</code></td>
+            <td>
+                <code>sleep_interval</code>
+            </td>
             <td>
                   <code>int</code>
             </td>
@@ -3083,7 +3119,9 @@ if <code>force</code> is True`, otherwise an exception will be raised.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>args</code></td>
+            <td>
+                <code>args</code>
+            </td>
             <td>
                   <code><span title="typing.Union">Union</span>[str, <span title="typing.List">List</span>[str]]</code>
             </td>
@@ -3097,7 +3135,9 @@ if <code>force</code> is True`, otherwise an exception will be raised.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>name</code></td>
+            <td>
+                <code>name</code>
+            </td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[str]</code>
             </td>
@@ -3111,7 +3151,9 @@ if <code>force</code> is True`, otherwise an exception will be raised.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>task</code></td>
+            <td>
+                <code>task</code>
+            </td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[str]</code>
             </td>
@@ -3126,7 +3168,9 @@ Defaults to 'dvc_task.proc.tasks.run'.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>env</code></td>
+            <td>
+                <code>env</code>
+            </td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[<span title="typing.Dict">Dict</span>[str, str]]</code>
             </td>
@@ -3140,7 +3184,9 @@ Defaults to 'dvc_task.proc.tasks.run'.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>immutable</code></td>
+            <td>
+                <code>immutable</code>
+            </td>
             <td>
                   <code>bool</code>
             </td>
@@ -3452,7 +3498,7 @@ Defaults to 'dvc_task.proc.tasks.run'.</p>
     <script id="__config" type="application/json">{"base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.525ec568.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.83f73b43.min.js"></script>
       
     
   </body>
