@@ -247,7 +247,7 @@ class FSApp(Celery):
             headers = cast(Dict[str, Any], msg.headers)
             expires: Optional[float] = headers.get("expires")
             ticket = msg.headers.get("ticket")
-            if include_tickets and ticket or (expires is not None and expires <= now):
+            if (include_tickets and ticket) or (expires is not None and expires <= now):
                 assert msg.delivery_tag
                 try:
                     self._delete_msg(msg.delivery_tag, [], cache)
