@@ -238,16 +238,16 @@ class FSApp(Celery):
             include_tickets: bool = False,
         ):
             assert isinstance(msg.properties, dict)
-            properties = cast(Dict[str, Any], msg.properties)
+            properties = cast("Dict[str, Any]", msg.properties)
             delivery_info: Dict[str, str] = properties.get("delivery_info", {})
             if queues:
                 routing_key = delivery_info.get("routing_key")
                 if routing_key and routing_key in queues:
                     return
-            headers = cast(Dict[str, Any], msg.headers)
+            headers = cast("Dict[str, Any]", msg.headers)
             expires: Optional[float] = headers.get("expires")
             ticket = msg.headers.get("ticket")
-            if include_tickets and ticket or (expires is not None and expires <= now):
+            if (include_tickets and ticket) or (expires is not None and expires <= now):
                 assert msg.delivery_tag
                 try:
                     self._delete_msg(msg.delivery_tag, [], cache)
@@ -273,7 +273,7 @@ class FSApp(Celery):
 
         def _delete_replies(msg: Message, exchange: str, cache: Dict[str, str]):
             assert isinstance(msg.properties, dict)
-            properties = cast(Dict[str, Any], msg.properties)
+            properties = cast("Dict[str, Any]", msg.properties)
             delivery_info: Dict[str, str] = properties.get("delivery_info", {})
             if delivery_info.get("exchange", "") == exchange:
                 assert msg.delivery_tag
