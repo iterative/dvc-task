@@ -2,7 +2,7 @@
 
 import json
 import subprocess
-from typing import List, Union
+from typing import Union
 
 import pytest
 from pytest_mock import MockerFixture
@@ -19,7 +19,7 @@ from dvc_task.proc.process import ManagedProcess, ProcessInfo
         ["/bin/foo", "-o", "option"],
     ],
 )
-def test_init_args(args: Union[str, List[str]]):
+def test_init_args(args: Union[str, list[str]]):
     """Args should be shlex'd."""
     expected = ["/bin/foo", "-o", "option"]
     proc = ManagedProcess(args)

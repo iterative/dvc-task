@@ -1,7 +1,7 @@
 """Filesystem app tests."""
 
 import json
-from typing import TYPE_CHECKING, Any, Dict, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import pytest
 from celery.backends.filesystem import FilesystemBackend
@@ -13,7 +13,7 @@ from dvc_task.app.filesystem import FSApp, _get_fs_config
 if TYPE_CHECKING:
     from kombu.message import Message
 
-TEST_MSG: Dict[str, Any] = {
+TEST_MSG: dict[str, Any] = {
     "body": "",
     "content-encoding": "utf-8",
     "content-type": "application/json",
@@ -28,7 +28,7 @@ TEST_MSG: Dict[str, Any] = {
         "delivery_tag": "789",
     },
 }
-EXPIRED_MSG: Dict[str, Any] = {
+EXPIRED_MSG: dict[str, Any] = {
     "body": "",
     "content-encoding": "utf-8",
     "content-type": "application/json",
@@ -43,7 +43,7 @@ EXPIRED_MSG: Dict[str, Any] = {
         "delivery_tag": "789-expired",
     },
 }
-TICKET_MSG: Dict[str, Any] = {
+TICKET_MSG: dict[str, Any] = {
     "body": "",
     "content-encoding": "utf-8",
     "content-type": "application/json",

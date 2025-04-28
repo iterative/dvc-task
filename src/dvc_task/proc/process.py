@@ -9,7 +9,7 @@ import subprocess
 import tempfile
 from contextlib import AbstractContextManager, ExitStack
 from dataclasses import asdict, dataclass
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Optional, Union
 
 from funcy import cached_property
 from shortuuid import uuid
@@ -32,7 +32,7 @@ class ProcessInfo:
     returncode: Optional[int]
 
     @classmethod
-    def from_dict(cls, data: Dict[str, Any]) -> "ProcessInfo":
+    def from_dict(cls, data: dict[str, Any]) -> "ProcessInfo":
         """Construct ProcessInfo from the specified dictionary."""
         return cls(**data)
 
@@ -42,7 +42,7 @@ class ProcessInfo:
         with open(filename, encoding="utf-8") as fobj:
             return cls.from_dict(json.load(fobj))
 
-    def asdict(self) -> Dict[str, Any]:
+    def asdict(self) -> dict[str, Any]:
         """Return this info as a dictionary."""
         return asdict(self)
 
@@ -70,8 +70,8 @@ class ManagedProcess(AbstractContextManager):
 
     def __init__(
         self,
-        args: Union[str, List[str]],
-        env: Optional[Dict[str, str]] = None,
+        args: Union[str, list[str]],
+        env: Optional[dict[str, str]] = None,
         wdir: Optional[str] = None,
         name: Optional[str] = None,
     ):
@@ -85,7 +85,7 @@ class ManagedProcess(AbstractContextManager):
             name: Name to use for this process, if not specified a UUID will be
                 generated instead.
         """
-        self.args: List[str] = (
+        self.args: list[str] = (
             shlex.split(args, posix=os.name == "posix")
             if isinstance(args, str)
             else list(args)
