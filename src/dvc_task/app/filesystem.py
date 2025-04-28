@@ -4,7 +4,7 @@ import logging
 import os
 from collections.abc import Iterable, Iterator
 from datetime import datetime
-from typing import Any, Dict, List, Optional, Set, cast
+from typing import Any, Optional, cast
 
 from celery import Celery
 from kombu.message import Message
@@ -22,7 +22,7 @@ def _get_fs_config(
     mkdir: bool = False,
     task_serializer: str = "json",
     result_serializer: str = "json",
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     broker_path = os.path.join(wdir, "broker")
     broker_control_path = unc_path(os.path.join(broker_path, "control"))
     broker_in_path = unc_path(os.path.join(broker_path, "in"))
@@ -93,10 +93,10 @@ class FSApp(Celery):
             )
         )
         logger.debug("Initialized filesystem:// app in '%s'", wdir)
-        self._processed_msg_path_cache: Dict[str, str] = {}
-        self._queued_msg_path_cache: Dict[str, str] = {}
+        self._processed_msg_path_cache: dict[str, str] = {}
+        self._queued_msg_path_cache: dict[str, str] = {}
 
-    def __reduce_keys__(self) -> Dict[str, Any]:
+    def __reduce_keys__(self) -> dict[str, Any]:
         keys = super().__reduce_keys__()  # type: ignore[misc]
         keys.update({"wdir": self.wdir})
         return keys
@@ -104,7 +104,7 @@ class FSApp(Celery):
     def _iter_folder(
         self,
         folder_name: str,
-        path_cache: Dict[str, str],
+        path_cache: dict[str, str],
         queue: Optional[str] = None,
     ) -> Iterator[Message]:
         """Iterate over queued tasks inside a folder
@@ -133,7 +133,7 @@ class FSApp(Celery):
                         continue
                     if not payload:
                         continue
-                    msg = channel.Message(loads(bytes_to_str(payload)), channel=channel)
+                    msg = channel.Message(loads(bytes_to_str(payload)), channel=channel)  # type: ignore[call-arg]
                     path_cache[msg.delivery_tag] = path
                     if queue is None:
                         yield msg
@@ -174,7 +174,7 @@ class FSApp(Celery):
     def _delete_msg(
         delivery_tag: str,
         msg_collection: Iterable[Message],
-        path_cache: Dict[str, str],
+        path_cache: dict[str, str],
     ):
         """delete the specified message.
 
@@ -223,7 +223,7 @@ class FSApp(Celery):
             delivery_tag, self.iter_processed(), self._processed_msg_path_cache
         )
 
-    def _gc(self, exclude: Optional[List[str]] = None):
+    def _gc(self, exclude: Optional[list[str]] = None):
         """Garbage collect expired FS broker messages.
 
         Arguments:
@@ -233,19 +233,19 @@ class FSApp(Celery):
 
         def _delete_expired(
             msg: Message,
-            queues: Set[str],
+            queues: set[str],
             now: float,
-            cache: Dict[str, str],
+            cache: dict[str, str],
             include_tickets: bool = False,
         ):
             assert isinstance(msg.properties, dict)
-            properties = cast("Dict[str, Any]", msg.properties)
-            delivery_info: Dict[str, str] = properties.get("delivery_info", {})
+            properties = cast("dict[str, Any]", msg.properties)
+            delivery_info: dict[str, str] = properties.get("delivery_info", {})
             if queues:
                 routing_key = delivery_info.get("routing_key")
                 if routing_key and routing_key in queues:
                     return
-            headers = cast("Dict[str, Any]", msg.headers)
+            headers = cast("dict[str, Any]", msg.headers)
             expires: Optional[float] = headers.get("expires")
             ticket = msg.headers.get("ticket")
             if (include_tickets and ticket) or (expires is not None and expires <= now):
@@ -272,10 +272,10 @@ class FSApp(Celery):
     def _clean_pidbox(self, exchange: str):
         """Clean pidbox replies for the specified exchange."""
 
-        def _delete_replies(msg: Message, exchange: str, cache: Dict[str, str]):
+        def _delete_replies(msg: Message, exchange: str, cache: dict[str, str]):
             assert isinstance(msg.properties, dict)
-            properties = cast("Dict[str, Any]", msg.properties)
-            delivery_info: Dict[str, str] = properties.get("delivery_info", {})
+            properties = cast("dict[str, Any]", msg.properties)
+            delivery_info: dict[str, str] = properties.get("delivery_info", {})
             if delivery_info.get("exchange", "") == exchange:
                 assert msg.delivery_tag
                 try:

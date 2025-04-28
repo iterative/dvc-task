@@ -5,7 +5,7 @@ import os
 import threading
 import time
 from collections.abc import Mapping
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
 from celery import Celery
 from celery.utils.nodenames import default_nodename
@@ -38,13 +38,13 @@ class TemporaryWorker:
         self.timeout = timeout
         self.config = kwargs
 
-    def ping(self, name: str, timeout: float = 1.0) -> Optional[List[Dict[str, Any]]]:
+    def ping(self, name: str, timeout: float = 1.0) -> Optional[list[dict[str, Any]]]:
         """Ping the specified worker."""
         return self._ping(destination=[default_nodename(name)], timeout=timeout)
 
     def _ping(
-        self, *, destination: Optional[List[str]] = None, timeout: float = 1.0
-    ) -> Optional[List[Dict[str, Any]]]:
+        self, *, destination: Optional[list[str]] = None, timeout: float = 1.0
+    ) -> Optional[list[dict[str, Any]]]:
         return self.app.control.ping(destination=destination, timeout=timeout)
 
     def start(self, name: str, fsapp_clean: bool = False) -> None:
@@ -79,7 +79,7 @@ class TemporaryWorker:
             logger.info("done")
 
     @staticmethod
-    def _parse_config(config: Mapping[str, Any]) -> List[str]:
+    def _parse_config(config: Mapping[str, Any]) -> list[str]:
         loglevel = config.get("loglevel", "info")
         argv = [f"--loglevel={loglevel}"]
         for key in ("hostname", "pool", "concurrency", "prefetch_multiplier"):

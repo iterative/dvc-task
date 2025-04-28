@@ -7,7 +7,7 @@ import signal
 import sys
 import time
 from collections.abc import Generator
-from typing import Dict, List, Optional, Tuple, Union
+from typing import Optional, Union
 
 from celery import Signature, signature
 from funcy.flow import reraise
@@ -71,7 +71,7 @@ class ProcessManager:
         except KeyError:
             return default
 
-    def processes(self) -> Generator[Tuple[str, "ProcessInfo"], None, None]:
+    def processes(self) -> Generator[tuple[str, "ProcessInfo"], None, None]:
         """Iterate over managed processes."""
         for name in self:
             try:
@@ -81,10 +81,10 @@ class ProcessManager:
 
     def run_signature(
         self,
-        args: Union[str, List[str]],
+        args: Union[str, list[str]],
         name: Optional[str] = None,
         task: Optional[str] = None,
-        env: Optional[Dict[str, str]] = None,
+        env: Optional[dict[str, str]] = None,
         immutable: bool = False,
     ) -> Signature:
         """Return signature for a task which runs a command in the background.
