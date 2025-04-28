@@ -4,7 +4,8 @@ import logging
 import os
 import threading
 import time
-from typing import Any, Dict, List, Mapping, Optional
+from collections.abc import Mapping
+from typing import Any, Dict, List, Optional
 
 from celery import Celery
 from celery.utils.nodenames import default_nodename

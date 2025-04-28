@@ -2,8 +2,9 @@
 
 import logging
 import os
+from collections.abc import Iterable, Iterator
 from datetime import datetime
-from typing import Any, Dict, Iterable, Iterator, List, Optional, Set, cast
+from typing import Any, Dict, List, Optional, Set, cast
 
 from celery import Celery
 from kombu.message import Message

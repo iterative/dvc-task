@@ -6,7 +6,8 @@ import os
 import signal
 import sys
 import time
-from typing import Dict, Generator, List, Optional, Tuple, Union
+from collections.abc import Generator
+from typing import Dict, List, Optional, Tuple, Union
 
 from celery import Signature, signature
 from funcy.flow import reraise
