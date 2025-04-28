@@ -1,6 +1,6 @@
 {
   "template": "https://github.com/iterative/py-template",
-  "commit": "e4ec95f4cfd03d4af0a8604d462ee11d07d63b42",
+  "commit": "216e62a30e40174ac5c554b9d2418fceddfe6154",
   "context": {
     "cookiecutter": {
       "project_name": "dvc-task",
@@ -15,7 +15,8 @@
       "docs": "True",
       "short_description": "Extensible task queue used in DVC.",
       "development_status": "Development Status :: 4 - Beta",
-      "_template": "https://github.com/iterative/py-template"
+      "_template": "https://github.com/iterative/py-template",
+      "_commit": "216e62a30e40174ac5c554b9d2418fceddfe6154"
     }
   },
   "directory": null,

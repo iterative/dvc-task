@@ -1,4 +1,4 @@
-site_name: Dvc Task
+site_name: "Dvc Task"
 
 theme:
   name: material
@@ -27,7 +27,8 @@ plugins:
   - mkdocstrings:
       handlers:
         python:
-          rendering:
+          options:
             show_submodules: no
-      watch:
-        - src/dvc_task
+
+watch:
+  - src/dvc_task
