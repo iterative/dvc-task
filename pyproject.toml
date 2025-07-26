@@ -1,12 +1,13 @@
 [build-system]
-requires = ["setuptools>=48", "setuptools_scm[toml]>=6.3.1"]
+requires = ["setuptools>=77", "setuptools_scm[toml]>=8"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "dvc-task"
 description = "Extensible task queue used in DVC."
 readme = "README.rst"
-license = {text = "Apache-2.0"}
+license = "Apache-2.0"
+license-files = ["LICENSE"]
 authors = [{name = "Iterative", email = "support@dvc.org"}]
 classifiers = [
   "Programming Language :: Python :: 3",
@@ -15,6 +16,7 @@ classifiers = [
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
   "Development Status :: 4 - Beta"
 ]
 requires-python = ">=3.9"
