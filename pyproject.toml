@@ -7,6 +7,7 @@ name = "dvc-task"
 description = "Extensible task queue used in DVC."
 readme = "README.rst"
 license = "Apache-2.0"
+license-files = ["LICENSE"]
 authors = [{name = "Iterative", email = "support@dvc.org"}]
 classifiers = [
   "Programming Language :: Python :: 3",
